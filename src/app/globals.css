@@ -1,0 +1,300 @@
+@import "tailwindcss";
+
+/* ============================================================
+   CARTRIDGE CLUB — Design Token System
+   Single source of truth. No ad-hoc colors, no magic numbers.
+   ============================================================ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---- Semantic + brand tokens exposed to Tailwind utilities ---- */
+@theme {
+  /* Surfaces & ink (theme-aware via CSS vars below) */
+  --color-bg: var(--cc-bg);
+  --color-band: var(--cc-band);
+  --color-card: var(--cc-card);
+  --color-ink: var(--cc-ink);
+  --color-muted: var(--cc-muted);
+  --color-line: var(--cc-line);
+  --color-invert: var(--cc-invert);
+
+  /* Brand */
+  --color-red: var(--cc-red);
+  --color-red-tint: var(--cc-red-tint);
+  --color-cobalt: var(--cc-cobalt);
+  --color-cobalt-tint: var(--cc-cobalt-tint);
+
+  /* Sticker accents */
+  --color-sun: var(--cc-sun);
+  --color-leaf: var(--cc-leaf);
+  --color-grape: var(--cc-grape);
+  --color-tangerine: var(--cc-tangerine);
+
+  /* Platform chip surface */
+  --color-chip: var(--cc-chip);
+  --color-chip-ink: var(--cc-chip-ink);
+
+  /* Fonts */
+  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --font-heading: var(--font-archivo-black), system-ui, sans-serif;
+  --font-body: var(--font-archivo), system-ui, sans-serif;
+  --font-label: var(--font-anton), "Arial Narrow", sans-serif;
+
+  /* Signature hard offset shadows */
+  --shadow-sticker: 2px 2px 0 0 var(--cc-shadow);
+  --shadow-plate: 3px 3px 0 0 var(--cc-shadow);
+  --shadow-lift: 4px 5px 0 0 var(--cc-shadow);
+  --shadow-contact: 0 6px 10px -6px rgba(30, 36, 51, 0.35);
+
+  /* Radii */
+  --radius-chip: 0.5rem;
+  --radius-card: 0.85rem;
+  --radius-plate: 0.65rem;
+
+  /* Motion */
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Animations */
+  --animate-pop: pop 0.35s var(--ease-back) both;
+  --animate-fade-up: fade-up 0.5s ease-out both;
+  --animate-marquee: marquee 22s linear infinite;
+}
+
+/* ---- Light theme (primary, first-class) ---- */
+:root {
+  --cc-bg: #f7f2e7;
+  --cc-band: #efe7d6;
+  --cc-card: #fffcf5;
+  --cc-ink: #1e2433;
+  --cc-muted: #6e7284;
+  --cc-line: #d9d2c2;
+  --cc-invert: #fffcf5;
+  --cc-shadow: rgba(30, 36, 51, 0.85);
+
+  --cc-red: #e5484d;
+  --cc-red-tint: #fbe4e4;
+  --cc-cobalt: #2b5ce6;
+  --cc-cobalt-tint: #e3eafc;
+
+  --cc-sun: #ffcb3d;
+  --cc-leaf: #3baa57;
+  --cc-grape: #7a4fd0;
+  --cc-tangerine: #f5793b;
+
+  --cc-chip: #eae3d3;
+  --cc-chip-ink: #565a6b;
+
+  color-scheme: light;
+}
+
+/* ---- Dark theme "Midnight Shelf" ---- */
+.dark {
+  --cc-bg: #12151f;
+  --cc-band: #1a1e2b;
+  --cc-card: #222738;
+  --cc-ink: #f4efe2;
+  --cc-muted: #9aa0b4;
+  --cc-line: #38405a;
+  --cc-invert: #12151f;
+  --cc-shadow: rgba(0, 0, 0, 0.6);
+
+  --cc-red: #f16269;
+  --cc-red-tint: #3a2130;
+  --cc-cobalt: #6f95ff;
+  --cc-cobalt-tint: #1f2b4d;
+
+  --cc-sun: #ffd25e;
+  --cc-leaf: #55c274;
+  --cc-grape: #9b74e6;
+  --cc-tangerine: #ff9155;
+
+  --cc-chip: #2c3145;
+  --cc-chip-ink: #b8bdd0;
+
+  color-scheme: dark;
+}
+
+/* ---- Base ---- */
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  ::selection {
+    background: var(--color-sun);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-cobalt);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* ---- Signature component classes ---- */
+@layer components {
+  /* The crisp printed-sticker outline: 2px ink border + hard offset shadow */
+  .cc-outline {
+    border: 2px solid var(--color-ink);
+    box-shadow: var(--shadow-sticker);
+  }
+  .cc-outline-plate {
+    border: 2px solid var(--color-ink);
+    box-shadow: var(--shadow-plate);
+  }
+
+  /* Section label plate — chunky heading knocked out in cream */
+  .cc-plate {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    border: 2px solid var(--color-ink);
+    border-radius: var(--radius-plate);
+    box-shadow: var(--shadow-plate);
+    font-family: var(--font-heading);
+    color: var(--color-invert);
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+
+  /* Condensed all-caps micro tag */
+  .cc-tag {
+    font-family: var(--font-label);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  /* Stamp-press interaction — the signature button/card feedback */
+  .cc-stamp {
+    transition: transform 0.14s var(--ease-back), box-shadow 0.14s var(--ease-back);
+  }
+  .cc-stamp:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 0 var(--cc-shadow);
+  }
+
+  /* Shelf line under product rails */
+  .cc-shelf {
+    position: relative;
+  }
+  .cc-shelf::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.6rem;
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to bottom,
+      var(--color-line),
+      color-mix(in srgb, var(--color-line) 40%, transparent)
+    );
+  }
+
+  /* Dotted cut-line divider */
+  .cc-cutline {
+    height: 0;
+    border: none;
+    border-top: 2px dashed var(--color-line);
+    position: relative;
+  }
+
+  /* Hide scrollbar on swipeable rails */
+  .cc-no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .cc-no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ---- Keyframes ---- */
+@keyframes pop {
+  0% {
+    transform: scale(0.6) rotate(var(--pop-rot, 0deg));
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08) rotate(var(--pop-rot, 0deg));
+  }
+  100% {
+    transform: scale(1) rotate(var(--pop-rot, 0deg));
+    opacity: 1;
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes stamp-owned {
+  0% {
+    transform: scale(2.4) rotate(-18deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(0.9) rotate(-12deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(-12deg);
+    opacity: 1;
+  }
+}
+
+/* Scroll-reveal helper (JS toggles .is-in) */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease-out, transform 0.5s var(--ease-back);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- Respect reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
