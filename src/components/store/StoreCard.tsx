@@ -25,13 +25,13 @@ export function StoreCard({ product }: { product: Product }) {
 
   return (
     <div className="cc-outline-plate group flex flex-col overflow-hidden rounded-card bg-card">
-      <Link href={`/product/${product.kinguinId}`} className="relative block aspect-[3/4] overflow-hidden bg-band">
+      <Link href={`/product/${product.kinguinId}`} className="relative block aspect-[4/3] overflow-hidden bg-band">
         {product.cover ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={product.cover}
             alt={product.name}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
           />
         ) : (

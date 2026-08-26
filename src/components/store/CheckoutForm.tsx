@@ -22,13 +22,23 @@ export function CheckoutForm({
   const [accepted, setAccepted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [method, setMethod] = useState<"balance" | "card">("balance");
+  const [card, setCard] = useState({ number: "", expiry: "", cvc: "", name: "" });
 
   const insufficient = balance < totalEur - 1e-6;
+  const cardComplete =
+    card.number.replace(/\s/g, "").length >= 15 &&
+    /^\d{2}\/\d{2}$/.test(card.expiry) &&
+    card.cvc.length >= 3 &&
+    card.name.trim().length > 1;
+  const canPay =
+    !loading && accepted && items.length > 0 && (method === "balance" ? !insufficient : cardComplete);
 
   async function pay() {
     setError(null);
     if (items.length === 0) return setError("Your cart is empty.");
     if (!accepted) return setError("Please accept the terms to continue.");
+    if (method === "card" && !cardComplete) return setError("Please enter your card details.");
     setLoading(true);
     try {
       const res = await fetch("/api/checkout", {
@@ -44,6 +54,7 @@ export function CheckoutForm({
           })),
           currency,
           acceptedTerms: accepted,
+          payment: method,
         }),
       });
       const data = await res.json();
@@ -111,21 +122,88 @@ export function CheckoutForm({
           <Price amountEur={totalEur} className="font-display text-2xl" />
         </div>
 
-        <div className="mt-3 rounded-lg bg-band p-3 text-sm">
-          <div className="flex items-center justify-between">
-            <span className="text-muted">Account balance</span>
-            <span className="font-heading">{format(balance)}</span>
-          </div>
-          {insufficient && (
-            <p className="mt-2 text-xs text-red">
-              Not enough balance.{" "}
-              <Link href="/account?topup=1" className="underline">
-                Top up
-              </Link>{" "}
-              to continue.
-            </p>
-          )}
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={() => setMethod("balance")}
+            className={`cc-outline rounded-lg px-3 py-2 text-sm ${method === "balance" ? "bg-cobalt text-white" : "bg-bg hover:bg-band"}`}
+          >
+            Balance
+          </button>
+          <button
+            type="button"
+            onClick={() => setMethod("card")}
+            className={`cc-outline rounded-lg px-3 py-2 text-sm ${method === "card" ? "bg-cobalt text-white" : "bg-bg hover:bg-band"}`}
+          >
+            Card
+          </button>
         </div>
+
+        {method === "balance" ? (
+          <div className="mt-3 rounded-lg bg-band p-3 text-sm">
+            <div className="flex items-center justify-between">
+              <span className="text-muted">Account balance</span>
+              <span className="font-heading">{format(balance)}</span>
+            </div>
+            {insufficient && (
+              <p className="mt-2 text-xs text-red">
+                Not enough balance.{" "}
+                <Link href="/account?topup=1" className="underline">
+                  Top up
+                </Link>{" "}
+                to continue.
+              </p>
+            )}
+          </div>
+        ) : (
+          <div className="mt-3 space-y-2">
+            <input
+              inputMode="numeric"
+              autoComplete="cc-number"
+              placeholder="Card number"
+              value={card.number}
+              onChange={(e) =>
+                setCard((c) => ({
+                  ...c,
+                  number: e.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 16)
+                    .replace(/(.{4})/g, "$1 ")
+                    .trim(),
+                }))
+              }
+              className="cc-outline w-full rounded-xl bg-bg px-3 py-2 text-sm outline-none"
+            />
+            <div className="flex gap-2">
+              <input
+                inputMode="numeric"
+                autoComplete="cc-exp"
+                placeholder="MM/YY"
+                value={card.expiry}
+                onChange={(e) => {
+                  const v = e.target.value.replace(/\D/g, "").slice(0, 4);
+                  setCard((c) => ({ ...c, expiry: v.length > 2 ? `${v.slice(0, 2)}/${v.slice(2)}` : v }));
+                }}
+                className="cc-outline w-1/2 rounded-xl bg-bg px-3 py-2 text-sm outline-none"
+              />
+              <input
+                inputMode="numeric"
+                autoComplete="cc-csc"
+                placeholder="CVC"
+                value={card.cvc}
+                onChange={(e) => setCard((c) => ({ ...c, cvc: e.target.value.replace(/\D/g, "").slice(0, 4) }))}
+                className="cc-outline w-1/2 rounded-xl bg-bg px-3 py-2 text-sm outline-none"
+              />
+            </div>
+            <input
+              autoComplete="cc-name"
+              placeholder="Name on card"
+              value={card.name}
+              onChange={(e) => setCard((c) => ({ ...c, name: e.target.value }))}
+              className="cc-outline w-full rounded-xl bg-bg px-3 py-2 text-sm outline-none"
+            />
+          </div>
+        )}
 
         <label className="mt-4 flex items-start gap-2 text-sm">
           <input type="checkbox" checked={accepted} onChange={(e) => setAccepted(e.target.checked)} className="mt-0.5 h-4 w-4" />
@@ -135,7 +213,7 @@ export function CheckoutForm({
               terms
             </Link>{" "}
             and{" "}
-            <Link href="/returns" target="_blank" className="underline hover:text-cobalt">
+            <Link href="/refund-policy" target="_blank" className="underline hover:text-cobalt">
               refund policy
             </Link>
             . I understand game keys are non-refundable once revealed.
@@ -144,8 +222,8 @@ export function CheckoutForm({
 
         <Button
           variant="primary"
-          className={`mt-4 w-full ${loading || insufficient || !accepted ? "opacity-50" : ""}`}
-          disabled={loading || insufficient || !accepted || items.length === 0}
+          className={`mt-4 w-full ${canPay ? "" : "opacity-50"}`}
+          disabled={!canPay}
           onClick={pay}
         >
           {loading ? "Processing…" : `Pay ${format(totalEur)}`}

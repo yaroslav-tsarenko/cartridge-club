@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { StoreCard } from "@/components/store/StoreCard";
 import { searchProducts, type ProductQuery } from "@/lib/kinguin";
+import { CURRENCIES, DEFAULT_CURRENCY, type CurrencyCode } from "@/lib/currency";
 
 export const metadata = { title: "Store — Cartridge Club" };
 
@@ -16,9 +18,18 @@ export default async function StorePage({
 }) {
   const sp = await searchParams;
   const page = Math.max(1, Number(sp.page) || 1);
+  const preorderOnly = sp.preorder === "1";
+
+  // Price filter labels reflect the currency chosen in the header (cookie).
+  const cookieStore = await cookies();
+  const cur = (cookieStore.get("cc_currency")?.value as CurrencyCode) || DEFAULT_CURRENCY;
+  const c = CURRENCIES[cur] ?? CURRENCIES[DEFAULT_CURRENCY];
+  const priceLabel = (eur: number) => `${c.symbol}${Math.round(eur * c.rate)}`;
+
   const query: ProductQuery = {
     page,
-    limit: 24,
+    // Pre-order buckets are filtered client-side, so fetch a wider slice.
+    limit: preorderOnly ? 100 : 24,
     name: sp.q,
     genre: sp.genre,
     platform: sp.platform,
@@ -27,8 +38,10 @@ export default async function StorePage({
     sortBy: (sp.sortBy as ProductQuery["sortBy"]) || undefined,
     sortType: (sp.sortType as ProductQuery["sortType"]) || undefined,
   };
-  const { products, total } = await searchProducts(query);
-  const totalPages = Math.min(Math.ceil(total / 24) || 1, 200);
+  const raw = await searchProducts(query);
+  const products = preorderOnly ? raw.products.filter((p) => p.isPreorder) : raw.products;
+  const total = preorderOnly ? products.length : raw.total;
+  const totalPages = preorderOnly ? 1 : Math.min(Math.ceil(total / 24) || 1, 200);
 
   const buildHref = (patch: Record<string, string | number | undefined>) => {
     const params = new URLSearchParams();
@@ -85,13 +98,13 @@ export default async function StorePage({
                 Any price
               </FilterLink>
               <FilterLink href={buildHref({ priceTo: "5", priceFrom: undefined, page: undefined })} active={sp.priceTo === "5"}>
-                Under €5
+                Under {priceLabel(5)}
               </FilterLink>
               <FilterLink href={buildHref({ priceTo: "10", priceFrom: undefined, page: undefined })} active={sp.priceTo === "10"}>
-                Under €10
+                Under {priceLabel(10)}
               </FilterLink>
               <FilterLink href={buildHref({ priceTo: "25", priceFrom: undefined, page: undefined })} active={sp.priceTo === "25"}>
-                Under €25
+                Under {priceLabel(25)}
               </FilterLink>
             </FilterGroup>
             <FilterGroup title="Sort by">

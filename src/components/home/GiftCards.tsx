@@ -25,7 +25,7 @@ export function GiftCards() {
             waiting — just pick a value and send the fun.
           </p>
           <div className="mt-6">
-            <Button variant="primary" size="lg">
+            <Button as="a" href="/store?q=Gift Card" variant="primary" size="lg">
               Shop gift cards
             </Button>
           </div>

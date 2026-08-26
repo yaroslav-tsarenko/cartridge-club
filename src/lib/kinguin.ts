@@ -3,6 +3,10 @@ import "server-only";
 const API = process.env.KINGUIN_API_URL!;
 const KEY = process.env.KINGUIN_API_KEY!;
 
+// Retail markup applied on top of the Kinguin wholesale price.
+const MARKUP = 1.3;
+const withMarkup = (wholesale: number) => Math.round(wholesale * MARKUP * 100) / 100;
+
 // ── Normalised product shape used across the UI ─────────────
 export type Product = {
   productId: string;
@@ -63,7 +67,7 @@ function normalise(p: RawProduct): Product {
     releaseDate: p.releaseDate ?? null,
     releaseYear: Number.isFinite(year) ? year : null,
     qty: p.qty ?? 0,
-    priceEur: p.price ?? 0,
+    priceEur: withMarkup(p.price ?? 0),
     isPreorder: Boolean(p.isPreorder),
     metacriticScore: p.metacriticScore ?? null,
     region: p.regionalLimitations || "REGION FREE",

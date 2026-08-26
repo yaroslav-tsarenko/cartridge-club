@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { navTabs, platforms, promoStrip, genres } from "@/lib/data";
+import { navTabs, promoStrip } from "@/lib/data";
 import { cn } from "@/lib/ui";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { PlatformChip } from "@/components/ui/PlatformChip";
@@ -15,14 +15,72 @@ import { Logo } from "./Logo";
 
 type MeUser = { firstName: string; email: string; balance: number } | null;
 
-const megaContent: Record<string, { links: string[] }> = {
-  Platforms: { links: platforms.map((p) => p.name) },
-  Genres: { links: genres.map((g) => g.name) },
-  Deals: { links: ["Flash deals", "Under €10", "Bundle savings", "Weekly picks", "Clearance"] },
-  "New Releases": { links: ["This week", "Last 30 days", "Coming soon", "Editor's picks"] },
-  "Pre-orders": { links: ["Open pre-orders", "Special editions", "Season passes", "Day-one keys"] },
-  "Top Charts": { links: ["Top 10 global", "Trending", "Most wishlisted", "Staff favourites"] },
-  "Gift Cards": { links: ["Steam wallet", "PlayStation Store", "Xbox", "Nintendo eShop"] },
+type MegaLink = { label: string; href: string };
+
+// Every link maps to a real store query so no category lands on an empty page.
+const megaContent: Record<string, { links: MegaLink[] }> = {
+  Platforms: {
+    links: [
+      { label: "Steam", href: "/store?platform=Steam" },
+      { label: "Ubisoft Connect", href: "/store?platform=Ubisoft" },
+      { label: "EA App", href: "/store?platform=EA Play" },
+      { label: "Epic Games", href: "/store?platform=Epic Games" },
+      { label: "GOG", href: "/store?platform=GOG" },
+      { label: "Battle.net", href: "/store?platform=Battle.net" },
+    ],
+  },
+  Genres: {
+    links: [
+      { label: "Action", href: "/store?genre=Action" },
+      { label: "Adventure", href: "/store?genre=Adventure" },
+      { label: "RPG", href: "/store?genre=RPG" },
+      { label: "Strategy", href: "/store?genre=Strategy" },
+      { label: "Shooter", href: "/store?genre=Shooter" },
+      { label: "Racing", href: "/store?genre=Racing" },
+      { label: "Sports", href: "/store?genre=Sports" },
+      { label: "Indie", href: "/store?genre=Indie" },
+    ],
+  },
+  Deals: {
+    links: [
+      { label: "Under €5", href: "/store?priceTo=5" },
+      { label: "Under €10", href: "/store?priceTo=10" },
+      { label: "Under €25", href: "/store?priceTo=25" },
+      { label: "Best sellers", href: "/store?sortBy=updatedAt&sortType=desc" },
+      { label: "Clearance", href: "/store?priceTo=3" },
+    ],
+  },
+  "New Releases": {
+    links: [
+      { label: "Newest additions", href: "/store?sortBy=kinguinId&sortType=desc" },
+      { label: "Recently updated", href: "/store?sortBy=updatedAt&sortType=desc" },
+      { label: "Trending now", href: "/store?sortBy=updatedAt&sortType=desc" },
+    ],
+  },
+  "Pre-orders": {
+    links: [
+      { label: "Open pre-orders", href: "/store?preorder=1" },
+      { label: "Day-one keys", href: "/store?preorder=1&sortBy=kinguinId&sortType=desc" },
+    ],
+  },
+  "Top Charts": {
+    links: [
+      { label: "Top sellers", href: "/store?sortBy=updatedAt&sortType=desc" },
+      { label: "Newest additions", href: "/store?sortBy=kinguinId&sortType=desc" },
+      { label: "Under €10", href: "/store?priceTo=10" },
+    ],
+  },
+  "Gift Cards": {
+    links: [
+      { label: "Steam Gift Card", href: "/store?q=Steam Gift Card" },
+      { label: "PlayStation Store", href: "/store?q=PlayStation Network Card" },
+      { label: "Xbox", href: "/store?q=Xbox Gift Card" },
+      { label: "Nintendo eShop", href: "/store?q=Nintendo eShop Card" },
+      { label: "Netflix", href: "/store?q=Netflix Gift Card" },
+      { label: "Roblox", href: "/store?q=Roblox Gift Card" },
+      { label: "Uber", href: "/store?q=Uber" },
+    ],
+  },
 };
 
 export function Header() {
@@ -155,11 +213,20 @@ export function Header() {
             {user ? (
               <Link
                 href="/account"
-                className="cc-outline hidden items-center gap-2 rounded-lg bg-card px-3 py-1.5 text-sm hover:bg-band sm:flex"
-                aria-label="Account"
+                className="cc-outline hidden items-center gap-2 rounded-lg bg-card py-1 pl-1 pr-3 text-sm hover:bg-band sm:flex"
+                aria-label={`Account — ${user.firstName}`}
+                title="My account"
               >
-                <span aria-hidden>☺</span>
-                <span className="font-heading">{format(user.balance)}</span>
+                <span
+                  aria-hidden
+                  className="grid h-8 w-8 place-items-center rounded-md bg-cobalt font-heading text-sm text-white"
+                >
+                  {user.firstName.charAt(0).toUpperCase()}
+                </span>
+                <span className="flex flex-col leading-tight">
+                  <span className="cc-tag text-[0.55rem] text-muted">Balance</span>
+                  <span className="font-heading">{format(user.balance)}</span>
+                </span>
               </Link>
             ) : (
               <Link
@@ -227,12 +294,13 @@ export function Header() {
                   <p className="cc-tag mb-3 text-[0.65rem] text-muted">Browse {openTab}</p>
                   <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5">
                     {megaContent[openTab]?.links.map((l) => (
-                      <li key={l}>
+                      <li key={l.label}>
                         <Link
-                          href={`/store?q=${encodeURIComponent(l)}`}
+                          href={l.href}
+                          onClick={() => setOpenTab(null)}
                           className="font-heading text-sm text-ink hover:text-cobalt"
                         >
-                          {l}
+                          {l.label}
                         </Link>
                       </li>
                     ))}
@@ -306,13 +374,13 @@ export function Header() {
                   {acc === tab && (
                     <ul className="pb-3 pl-3">
                       {megaContent[tab]?.links.map((l) => (
-                        <li key={l}>
+                        <li key={l.label}>
                           <Link
-                            href={`/store?q=${encodeURIComponent(l)}`}
+                            href={l.href}
                             onClick={() => setMobileOpen(false)}
                             className="block py-1.5 text-sm text-muted"
                           >
-                            {l}
+                            {l.label}
                           </Link>
                         </li>
                       ))}

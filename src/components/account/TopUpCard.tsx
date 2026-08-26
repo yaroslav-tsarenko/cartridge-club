@@ -9,31 +9,19 @@ export function TopUpCard({ balanceEur }: { balanceEur: number }) {
   const { currency, format, convert } = useCurrency();
   const router = useRouter();
   const [amount, setAmount] = useState("20");
-  const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
   const quick = [10, 20, 50, 100];
 
-  async function topUp() {
+  function topUp() {
     const value = Number(amount);
     if (!Number.isFinite(value) || value <= 0) return setMsg("Enter a valid amount.");
-    setLoading(true);
-    setMsg(null);
-    const res = await fetch("/api/account/topup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: value, currency }),
-    });
-    const data = await res.json();
-    setLoading(false);
-    if (!res.ok) return setMsg(data.error || "Top-up failed");
-    setMsg("Balance updated ✓");
-    router.refresh();
+    router.push(`/checkout?topup=${value}&currency=${currency}`);
   }
 
   return (
     <div className="cc-outline-plate rounded-card bg-card p-5">
-      <p className="cc-tag text-[0.65rem] text-muted">Wallet balance</p>
+      <p className="cc-tag text-[0.65rem] text-muted">Balance</p>
       <p className="font-display text-3xl">{format(balanceEur)}</p>
       <p className="mt-1 text-xs text-muted">≈ {convert(balanceEur).toFixed(2)} {currency}</p>
 
@@ -59,8 +47,8 @@ export function TopUpCard({ balanceEur }: { balanceEur: number }) {
             className="cc-outline w-full rounded-xl bg-bg px-3 py-2 text-sm outline-none"
             placeholder="Custom amount"
           />
-          <Button variant="primary" onClick={topUp} disabled={loading} className={loading ? "opacity-50" : ""}>
-            {loading ? "…" : "Top up"}
+          <Button variant="primary" onClick={topUp}>
+            Top up
           </Button>
         </div>
         {msg && <p className="mt-2 text-xs text-muted">{msg}</p>}

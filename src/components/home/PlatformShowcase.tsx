@@ -20,7 +20,7 @@ export function PlatformShowcase() {
           return (
             <Reveal key={p.name} delay={i * 50}>
               <a
-                href="#"
+                href={`/store?platform=${encodeURIComponent(p.name)}`}
                 className="cc-outline group flex h-full flex-col items-center gap-2 rounded-card bg-card p-5 text-center transition-transform hover:-translate-y-1"
               >
                 <span

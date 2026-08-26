@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   const lines: CartLine[] = Array.isArray(body?.items) ? body.items : [];
   const currency = (body?.currency ?? "GBP") as CurrencyCode;
+  const payment = body?.payment === "card" ? "card" : "balance";
   if (!body?.acceptedTerms) {
     return NextResponse.json({ error: "Please accept the terms to continue" }, { status: 400 });
   }
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
   }
 
   const totalEur = lines.reduce((s, l) => s + l.priceEur * l.qty, 0);
-  if (user.balance < totalEur - 1e-6) {
+  if (payment === "balance" && user.balance < totalEur - 1e-6) {
     return NextResponse.json(
       { error: "Insufficient balance. Please top up your account.", need: "topup" },
       { status: 402 }
@@ -49,15 +50,17 @@ export async function POST(req: NextRequest) {
       },
       include: { items: true },
     });
-    await tx.user.update({ where: { id: user.id }, data: { balance: { decrement: totalEur } } });
-    await tx.balanceTransaction.create({
-      data: {
-        userId: user.id,
-        amount: -totalEur,
-        type: "purchase",
-        description: `Order ${o.id} — ${lines.length} item(s)`,
-      },
-    });
+    if (payment === "balance") {
+      await tx.user.update({ where: { id: user.id }, data: { balance: { decrement: totalEur } } });
+      await tx.balanceTransaction.create({
+        data: {
+          userId: user.id,
+          amount: -totalEur,
+          type: "purchase",
+          description: `Order ${o.id} — ${lines.length} item(s)`,
+        },
+      });
+    }
     return o;
   });
 

@@ -1,30 +1,43 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/ui";
 import { Barcode } from "@/components/ui/Barcode";
 import { Button } from "@/components/ui/Button";
 import { PaymentLogos } from "./PaymentLogos";
 import { Logo } from "./Logo";
 
-const columns: { title: string; links: string[] }[] = [
+const EMAIL = "info@cartridge-club.com";
+
+type FooterLink = { label: string; href: string };
+
+const columns: { title: string; links: FooterLink[] }[] = [
   {
     title: "Shop",
-    links: ["Platforms", "Genres", "Deals", "Pre-orders", "Gift Cards"],
+    links: [
+      { label: "All games", href: "/store" },
+      { label: "Deals", href: "/store?priceTo=10" },
+      { label: "New releases", href: "/store?sortBy=kinguinId&sortType=desc" },
+      { label: "Pre-orders", href: "/store?preorder=1" },
+      { label: "Gift cards", href: "/store?q=Gift Card" },
+    ],
   },
   {
     title: "Support",
     links: [
-      "Help centre",
-      "Steam activation guide",
-      "Xbox activation guide",
-      "Refunds",
-      "Contact us",
+      { label: "Help & contact", href: `mailto:${EMAIL}` },
+      { label: "Refund policy", href: "/refund-policy" },
+      { label: "Terms & conditions", href: "/terms" },
     ],
   },
   {
-    title: "Company",
-    links: ["About the club", "Blog", "Affiliates", "Careers", "Press kit"],
+    title: "Legal",
+    links: [
+      { label: "Privacy policy", href: "/privacy" },
+      { label: "Cookie policy", href: "/cookies" },
+      { label: "Refund policy", href: "/refund-policy" },
+    ],
   },
 ];
 
@@ -39,6 +52,12 @@ export function Footer() {
             <p className="max-w-md text-sm text-muted">
               A modern collector&apos;s store for official game keys. Real keys, instant
               email delivery, and a shelf that feels like the good old days.
+            </p>
+            <p className="text-sm text-muted">
+              Questions?{" "}
+              <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
+                {EMAIL}
+              </a>
             </p>
             <p className="cc-tag text-[0.7rem] text-muted">EST. 2026 · Collector-approved</p>
           </div>
@@ -117,19 +136,10 @@ export function Footer() {
               High Road, Wood Green, London, N22 8HH, United Kingdom
             </p>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-              {["Privacy", "Terms", "Cookies", "Refund Policy"].map((l) => (
-                <a key={l} href="#" className="hover:underline">
-                  {l}
-                </a>
-              ))}
-              <select
-                aria-label="Language and region"
-                className="cursor-pointer bg-transparent outline-none"
-                defaultValue="en-EUR"
-              >
-                <option value="en-EUR">English · EUR €</option>
-                <option value="en-USD">English · USD $</option>
-              </select>
+              <Link href="/privacy" className="hover:underline">Privacy</Link>
+              <Link href="/terms" className="hover:underline">Terms</Link>
+              <Link href="/cookies" className="hover:underline">Cookies</Link>
+              <Link href="/refund-policy" className="hover:underline">Refund Policy</Link>
             </div>
           </div>
           <p className="mx-auto max-w-7xl px-4 pb-6 text-[0.66rem] opacity-45 sm:px-6 lg:px-8">
@@ -143,7 +153,7 @@ export function Footer() {
   );
 }
 
-function FooterColumn({ title, links }: { title: string; links: string[] }) {
+function FooterColumn({ title, links }: { title: string; links: FooterLink[] }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-b border-white/10 py-2 md:border-0 md:py-0">
@@ -160,10 +170,16 @@ function FooterColumn({ title, links }: { title: string; links: string[] }) {
       </button>
       <ul className={cn("space-y-2 pb-2 pt-1 md:!block md:pt-3", open ? "block" : "hidden")}>
         {links.map((l) => (
-          <li key={l}>
-            <a href="#" className="text-sm opacity-80 hover:text-sun hover:opacity-100">
-              {l}
-            </a>
+          <li key={l.label}>
+            {l.href.startsWith("mailto:") ? (
+              <a href={l.href} className="text-sm opacity-80 hover:text-sun hover:opacity-100">
+                {l.label}
+              </a>
+            ) : (
+              <Link href={l.href} className="text-sm opacity-80 hover:text-sun hover:opacity-100">
+                {l.label}
+              </Link>
+            )}
           </li>
         ))}
       </ul>

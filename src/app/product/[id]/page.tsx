@@ -4,6 +4,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Price } from "@/components/ui/Price";
 import { AddToCart } from "@/components/store/AddToCart";
+import { ProductGallery } from "@/components/store/ProductGallery";
 import { getProduct } from "@/lib/kinguin";
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
@@ -26,23 +27,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
         <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
           <div>
-            <div className="cc-outline-plate overflow-hidden rounded-card bg-band">
-              {product.cover ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={product.cover} alt={product.name} className="max-h-[420px] w-full object-cover" />
-              ) : (
-                <div className="grid h-64 place-items-center text-muted">No image</div>
-              )}
-            </div>
-
-            {product.screenshots.length > 0 && (
-              <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4">
-                {product.screenshots.map((s) => (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img key={s} src={s} alt="" className="cc-outline aspect-video w-full rounded-lg object-cover" loading="lazy" />
-                ))}
-              </div>
-            )}
+            <ProductGallery cover={product.cover} screenshots={product.screenshots} name={product.name} />
 
             {product.description && (
               <section className="mt-8">
