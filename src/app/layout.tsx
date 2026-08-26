@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Anton, Archivo, Archivo_Black } from "next/font/google";
+import { cookies } from "next/headers";
 import "./globals.css";
+import { Providers } from "@/components/providers/Providers";
+import { CookieConsent } from "@/components/site/CookieConsent";
+import { CURRENCIES, DEFAULT_CURRENCY, type CurrencyCode } from "@/lib/currency";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -23,9 +27,11 @@ const anton = Anton({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://cartridge-club.com"),
   title: "Cartridge Club — Great games. Real keys. Instant joy.",
   description:
     "A modern collector's store for official game keys. Instant email delivery, official distributors, collector-approved. Buying a game here feels like an event.",
+  icons: { icon: "/favicon.svg" },
 };
 
 const themeScript = `
@@ -39,11 +45,15 @@ const themeScript = `
 })();
 `;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = await cookies();
+  const stored = cookieStore.get("cc_currency")?.value as CurrencyCode | undefined;
+  const currency = stored && CURRENCIES[stored] ? stored : DEFAULT_CURRENCY;
+
   return (
     <html
       lang="en"
@@ -53,7 +63,12 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <Providers currency={currency}>
+          {children}
+          <CookieConsent />
+        </Providers>
+      </body>
     </html>
   );
 }

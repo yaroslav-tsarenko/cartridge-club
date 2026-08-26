@@ -1,0 +1,83 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // pooled connection (…-pooler) for the app
+  directUrl = env("DIRECT_URL")   // direct connection for migrations
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  phone        String
+  dateOfBirth  String
+  street       String
+  city         String
+  country      String
+  postalCode   String
+  balance      Float    @default(0)
+  emailVerified Boolean @default(false)
+  createdAt    DateTime @default(now())
+
+  orders       Order[]
+  transactions BalanceTransaction[]
+  resetTokens  PasswordResetToken[]
+  verifyTokens EmailVerificationToken[]
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  total     Float
+  currency  String      @default("GBP")
+  status    String      @default("pending") // pending | paid | delivered | failed
+  kinguinOrderId String?
+  createdAt DateTime    @default(now())
+  items     OrderItem[]
+}
+
+model OrderItem {
+  id         String @id @default(cuid())
+  orderId    String
+  order      Order  @relation(fields: [orderId], references: [id])
+  productId  String
+  name       String
+  qty        Int    @default(1)
+  price      Float
+  keys       String @default("[]") // JSON array of delivered game keys
+}
+
+model BalanceTransaction {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  amount      Float    // positive = top-up, negative = spend
+  type        String   // topup | purchase
+  description String
+  createdAt   DateTime @default(now())
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}

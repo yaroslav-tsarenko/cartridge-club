@@ -12,8 +12,19 @@ import { HowItWorks } from "@/components/home/HowItWorks";
 import { Benefits } from "@/components/home/Benefits";
 import { Testimonials } from "@/components/home/Testimonials";
 import { Faq } from "@/components/home/Faq";
+import { searchProducts } from "@/lib/kinguin";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [popular, bargains, fresh] = await Promise.all([
+    searchProducts({ limit: 40, priceFrom: 3, sortBy: "updatedAt", sortType: "desc" }),
+    searchProducts({ limit: 16, priceFrom: 1, priceTo: 8 }),
+    searchProducts({ limit: 24, sortBy: "kinguinId", sortType: "desc" }),
+  ]);
+
+  const withImg = popular.products.filter((p) => p.cover);
+  const bargainProducts = bargains.products.filter((p) => p.cover);
+  const freshProducts = fresh.products.filter((p) => p.cover);
+
   return (
     <>
       <a
@@ -24,12 +35,12 @@ export default function HomePage() {
       </a>
       <Header />
       <main id="main">
-        <Hero />
-        <DealsShelf />
-        <TopCharts />
-        <NewAndPreorders />
-        <GenreExplorer />
-        <BargainBin />
+        <Hero products={withImg.slice(0, 5)} />
+        <DealsShelf products={withImg.slice(0, 12)} />
+        <TopCharts products={withImg.slice(0, 10)} />
+        <NewAndPreorders products={freshProducts.slice(0, 8)} />
+        <GenreExplorer products={withImg.slice(0, 16)} />
+        <BargainBin products={bargainProducts.slice(0, 8)} />
         <PlatformShowcase />
         <GiftCards />
         <HowItWorks />

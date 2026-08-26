@@ -1,38 +1,30 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { games, platforms } from "@/lib/data";
-import { cn, formatPrice } from "@/lib/ui";
+import Link from "next/link";
+import type { Product } from "@/lib/kinguin";
+import { cn } from "@/lib/ui";
+import { platforms } from "@/lib/data";
 import { Button } from "@/components/ui/Button";
-import { GameCover } from "@/components/ui/GameCover";
+import { Price } from "@/components/ui/Price";
 import { PlatformChip } from "@/components/ui/PlatformChip";
-import { Starburst, StickerTag } from "@/components/ui/Sticker";
+import { StickerTag } from "@/components/ui/Sticker";
 
-const slides = [games[3], games[0], games[6]];
-
-const spotlights = [
-  { label: "Deal of the day", accent: "sun" as const, game: games[5] },
-  { label: "New release", accent: "cobalt" as const, game: games[3] },
-  { label: "Pre-order", accent: "grape" as const, game: games[6] },
-];
-
-export function Hero() {
+export function Hero({ products }: { products: Product[] }) {
+  const slides = products.slice(0, 3);
+  const spotlights = products.slice(0, 3);
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || slides.length < 2) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
     const t = setInterval(() => setI((n) => (n + 1) % slides.length), 5000);
     return () => clearInterval(t);
-  }, [paused]);
+  }, [paused, slides.length]);
 
   const game = slides[i];
-  const discounted = game.oldPrice && game.oldPrice > game.price;
-  const pct = discounted
-    ? Math.round((1 - game.price / (game.oldPrice as number)) * 100)
-    : 0;
 
   return (
     <section
@@ -60,8 +52,8 @@ export function Hero() {
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <Button as="a" href="#deals" variant="primary" size="lg">
-              Grab the key
+            <Button as="a" href="/store" variant="primary" size="lg">
+              Browse the store
             </Button>
             <Button as="a" href="#how" variant="ghost" size="lg" className="!shadow-none border-cobalt">
               How it works →
@@ -72,88 +64,91 @@ export function Hero() {
             <span>⚡ Instant email delivery</span>
             <span>✓ Official distributors</span>
             <span>🔒 Secure payment</span>
-            <span className="text-leaf">★ Rated 4.9</span>
           </p>
         </div>
 
         {/* Boxed edition display */}
-        <div className="relative order-1 mx-auto w-full max-w-sm lg:order-2">
-          <div className="relative">
-            {/* back shelf glow plate */}
-            <div
-              className="absolute inset-0 -z-0 translate-x-4 translate-y-6 rotate-3 rounded-2xl bg-cobalt-tint"
-              aria-hidden
-            />
-            <div className="cc-outline-plate relative rotate-[-4deg] rounded-2xl bg-card p-3 transition-transform duration-500">
-              <GameCover game={game} rounded="rounded-xl" />
-              <div className="absolute -left-4 -top-4">
-                {discounted ? (
-                  <Starburst accent="sun" size={82}>
-                    -{pct}%
-                  </Starburst>
-                ) : (
-                  <StickerTag accent="grape" className="text-sm">
-                    Pre-order
-                  </StickerTag>
-                )}
-              </div>
-              <div className="absolute -right-3 top-6">
-                <PlatformChip platform={game.platform} />
-              </div>
-              <div className="mt-3 flex items-center justify-between px-1 pb-1">
-                <div>
-                  <p className="font-heading text-lg leading-tight">{game.title}</p>
-                  <p className="cc-tag text-[0.66rem] text-muted">{game.genres.join(" · ")}</p>
+        {game && (
+          <div className="relative order-1 mx-auto w-full max-w-sm lg:order-2">
+            <div className="relative">
+              <div
+                className="absolute inset-0 -z-0 translate-x-4 translate-y-6 rotate-3 rounded-2xl bg-cobalt-tint"
+                aria-hidden
+              />
+              <div className="cc-outline-plate relative rotate-[-4deg] rounded-2xl bg-card p-3 transition-transform duration-500">
+                <Link href={`/product/${game.kinguinId}`} className="block overflow-hidden rounded-xl">
+                  {game.cover && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={game.cover}
+                      alt={game.name}
+                      className="aspect-[3/4] w-full rounded-xl object-cover"
+                    />
+                  )}
+                </Link>
+                <div className="absolute -right-3 top-6">
+                  <PlatformChip platform="Steam" />
                 </div>
-                <p className="font-heading text-2xl text-red">{formatPrice(game.price)}</p>
+                <div className="mt-3 flex items-center justify-between gap-2 px-1 pb-1">
+                  <div className="min-w-0">
+                    <p className="truncate font-heading text-lg leading-tight">{game.name}</p>
+                    <p className="cc-tag truncate text-[0.66rem] text-muted">{game.genres.slice(0, 3).join(" · ")}</p>
+                  </div>
+                  <Price amountEur={game.priceEur} className="shrink-0 font-heading text-2xl text-red" />
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* slide controls */}
-          <div className="mt-6 flex items-center justify-center gap-2">
-            {slides.map((s, n) => (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => setI(n)}
-                aria-label={`Show ${s.title}`}
-                aria-current={n === i}
-                className={cn(
-                  "h-2.5 rounded-full border-2 border-ink transition-all",
-                  n === i ? "w-7 bg-red" : "w-2.5 bg-card"
-                )}
-              />
-            ))}
+            {slides.length > 1 && (
+              <div className="mt-6 flex items-center justify-center gap-2">
+                {slides.map((s, n) => (
+                  <button
+                    key={s.productId}
+                    type="button"
+                    onClick={() => setI(n)}
+                    aria-label={`Show ${s.name}`}
+                    aria-current={n === i}
+                    className={cn(
+                      "h-2.5 rounded-full border-2 border-ink transition-all",
+                      n === i ? "w-7 bg-red" : "w-2.5 bg-card"
+                    )}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-        </div>
+        )}
       </div>
 
       {/* Spotlight mini box-fronts */}
-      <div className="mx-auto grid max-w-7xl gap-4 px-4 pb-8 sm:grid-cols-3 sm:px-6 lg:px-8">
-        {spotlights.map((s) => (
-          <a
-            key={s.label}
-            href="#deals"
-            className="cc-outline group flex items-center gap-3 rounded-card bg-card p-3 transition-transform hover:-translate-y-0.5"
-          >
-            <span
-              className="cc-outline block h-16 w-12 shrink-0 rounded"
-              style={{ background: s.game.cover.hue }}
-              aria-hidden
-            />
-            <span className="min-w-0">
-              <StickerTag accent={s.accent} className="!text-[0.58rem]" rotate={false}>
-                {s.label}
-              </StickerTag>
-              <span className="mt-1 block truncate font-heading text-sm">{s.game.title}</span>
-              <span className="font-heading text-sm text-red">
-                {formatPrice(s.game.price)}
+      {spotlights.length > 0 && (
+        <div className="mx-auto grid max-w-7xl gap-4 px-4 pb-8 sm:grid-cols-3 sm:px-6 lg:px-8">
+          {spotlights.map((s, n) => (
+            <Link
+              key={s.productId}
+              href={`/product/${s.kinguinId}`}
+              className="cc-outline group flex items-center gap-3 rounded-card bg-card p-3 transition-transform hover:-translate-y-0.5"
+            >
+              {s.cover && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={s.cover}
+                  alt={s.name}
+                  loading="lazy"
+                  className="cc-outline block h-16 w-12 shrink-0 rounded object-cover"
+                />
+              )}
+              <span className="min-w-0">
+                <StickerTag accent={(["sun", "cobalt", "grape"] as const)[n % 3]} className="!text-[0.58rem]" rotate={false}>
+                  {["Deal of the day", "Popular", "Fresh pick"][n % 3]}
+                </StickerTag>
+                <span className="mt-1 block truncate font-heading text-sm">{s.name}</span>
+                <Price amountEur={s.priceEur} className="font-heading text-sm text-red" />
               </span>
-            </span>
-          </a>
-        ))}
-      </div>
+            </Link>
+          ))}
+        </div>
+      )}
 
       {/* Platform quick-rail + trust ribbon */}
       <div className="border-y-2 border-ink bg-band">
@@ -168,7 +163,6 @@ export function Hero() {
             <span>⚡ Instant delivery</span>
             <span className="text-cobalt">✓ Official distributors</span>
             <span>🔒 Secure payment</span>
-            <span className="text-leaf">★ 4.9 average</span>
           </div>
         </div>
       </div>

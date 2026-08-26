@@ -4,6 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/ui";
 import { Barcode } from "@/components/ui/Barcode";
 import { Button } from "@/components/ui/Button";
+import { PaymentLogos } from "./PaymentLogos";
 import { Logo } from "./Logo";
 
 const columns: { title: string; links: string[] }[] = [
@@ -94,36 +95,14 @@ export function Footer() {
         <div className="border-t border-white/10">
           <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-8 sm:px-6 lg:flex-row lg:justify-between lg:px-8">
             <div className="flex flex-wrap items-center justify-center gap-2">
-              {["VISA", "MC", "AMEX", "PayPal", "Apple", "Google"].map((p) => (
-                <span
-                  key={p}
-                  className="cc-tag rounded-md border border-white/25 px-2 py-1 text-[0.62rem] opacity-80"
-                >
-                  {p}
-                </span>
-              ))}
+              <PaymentLogos height={26} />
               <span className="cc-tag inline-flex items-center gap-1 rounded-md bg-leaf px-2 py-1 text-[0.62rem] text-ink">
-                🔒 Secure checkout
+                🔒 PCI DSS secure checkout
               </span>
             </div>
 
             <div className="flex items-center gap-4">
-              <span className="cc-tag text-[0.66rem] opacity-70">Official distributor</span>
-              <span className="cc-tag inline-flex items-center gap-1 rounded-md bg-sun px-2 py-1 text-[0.62rem] text-ink">
-                ★ 4.9 / 5
-              </span>
-              <div className="flex gap-2">
-                {["Discord", "X", "IG"].map((s) => (
-                  <a
-                    key={s}
-                    href="#"
-                    aria-label={s}
-                    className="cc-tag grid h-8 w-8 place-items-center rounded-md border border-white/25 text-[0.6rem] hover:bg-white/10"
-                  >
-                    {s[0]}
-                  </a>
-                ))}
-              </div>
+              <span className="cc-tag text-[0.66rem] opacity-70">Official distributor · Merchant of Record: ALDERROCK LTD</span>
             </div>
 
             <Barcode className="text-invert opacity-80" />
@@ -133,7 +112,10 @@ export function Footer() {
         {/* (4) Bottom legal bar */}
         <div className="border-t border-white/10">
           <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-[0.72rem] opacity-70 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-            <p>© 2026 Cartridge Club Ltd. · Company No. 09318472 · VAT EU372094821</p>
+            <p>
+              © 2026 Cartridge Club — operated by ALDERROCK LTD · Company No. 17381132 · Dept 6984, 196
+              High Road, Wood Green, London, N22 8HH, United Kingdom
+            </p>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
               {["Privacy", "Terms", "Cookies", "Refund Policy"].map((l) => (
                 <a key={l} href="#" className="hover:underline">

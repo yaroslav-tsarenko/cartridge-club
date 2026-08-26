@@ -1,9 +1,18 @@
+import Link from "next/link";
 import { cn } from "@/lib/ui";
 
 /** Chunky wordmark with a small cartridge glyph. */
-export function Logo({ className, compact = false }: { className?: string; compact?: boolean }) {
+export function Logo({
+  className,
+  compact = false,
+  href = "/",
+}: {
+  className?: string;
+  compact?: boolean;
+  href?: string;
+}) {
   return (
-    <a href="#top" className={cn("group inline-flex items-center gap-2", className)}>
+    <Link href={href} className={cn("group inline-flex items-center gap-2", className)}>
       <span
         className="cc-outline grid h-9 w-9 place-items-center rounded-md bg-red text-white"
         aria-hidden
@@ -25,6 +34,6 @@ export function Logo({ className, compact = false }: { className?: string; compa
         {!compact && <span className="text-red">·</span>}
         <span className="text-cobalt">CLUB</span>
       </span>
-    </a>
+    </Link>
   );
 }

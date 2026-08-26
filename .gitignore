@@ -7,4 +7,9 @@
 .env*
 !.env.example
 next-env.d.ts
+tsconfig.tsbuildinfo
 /.vercel
+.vercel
+
+# Internal project docs / credentials — never publish
+/addons

@@ -1,12 +1,12 @@
-import { games } from "@/lib/data";
+import type { Product } from "@/lib/kinguin";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Rail } from "@/components/ui/Rail";
-import { ProductCard } from "@/components/ui/ProductCard";
+import { StoreCard } from "@/components/store/StoreCard";
 import { Countdown } from "@/components/ui/Countdown";
 import { Reveal } from "@/components/ui/Reveal";
 
-export function DealsShelf() {
-  const deals = games.filter((g) => g.oldPrice);
+export function DealsShelf({ products }: { products: Product[] }) {
+  if (products.length === 0) return null;
   return (
     <Section id="deals">
       <SectionHead
@@ -17,8 +17,8 @@ export function DealsShelf() {
       />
       <Reveal>
         <Rail>
-          {deals.map((g, i) => (
-            <ProductCard key={g.id} game={g} index={i} />
+          {products.map((p) => (
+            <StoreCard key={p.productId} product={p} />
           ))}
         </Rail>
       </Reveal>

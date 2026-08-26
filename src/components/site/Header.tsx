@@ -1,12 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { games, navTabs, platforms, promoStrip, genres } from "@/lib/data";
-import { cn, formatPrice } from "@/lib/ui";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { navTabs, platforms, promoStrip, genres } from "@/lib/data";
+import { cn } from "@/lib/ui";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { PlatformChip } from "@/components/ui/PlatformChip";
 import { StickerTag } from "@/components/ui/Sticker";
+import { useCart } from "@/components/providers/CartProvider";
+import { useCurrency } from "@/components/providers/CurrencyProvider";
+import { CURRENCIES, type CurrencyCode } from "@/lib/currency";
 import { Logo } from "./Logo";
+
+type MeUser = { firstName: string; email: string; balance: number } | null;
 
 const megaContent: Record<string, { links: string[] }> = {
   Platforms: { links: platforms.map((p) => p.name) },
@@ -18,13 +25,11 @@ const megaContent: Record<string, { links: string[] }> = {
   "Gift Cards": { links: ["Steam wallet", "PlayStation Store", "Xbox", "Nintendo eShop"] },
 };
 
-export function Header({
-  cartCount = 3,
-  wishCount = 5,
-}: {
-  cartCount?: number;
-  wishCount?: number;
-}) {
+export function Header() {
+  const router = useRouter();
+  const { count: cartCount } = useCart();
+  const { currency, setCurrency, format } = useCurrency();
+  const [user, setUser] = useState<MeUser>(null);
   const [scrolled, setScrolled] = useState(false);
   const [openTab, setOpenTab] = useState<string | null>(null);
   const [query, setQuery] = useState("");
@@ -32,6 +37,13 @@ export function Header({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [acc, setAcc] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((r) => r.json())
+      .then((d) => setUser(d.user))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -52,20 +64,11 @@ export function Header({
     return () => document.removeEventListener("keydown", onKey);
   }, []);
 
-  const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
-    return games
-      .filter(
-        (g) =>
-          g.title.toLowerCase().includes(q) ||
-          g.genres.some((x) => x.toLowerCase().includes(q)) ||
-          g.platform.toLowerCase().includes(q)
-      )
-      .slice(0, 5);
-  }, [query]);
-
-  const featured = games.find((g) => g.oldPrice)!;
+  const submitSearch = () => {
+    const q = query.trim();
+    router.push(q ? `/store?q=${encodeURIComponent(q)}` : "/store");
+    setSearchFocus(false);
+  };
 
   return (
     <header id="top" className="sticky top-0 z-50">
@@ -91,12 +94,15 @@ export function Header({
               <span className="sr-only">Currency</span>
               <select
                 className="cursor-pointer bg-transparent text-[0.66rem] outline-none"
-                defaultValue="EUR"
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value as CurrencyCode)}
                 aria-label="Currency"
               >
-                <option>EUR €</option>
-                <option>USD $</option>
-                <option>GBP £</option>
+                {(Object.keys(CURRENCIES) as CurrencyCode[]).map((c) => (
+                  <option key={c} value={c}>
+                    {CURRENCIES[c].label} {CURRENCIES[c].symbol}
+                  </option>
+                ))}
               </select>
             </label>
             <ThemeToggle />
@@ -133,46 +139,42 @@ export function Header({
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                onFocus={() => setSearchFocus(true)}
-                onBlur={() => setTimeout(() => setSearchFocus(false), 150)}
+                onKeyDown={(e) => e.key === "Enter" && submitSearch()}
                 placeholder="Search 12,000+ official keys…"
                 aria-label="Search games"
                 className="w-full bg-transparent text-sm outline-none placeholder:text-muted"
               />
               <kbd className="cc-tag hidden rounded border border-line px-1.5 py-0.5 text-[0.6rem] text-muted sm:inline">
-                /
+                ⏎
               </kbd>
             </div>
-
-            {searchFocus && results.length > 0 && (
-              <div className="cc-outline absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-xl bg-card p-2">
-                {results.map((g) => (
-                  <a
-                    key={g.id}
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg p-2 hover:bg-band"
-                  >
-                    <span
-                      className="h-12 w-9 shrink-0 rounded"
-                      style={{ background: g.cover.hue }}
-                      aria-hidden
-                    />
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate font-heading text-sm">{g.title}</span>
-                      <PlatformChip platform={g.platform} size="sm" />
-                    </span>
-                    <span className="font-heading text-sm">{formatPrice(g.price)}</span>
-                  </a>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Right cluster */}
           <div className="ml-auto flex shrink-0 items-center gap-2">
-            <IconButton label="Account" glyph="☺" />
-            <IconButton label="Collection (wishlist)" glyph="▤" count={wishCount} accent="grape" />
-            <IconButton label="Cart" glyph="▦" count={cartCount} accent="red" />
+            {user ? (
+              <Link
+                href="/account"
+                className="cc-outline hidden items-center gap-2 rounded-lg bg-card px-3 py-1.5 text-sm hover:bg-band sm:flex"
+                aria-label="Account"
+              >
+                <span aria-hidden>☺</span>
+                <span className="font-heading">{format(user.balance)}</span>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="cc-outline hidden rounded-lg bg-card px-3 py-1.5 text-sm hover:bg-band sm:block"
+              >
+                Sign in
+              </Link>
+            )}
+            <Link href={user ? "/account" : "/login"} aria-label="Account" className="sm:hidden">
+              <IconButton label="Account" glyph="☺" as="span" />
+            </Link>
+            <Link href="/cart" aria-label="Cart">
+              <IconButton label="Cart" glyph="▦" count={cartCount} accent="red" as="span" />
+            </Link>
           </div>
         </div>
       </div>
@@ -220,54 +222,35 @@ export function Header({
             onMouseLeave={() => setOpenTab(null)}
           >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="cc-outline-plate grid grid-cols-[1.2fr_1.5fr_1fr] gap-6 rounded-b-xl border-t-0 bg-card p-6">
+              <div className="cc-outline-plate grid grid-cols-[1.5fr_1fr] gap-6 rounded-b-xl border-t-0 bg-card p-6">
                 <div>
                   <p className="cc-tag mb-3 text-[0.65rem] text-muted">Browse {openTab}</p>
-                  <ul className="space-y-1.5">
+                  <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5">
                     {megaContent[openTab]?.links.map((l) => (
                       <li key={l}>
-                        <a
-                          href="#"
+                        <Link
+                          href={`/store?q=${encodeURIComponent(l)}`}
                           className="font-heading text-sm text-ink hover:text-cobalt"
                         >
                           {l}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div>
-                  <p className="cc-tag mb-3 text-[0.65rem] text-muted">Fresh on the shelf</p>
-                  <div className="grid grid-cols-4 gap-2">
-                    {games.slice(0, 4).map((g) => (
-                      <a key={g.id} href="#" className="group/mini">
-                        <span
-                          className="cc-outline block aspect-[3/4] rounded"
-                          style={{ background: g.cover.hue }}
-                          aria-hidden
-                        />
-                        <span className="mt-1 block truncate text-[0.65rem] text-muted group-hover/mini:text-ink">
-                          {g.title}
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-                <a
-                  href="#"
+                <Link
+                  href="/store"
                   className="cc-outline relative flex flex-col justify-between overflow-hidden rounded-lg bg-red-tint p-4"
                 >
                   <div className="absolute -right-2 -top-3">
-                    <StickerTag accent="sun">Deal</StickerTag>
+                    <StickerTag accent="sun">Shop</StickerTag>
                   </div>
-                  <p className="cc-tag text-[0.65rem] text-red">Featured</p>
+                  <p className="cc-tag text-[0.65rem] text-red">Official keys</p>
                   <div>
-                    <p className="font-heading text-base leading-tight">{featured.title}</p>
-                    <p className="mt-1 font-heading text-lg text-red">
-                      {formatPrice(featured.price)}
-                    </p>
+                    <p className="font-heading text-base leading-tight">12,000+ instant keys</p>
+                    <p className="mt-1 font-heading text-sm text-red">Browse the full store →</p>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -324,9 +307,13 @@ export function Header({
                     <ul className="pb-3 pl-3">
                       {megaContent[tab]?.links.map((l) => (
                         <li key={l}>
-                          <a href="#" className="block py-1.5 text-sm text-muted">
+                          <Link
+                            href={`/store?q=${encodeURIComponent(l)}`}
+                            onClick={() => setMobileOpen(false)}
+                            className="block py-1.5 text-sm text-muted"
+                          >
                             {l}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -338,8 +325,12 @@ export function Header({
             <div className="mt-4 flex items-center justify-between">
               <ThemeToggle />
               <div className="flex gap-2">
-                <IconButton label="Collection" glyph="▤" count={wishCount} accent="grape" />
-                <IconButton label="Cart" glyph="▦" count={cartCount} accent="red" />
+                <Link href={user ? "/account" : "/login"} aria-label="Account" onClick={() => setMobileOpen(false)}>
+                  <IconButton label="Account" glyph="☺" as="span" />
+                </Link>
+                <Link href="/cart" aria-label="Cart" onClick={() => setMobileOpen(false)}>
+                  <IconButton label="Cart" glyph="▦" count={cartCount} accent="red" as="span" />
+                </Link>
               </div>
             </div>
           </div>
@@ -354,15 +345,18 @@ function IconButton({
   glyph,
   count,
   accent,
+  as = "button",
 }: {
   label: string;
   glyph: string;
   count?: number;
   accent?: "red" | "grape";
+  as?: "button" | "span";
 }) {
+  const Tag = as;
   return (
-    <button
-      type="button"
+    <Tag
+      {...(as === "button" ? { type: "button" as const } : {})}
       aria-label={count ? `${label}, ${count} items` : label}
       className="cc-stamp cc-outline relative grid h-10 w-10 place-items-center rounded-lg bg-card text-lg text-ink hover:bg-band"
     >
@@ -377,6 +371,6 @@ function IconButton({
           {count}
         </span>
       )}
-    </button>
+    </Tag>
   );
 }

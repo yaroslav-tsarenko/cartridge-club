@@ -1,22 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { games } from "@/lib/data";
+import type { Product } from "@/lib/kinguin";
 import { cn } from "@/lib/ui";
 import { Section, SectionHead } from "@/components/ui/Section";
-import { ProductCard } from "@/components/ui/ProductCard";
+import { StoreCard } from "@/components/store/StoreCard";
 
 const tabs = [
   { key: "new", label: "New Releases", accent: "cobalt" as const },
   { key: "pre", label: "Pre-orders", accent: "grape" as const },
 ];
 
-export function NewAndPreorders() {
+export function NewAndPreorders({ products }: { products: Product[] }) {
   const [tab, setTab] = useState("new");
-  const list =
-    tab === "new"
-      ? games.filter((g) => g.releaseYear >= 2025)
-      : games.filter((g) => g.tag?.accent === "grape" || g.releaseYear >= 2026);
+  const preorders = products.filter((p) => p.isPreorder);
+  const list = tab === "pre" ? (preorders.length ? preorders : products) : products;
+
+  if (products.length === 0) return null;
 
   return (
     <Section id="new">
@@ -52,8 +52,8 @@ export function NewAndPreorders() {
         }
       />
       <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
-        {list.map((g, i) => (
-          <ProductCard key={g.id} game={g} index={i} />
+        {list.map((p) => (
+          <StoreCard key={p.productId} product={p} />
         ))}
       </div>
     </Section>

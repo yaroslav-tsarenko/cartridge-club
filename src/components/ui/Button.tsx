@@ -26,6 +26,7 @@ export function Button({
   as?: "button" | "a";
   href?: string;
   type?: "button" | "submit";
+  disabled?: boolean;
 } & React.HTMLAttributes<HTMLElement>) {
   const sizes = {
     sm: "px-3 py-1.5 text-sm",
