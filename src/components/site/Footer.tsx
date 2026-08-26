@@ -27,16 +27,19 @@ const columns: { title: string; links: FooterLink[] }[] = [
     title: "Support",
     links: [
       { label: "Help & contact", href: `mailto:${EMAIL}` },
+      { label: "Delivery & activation", href: "/delivery" },
       { label: "Refund policy", href: "/refund-policy" },
-      { label: "Terms & conditions", href: "/terms" },
+      { label: "Pre-order policy", href: "/pre-orders" },
+      { label: "Balance terms", href: "/balance-terms" },
     ],
   },
   {
     title: "Legal",
     links: [
+      { label: "Terms & conditions", href: "/terms" },
       { label: "Privacy policy", href: "/privacy" },
       { label: "Cookie policy", href: "/cookies" },
-      { label: "Refund policy", href: "/refund-policy" },
+      { label: "Restricted territories", href: "/restricted-territories" },
     ],
   },
 ];

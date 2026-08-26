@@ -53,6 +53,14 @@ type RawProduct = {
   cheapestOfferId?: string[];
 };
 
+// Kinguin cover thumbnails are served through a Magento resize cache
+// (…/cache/<n>/<preset>/<hash>/file.jpg) that pins them to ~170px and looks
+// blurry when scaled up. Stripping that segment returns the original file.
+function hiRes(url?: string | null): string | null {
+  if (!url) return null;
+  return url.replace(/\/cache\/\d+\/[^/]+\/[a-f0-9]{32}\//, "/") || null;
+}
+
 function normalise(p: RawProduct): Product {
   const year = p.releaseDate ? Number(p.releaseDate.slice(0, 4)) : null;
   return {
@@ -73,9 +81,9 @@ function normalise(p: RawProduct): Product {
     region: p.regionalLimitations || "REGION FREE",
     activationDetails: p.activationDetails ?? "",
     cover:
-      p.images?.cover?.url ||
-      p.images?.cover?.thumbnail ||
+      hiRes(p.images?.cover?.url) ||
       p.images?.screenshots?.[0]?.url ||
+      hiRes(p.images?.cover?.thumbnail) ||
       null,
     screenshots: (p.images?.screenshots ?? []).map((s) => s.url).filter(Boolean).slice(0, 6),
     cheapestOfferId: p.cheapestOfferId ?? [],

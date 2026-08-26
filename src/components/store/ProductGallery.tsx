@@ -11,7 +11,7 @@ export function ProductGallery({
   screenshots: string[];
   name: string;
 }) {
-  const images = [cover, ...screenshots].filter(Boolean) as string[];
+  const images = Array.from(new Set([cover, ...screenshots].filter(Boolean))) as string[];
   const [lightbox, setLightbox] = useState<number | null>(null);
 
   useEffect(() => {
