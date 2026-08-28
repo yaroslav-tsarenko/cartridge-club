@@ -14,6 +14,22 @@ const transporter = nodemailer.createTransport({
 const FROM = process.env.SMTP_FROM ?? process.env.SMTP_USER;
 const SITE = process.env.NEXT_PUBLIC_SITE_NAME ?? "Cartridge Club";
 
+// A plaintext alternative alongside the HTML part lowers spam scoring —
+// mailbox providers (notably Gmail) penalise HTML-only messages.
+function htmlToText(html: string): string {
+  return html
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<(?:br|\/p|\/tr|\/div|\/h[1-6])\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 export async function sendMail(opts: {
   to: string;
   subject: string;
@@ -26,7 +42,7 @@ export async function sendMail(opts: {
     to: opts.to,
     subject: opts.subject,
     html: opts.html,
-    text: opts.text,
+    text: opts.text ?? htmlToText(opts.html),
     attachments: opts.attachments,
   });
 }
