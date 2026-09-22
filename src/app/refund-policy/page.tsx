@@ -29,6 +29,37 @@ export default function RefundPolicyPage() {
         conditions are met, a price reduction or refund.
       </p>
 
+      <LegalHeading>Refund eligibility at a glance</LegalHeading>
+      <p>A refund or replacement is normally available where:</p>
+      <p>
+        (a) the Key is invalid, rejected or shown as already redeemed before delivery to you; (b) the
+        Key was revoked without customer fault; (c) the product is materially misdescribed or
+        activates a different product from the accepted order; (d) an accepted order cannot be
+        delivered within a reasonable time; (e) a pre-order is cancelled before any Key or
+        entitlement is disclosed; or (f) a refund is otherwise required by mandatory consumer law.
+      </p>
+      <p>A refund is normally not available where:</p>
+      <p>
+        (a) a correctly described, working Key has already been sent or revealed; (b) the customer
+        selected the wrong Platform, region, edition or language, or does not meet system
+        requirements disclosed before purchase; (c) the customer changed their mind after delivery
+        began following the withdrawal waiver given at checkout; or (d) the Key was successfully
+        redeemed by the customer or by someone to whom the customer disclosed it.
+      </p>
+
+      <LegalHeading>Technical failure refunds</LegalHeading>
+      <p>
+        If a technical failure on our side prevents completion of a paid order — for example a
+        payment is captured but no Key is issued, the same order is charged twice, or a delivery
+        system error makes the Key permanently unavailable — we will, at your choice and where
+        technically possible, redeliver the product or refund the affected amount in full.
+      </p>
+      <p>
+        Report a suspected technical failure to {EMAIL} with the order number and the
+        approximate time of the transaction. Confirmed duplicate charges are refunded to the original
+        payment method without deduction.
+      </p>
+
       <LegalHeading>Change-of-mind cancellations before delivery</LegalHeading>
       <p>
         If a Key or code has not been sent, disclosed or otherwise supplied, you may request
@@ -177,8 +208,10 @@ export default function RefundPolicyPage() {
 
       <LegalHeading>Chargebacks and duplicate recovery</LegalHeading>
       <p>
-        Please contact us before initiating a chargeback so we have an opportunity to investigate and
-        provide an appropriate remedy.
+        Always contact our support at {EMAIL} before initiating a chargeback with your bank
+        or card issuer. Most billing issues are resolved faster by our team than through the
+        chargeback process, and a chargeback filed without prior contact delays resolution for
+        everyone involved.
       </p>
       <p>
         A chargeback does not create an additional right to retain a refund, replacement Key or
@@ -189,21 +222,50 @@ export default function RefundPolicyPage() {
         lawfully owed, without limiting your right to dispute an unauthorised transaction.
       </p>
 
-      <LegalHeading>How to request support or a refund</LegalHeading>
+      <LegalHeading>How to submit a dispute or refund request</LegalHeading>
       <p>
-        Send the request to{" "}
+        Send billing and refund requests to our dedicated billing contact{" "}
         <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
           {EMAIL}
         </a>{" "}
         from the email associated with the order whenever possible.
       </p>
       <p>
-        Include the order number, product name, date, reason for the request and supporting evidence.
-        Never send a full payment card number, card security code or password by email.
+        Include the order number, product name, purchase date, reason for the request and supporting
+        evidence — for example screenshots of the exact error message, the activation attempt on the
+        relevant Platform, correspondence with Platform support and, where relevant, confirmation
+        that the Key has not been redeemed. Never send a full payment card number, card security code
+        or password by email.
       </p>
       <p>
         We may require reasonable verification before disclosing order information or issuing a refund
         to protect the customer and prevent fraud.
+      </p>
+
+      <LegalHeading>Refund request window</LegalHeading>
+      <p>
+        Refund and dispute requests must be submitted within 30 days of the purchase date. Requests
+        received after that window are considered only where mandatory consumer law provides a longer
+        period.
+      </p>
+
+      <LegalHeading>Response times</LegalHeading>
+      <p>
+        We acknowledge billing and refund requests within 2 business days and aim to provide a
+        substantive decision within 14 days of receiving all information reasonably required to
+        investigate. Approved refunds are released without undue delay and within any statutory
+        deadline; banks and card networks may need additional time to display the credit.
+      </p>
+
+      <LegalHeading>Non-refundable credits</LegalHeading>
+      <p>
+        Balance credits are non-transferable virtual credits usable only within this platform. They
+        are not cryptocurrency, not tradable, and not redeemable for cash.
+      </p>
+      <p>
+        Once credited, Balance top-ups are non-refundable except where a refund is required by
+        mandatory law or expressly provided in the Balance Terms. Credits spent on a delivered,
+        working Key follow the delivered-Key rules above and are not returned for change of mind.
       </p>
     </LegalPage>
   );

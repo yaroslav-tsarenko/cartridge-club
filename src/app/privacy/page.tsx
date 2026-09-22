@@ -227,6 +227,16 @@ export default function PrivacyPage() {
         meet legal, accounting, tax, fraud prevention, dispute and enforcement requirements.
       </p>
       <p>
+        Uploaded data and provided information are stored temporarily to provide services, comply
+        with legal obligations, resolve disputes, and enforce our agreements (maximum retention
+        period: 24 months from the last interaction, unless a longer period is required by law) and
+        are automatically deleted thereafter. Backup retention does not exceed 35 days.
+      </p>
+      <p>
+        If you are an enterprise client, we will provide a Data Processing Agreement (DPA) upon
+        request. Requests may be sent to {EMAIL}.
+      </p>
+      <p>
         Balance transaction and withdrawal records may be retained after Account closure where
         necessary to evidence ownership, payments, refunds and compliance.
       </p>

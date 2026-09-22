@@ -20,6 +20,7 @@ export function CheckoutForm({
   const { currency, format } = useCurrency();
   const router = useRouter();
   const [accepted, setAccepted] = useState(false);
+  const [waived, setWaived] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [method, setMethod] = useState<"balance" | "card">("balance");
@@ -32,12 +33,17 @@ export function CheckoutForm({
     card.cvc.length >= 3 &&
     card.name.trim().length > 1;
   const canPay =
-    !loading && accepted && items.length > 0 && (method === "balance" ? !insufficient : cardComplete);
+    !loading &&
+    accepted &&
+    waived &&
+    items.length > 0 &&
+    (method === "balance" ? !insufficient : cardComplete);
 
   async function pay() {
     setError(null);
     if (items.length === 0) return setError("Your cart is empty.");
     if (!accepted) return setError("Please accept the terms to continue.");
+    if (!waived) return setError("Please confirm the withdrawal waiver to continue.");
     if (method === "card" && !cardComplete) return setError("Please enter your card details.");
     setLoading(true);
     try {
@@ -54,6 +60,7 @@ export function CheckoutForm({
           })),
           currency,
           acceptedTerms: accepted,
+          withdrawalWaiver: waived,
           payment: method,
         }),
       });
@@ -104,7 +111,14 @@ export function CheckoutForm({
                 Dept 6984, 196 High Road, Wood Green, London, N22 8HH, United Kingdom
               </dd>
             </div>
+            <div className="flex justify-between gap-4">
+              <dt>Card statement descriptor</dt>
+              <dd className="text-right text-ink">ALDERROCK LTD</dd>
+            </div>
           </dl>
+          <p className="mt-3 text-xs text-muted">
+            The charge will appear on your card statement as <strong className="text-ink">ALDERROCK LTD</strong>.
+          </p>
           <div className="mt-4 border-t border-line pt-3">
             <p className="text-xs text-muted">Billed to</p>
             <p className="text-ink">{customer.name} · {customer.email}</p>
@@ -205,6 +219,14 @@ export function CheckoutForm({
           </div>
         )}
 
+        <p className="mt-3 rounded-lg bg-band p-3 text-xs text-muted">
+          Credits are non-transferable virtual credits usable only within this platform. They are
+          not cryptocurrency, not tradable, and not redeemable for cash.
+        </p>
+        <p className="mt-2 text-xs text-muted">
+          Card statement descriptor: <strong className="text-ink">ALDERROCK LTD</strong>
+        </p>
+
         <label className="mt-4 flex items-start gap-2 text-sm">
           <input type="checkbox" checked={accepted} onChange={(e) => setAccepted(e.target.checked)} className="mt-0.5 h-4 w-4" />
           <span>
@@ -217,6 +239,14 @@ export function CheckoutForm({
               refund policy
             </Link>
             . I understand game keys are non-refundable once revealed.
+          </span>
+        </label>
+
+        <label className="mt-3 flex items-start gap-2 text-sm">
+          <input type="checkbox" checked={waived} onChange={(e) => setWaived(e.target.checked)} className="mt-0.5 h-4 w-4" />
+          <span>
+            I understand that by purchasing digital goods and requesting immediate delivery, I waive
+            my statutory right of withdrawal once delivery begins.
           </span>
         </label>
 

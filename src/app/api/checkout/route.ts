@@ -19,6 +19,12 @@ export async function POST(req: NextRequest) {
   if (!body?.acceptedTerms) {
     return NextResponse.json({ error: "Please accept the terms to continue" }, { status: 400 });
   }
+  if (!body?.withdrawalWaiver) {
+    return NextResponse.json(
+      { error: "Please confirm the withdrawal waiver to continue" },
+      { status: 400 }
+    );
+  }
   if (lines.length === 0) {
     return NextResponse.json({ error: "Your cart is empty" }, { status: 400 });
   }

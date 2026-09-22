@@ -11,6 +11,7 @@ export function TopUpCheckout({ amount, currency }: { amount: number; currency: 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [card, setCard] = useState({ number: "", expiry: "", cvc: "", name: "" });
+  const [waived, setWaived] = useState(false);
 
   const cur = CURRENCIES[currency] ?? CURRENCIES[DEFAULT_CURRENCY];
   const cardComplete =
@@ -22,6 +23,7 @@ export function TopUpCheckout({ amount, currency }: { amount: number; currency: 
   async function pay() {
     setError(null);
     if (!cardComplete) return setError("Please enter your card details.");
+    if (!waived) return setError("Please confirm the withdrawal waiver to continue.");
     setLoading(true);
     try {
       const res = await fetch("/api/account/topup", {
@@ -52,6 +54,13 @@ export function TopUpCheckout({ amount, currency }: { amount: number; currency: 
         </div>
         <p className="mt-3 text-xs text-muted">
           Funds are credited to your account balance instantly and can be used for any purchase.
+        </p>
+        <p className="mt-3 rounded-lg bg-band p-3 text-xs text-muted">
+          Credits are non-transferable virtual credits usable only within this platform. They are
+          not cryptocurrency, not tradable, and not redeemable for cash.
+        </p>
+        <p className="mt-2 text-xs text-muted">
+          Card statement descriptor: <strong className="text-ink">ALDERROCK LTD</strong>
         </p>
       </div>
 
@@ -107,10 +116,18 @@ export function TopUpCheckout({ amount, currency }: { amount: number; currency: 
           />
         </div>
 
+        <label className="mt-4 flex items-start gap-2 text-sm">
+          <input type="checkbox" checked={waived} onChange={(e) => setWaived(e.target.checked)} className="mt-0.5 h-4 w-4" />
+          <span>
+            I understand that by purchasing digital goods and requesting immediate delivery, I waive
+            my statutory right of withdrawal once delivery begins.
+          </span>
+        </label>
+
         <Button
           variant="primary"
-          className={`mt-4 w-full ${loading || !cardComplete ? "opacity-50" : ""}`}
-          disabled={loading || !cardComplete}
+          className={`mt-4 w-full ${loading || !cardComplete || !waived ? "opacity-50" : ""}`}
+          disabled={loading || !cardComplete || !waived}
           onClick={pay}
         >
           {loading ? "Processing…" : `Pay ${cur.symbol}${amount.toFixed(2)}`}
