@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@/lib/auth";
 import { placeOrder, downloadKeys, type OrderLine } from "@/lib/kinguin";
+import { isBlockedName } from "@/lib/catalog-filter";
 import { sendMail, orderEmail } from "@/lib/mail";
 import { buildInvoicePdf } from "@/lib/invoice";
 import { formatMoney, type CurrencyCode } from "@/lib/currency";
@@ -27,6 +28,13 @@ export async function POST(req: NextRequest) {
   }
   if (lines.length === 0) {
     return NextResponse.json({ error: "Your cart is empty" }, { status: 400 });
+  }
+  // Stock we do not sell must not slip through a stale or tampered cart.
+  if (lines.some((l) => isBlockedName(l.name))) {
+    return NextResponse.json(
+      { error: "One or more items are no longer available. Please remove them from your cart." },
+      { status: 400 }
+    );
   }
 
   const totalEur = lines.reduce((s, l) => s + l.priceEur * l.qty, 0);

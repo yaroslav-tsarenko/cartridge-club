@@ -1,4 +1,5 @@
 import "server-only";
+import { isBlockedProduct } from "./catalog-filter";
 
 const API = process.env.KINGUIN_API_URL!;
 const KEY = process.env.KINGUIN_API_KEY!;
@@ -133,10 +134,13 @@ export async function searchProducts(
       results: RawProduct[];
       item_count: number;
     };
-    return {
-      products: (data.results ?? []).map(normalise),
-      total: data.item_count ?? 0,
-    };
+    // Kinguin has no exclusion parameter, so excluded stock is dropped after
+    // the fetch. Paging stays aligned with the API (a page may simply render
+    // fewer cards); `total` is reduced by what this page removed.
+    const raw = (data.results ?? []).map(normalise);
+    const products = raw.filter((p) => !isBlockedProduct(p));
+    const total = Math.max(0, (data.item_count ?? 0) - (raw.length - products.length));
+    return { products, total };
   } catch (err) {
     console.error("[kinguin] searchProducts failed:", err);
     return { products: [], total: 0 };
@@ -148,7 +152,10 @@ export async function getProduct(kinguinId: number | string): Promise<Product | 
   try {
     const data = (await esaFetch(`/v1/products/${kinguinId}`)) as RawProduct;
     if (!data?.productId) return null;
-    return normalise(data);
+    const product = normalise(data);
+    // Excluded stock must 404 rather than stay reachable by direct URL.
+    if (isBlockedProduct(product)) return null;
+    return product;
   } catch (err) {
     console.error("[kinguin] getProduct failed:", err);
     return null;
