@@ -11,7 +11,7 @@ import { chromium, type Page } from "playwright-core";
 import { mkdirSync, writeFileSync } from "node:fs";
 
 const BASE = process.env.BASE ?? "http://localhost:3002";
-const OUT = "docs/payally/screenshots";
+const OUT = "public/compliance/screenshots";
 const DOCS = "docs/payally";
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
