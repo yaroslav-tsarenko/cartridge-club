@@ -6,7 +6,7 @@ const EMAIL = "info@cartridge-club.com";
 
 export default function TermsPage() {
   return (
-    <LegalPage title="Terms and Conditions of Sale and Website Use" updated="26 August 2026">
+    <LegalPage title="Terms and Conditions of Sale and Website Use" updated="13 October 2026">
       <p>
         These Terms govern access to Cartridge Club and purchases of digital game activation keys,
         third-party gift card codes, pre-orders and other digital products. They form a binding
@@ -81,7 +81,7 @@ export default function TermsPage() {
       </p>
       <p>
         We may require email verification or additional checks before permitting access to certain
-        features, releasing a Key, accepting a Balance top-up or processing a withdrawal.
+        features, releasing a Key or accepting a Balance top-up.
       </p>
 
       <LegalHeading>Product information and third-party terms</LegalHeading>
@@ -160,6 +160,11 @@ export default function TermsPage() {
         guarantee that a payment provider or card issuer will approve a transaction.
       </p>
       <p>
+        Card statement descriptor: <strong>CartridgeClub</strong>. This is how a purchase or Balance
+        top-up appears on the card or bank statement, and it is displayed again at checkout before
+        payment is confirmed.
+      </p>
+      <p>
         If a payment is reversed, charged back or later found to be unauthorised after a Key has been
         delivered, we may suspend the Account, reverse associated Balance and seek payment of the
         lawful outstanding amount.
@@ -175,9 +180,13 @@ export default function TermsPage() {
         another supported currency is converted as shown before confirmation.
       </p>
       <p>
-        Balance is non-transferable, does not expire and earns no interest or bonus. Unused available
-        Balance may be withdrawn by contacting customer support, subject to the verification and
-        processing rules in the Balance Terms.
+        Balance is non-transferable, does not expire and earns no interest or bonus.
+      </p>
+      <p>
+        Credits are non-transferable virtual credits usable only within this platform. They are not
+        cryptocurrency, not tradable, and not redeemable for cash. Balance cannot be withdrawn, cashed
+        out, paid out or transferred to another user or third party, and a top-up is a purchase of
+        platform credits rather than a deposit of funds held on your behalf.
       </p>
 
       <LegalHeading>Immediate digital supply</LegalHeading>
@@ -297,7 +306,7 @@ export default function TermsPage() {
 
       <LegalHeading>Suspension and termination</LegalHeading>
       <p>
-        We may temporarily restrict an order, Account, Key delivery, Balance top-up or withdrawal
+        We may temporarily restrict an order, Account, Key delivery or Balance top-up
         where reasonably necessary to investigate suspected fraud, unauthorised use, sanctions
         exposure, security incidents or a material breach of these Terms.
       </p>

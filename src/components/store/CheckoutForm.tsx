@@ -113,11 +113,11 @@ export function CheckoutForm({
             </div>
             <div className="flex justify-between gap-4">
               <dt>Card statement descriptor</dt>
-              <dd className="text-right text-ink">ALDERROCK LTD</dd>
+              <dd className="text-right text-ink">CartridgeClub</dd>
             </div>
           </dl>
           <p className="mt-3 text-xs text-muted">
-            The charge will appear on your card statement as <strong className="text-ink">ALDERROCK LTD</strong>.
+            The charge will appear on your card statement as <strong className="text-ink">CartridgeClub</strong>.
           </p>
           <div className="mt-4 border-t border-line pt-3">
             <p className="text-xs text-muted">Billed to</p>
@@ -224,7 +224,7 @@ export function CheckoutForm({
           not cryptocurrency, not tradable, and not redeemable for cash.
         </p>
         <p className="mt-2 text-xs text-muted">
-          Card statement descriptor: <strong className="text-ink">ALDERROCK LTD</strong>
+          Card statement descriptor: <strong className="text-ink">CartridgeClub</strong>
         </p>
 
         <label className="mt-4 flex items-start gap-2 text-sm">

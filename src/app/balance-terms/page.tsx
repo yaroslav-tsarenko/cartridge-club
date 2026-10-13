@@ -6,11 +6,14 @@ const EMAIL = "info@cartridge-club.com";
 
 export default function BalanceTermsPage() {
   return (
-    <LegalPage title="Balance Terms" updated="26 August 2026">
+    <LegalPage title="Balance Terms" updated="13 October 2026">
       <p>
-        These Balance Terms govern funds credited to a Cartridge Club Account for later purchases.
-        Cartridge Club uses the term “Balance” exclusively; Balance is not transferable between users
-        and may be withdrawn through customer support.
+        These Balance Terms govern credits added to a Cartridge Club Account for later purchases.
+        Cartridge Club uses the term “Balance” exclusively.
+      </p>
+      <p>
+        Credits are non-transferable virtual credits usable only within this platform. They are not
+        cryptocurrency, not tradable, and not redeemable for cash.
       </p>
 
       <LegalHeading>Nature of Balance</LegalHeading>
@@ -20,24 +23,33 @@ export default function BalanceTermsPage() {
       </p>
       <p>
         Balance is not accepted by any person other than ALDERROCK LTD and cannot be used outside
-        Cartridge Club. It is not a bank account, savings account, investment, credit facility or
-        general-purpose payment instrument.
+        Cartridge Club. It is not a bank account, savings account, investment, credit facility,
+        e-money, cryptocurrency or general-purpose payment instrument.
       </p>
       <p>
         Balance does not represent ownership of a segregated bank account in the customer’s name and
         does not earn interest, rewards, yield or bonus credit.
       </p>
+      <p>
+        Balance has one function: paying for Digital Products offered on Cartridge Club. It cannot be
+        cashed out, paid out, transferred to another Account or person, sold, exchanged or used as a
+        means of moving funds.
+      </p>
 
       <LegalHeading>Eligibility and Account requirement</LegalHeading>
-      <p>You must be at least 18 years old and hold an active, verified Account to fund, use or withdraw Balance.</p>
+      <p>You must be at least 18 years old and hold an active, verified Account to fund or use Balance.</p>
       <p>
         The Account name, email and payment information must be accurate. We may request reasonable
-        verification before accepting a top-up, purchase or withdrawal.
+        verification before accepting a top-up or purchase.
       </p>
       <p>Balance is personal to the Account holder and may not be sold, assigned, gifted or transferred to another Account or person.</p>
 
       <LegalHeading>Funding Balance</LegalHeading>
       <p>Balance may be funded using a supported Visa or Mastercard payment through the Balance top-up function.</p>
+      <p>
+        Before a top-up is confirmed, the checkout displays the amount charged, the card statement
+        descriptor and the nature of the credits being purchased.
+      </p>
       <p>
         A top-up becomes available after payment authorisation, fraud checks and successful posting to
         the Account. A pending or declined transaction does not create available Balance.
@@ -57,8 +69,8 @@ export default function BalanceTermsPage() {
         confirmation.
       </p>
       <p>
-        Exchange rates may change between transactions. A later withdrawal or refund may therefore have
-        a different equivalent value in the currency of the original card.
+        Exchange rates may change between transactions. A refund processed later may therefore have a
+        different equivalent value in the currency of the original card.
       </p>
       <p>
         A bank, card issuer or payment provider may apply its own exchange rate or cross-border charge.
@@ -78,6 +90,28 @@ export default function BalanceTermsPage() {
       </p>
       <p>Using Balance does not change the product’s delivery, activation, refund, region or Platform conditions.</p>
 
+      <LegalHeading>No cash-out, no transfer</LegalHeading>
+      <p>
+        Balance cannot be withdrawn, cashed out, paid out, sent to a bank account, exchanged for money
+        or any other asset, or transferred to another user, Account or third party. Cartridge Club does
+        not operate a withdrawal, payout or money-remittance function and will not process such a
+        request.
+      </p>
+      <p>
+        Credits carry no monetary value outside Cartridge Club and may only be redeemed against
+        Digital Products sold on the platform.
+      </p>
+      <p>
+        A top-up is a purchase of platform credits, not a deposit of funds held on your behalf. Once
+        credited, a top-up is non-refundable except where a refund is required by mandatory consumer
+        law or where a technical or unauthorised-payment error is confirmed under the Refund Policy.
+      </p>
+      <p>
+        Where mandatory law or a confirmed payment error requires a reimbursement, it is returned to
+        the original payment method only. It is never paid out as cash, to a third party or to an
+        unrelated account, and this does not create a general right to convert credits into money.
+      </p>
+
       <LegalHeading>No expiry and no bonus amounts</LegalHeading>
       <p>Available Balance does not expire merely because time passes or the Account is inactive.</p>
       <p>
@@ -89,71 +123,52 @@ export default function BalanceTermsPage() {
         introduced through a fair advance notice that preserves existing mandatory rights.
       </p>
 
-      <LegalHeading>Withdrawal of available Balance</LegalHeading>
+      <LegalHeading>Amounts temporarily unavailable</LegalHeading>
       <p>
-        You may request withdrawal of unused available Balance by emailing{" "}
-        <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
-          {EMAIL}
-        </a>{" "}
-        from the Account email address.
-      </p>
-      <p>
-        A withdrawal request must identify the Account and requested amount. Never send a full payment
-        card number, card security code, password or authentication code by email.
-      </p>
-      <p>
-        We will normally return funds to the original funding method where technically possible. If
-        that method is unavailable, we may request a lawful alternative method held in the Account
-        holder’s name.
-      </p>
-      <p>
-        We may complete reasonable identity, ownership, payment-source, sanctions and fraud checks
-        before releasing funds. We process an approved withdrawal without undue delay after required
-        checks are completed.
-      </p>
-      <p>
-        Before completing a withdrawal, we will explain any applicable currency conversion or
-        third-party processing consequence known to us. We do not deduct amounts that are not lawfully
-        due or clearly agreed.
-      </p>
-
-      <LegalHeading>Amounts unavailable for withdrawal</LegalHeading>
-      <p>
-        Only cleared, unused Balance is available for withdrawal. Amounts reserved for a pending order,
+        Only cleared, unused Balance is available for spending. Amounts reserved for a pending order,
         subject to a payment dispute, reversed by a payment provider or connected to a suspected
         unauthorised transaction may be temporarily unavailable.
       </p>
       <p>
-        We may pause only the amount reasonably connected to an investigation and will release or
-        return it when the issue is resolved, unless law or a binding payment reversal requires
-        otherwise.
+        We may pause only the amount reasonably connected to an investigation and will release it when
+        the issue is resolved, unless law or a binding payment reversal requires otherwise.
       </p>
-      <p>We will not send a withdrawal to an unrelated third party or use Balance as a money transfer service.</p>
+      <p>Balance may not be used as a money transfer service and we will not direct value to an unrelated third party.</p>
 
       <LegalHeading>Refunds to Balance</LegalHeading>
       <p>A refund for a purchase paid entirely from Balance is credited back to Balance unless mandatory law requires or we agree to another method.</p>
       <p>For a supported split payment, the Balance-funded portion is normally returned to Balance and the card-funded portion to the card.</p>
-      <p>Once a refund has returned to available Balance, the customer may use it for another eligible purchase or request withdrawal under these Terms.</p>
+      <p>Once a refund has returned to available Balance, the customer may use it for another eligible purchase. Returned credits remain non-withdrawable.</p>
 
       <LegalHeading>Payment reversals and negative Balance</LegalHeading>
       <p>If a top-up is reversed, charged back, refunded by a card issuer or found unauthorised after the corresponding Balance has been spent, we may reverse the affected credit.</p>
-      <p>If reversal creates a negative amount, we may restrict further purchases or withdrawals and request payment of the lawful outstanding amount.</p>
+      <p>If reversal creates a negative amount, we may restrict further purchases and request payment of the lawful outstanding amount.</p>
       <p>We will not treat a good-faith report of an unauthorised payment as abuse. We may investigate evidence and coordinate with the payment provider before taking permanent Account action.</p>
 
       <LegalHeading>Security and prohibited use</LegalHeading>
       <p>Balance must not be used to conceal the source of funds, process payments for another person, evade country restrictions, conduct unauthorised resale or facilitate fraud.</p>
-      <p>We may delay or reject a top-up, purchase or withdrawal where reasonably necessary to comply with law, sanctions, payment rules or proportionate security controls.</p>
+      <p>We may delay or reject a top-up or purchase where reasonably necessary to comply with law, sanctions, payment rules or proportionate security controls.</p>
       <p>You must notify us promptly if an Account or funding method is compromised. We may temporarily secure the Account while the report is investigated.</p>
 
       <LegalHeading>Account closure</LegalHeading>
-      <p>You may request Account closure after outstanding orders and disputes are resolved. Before closure, you may spend or request withdrawal of available Balance.</p>
-      <p>If we close an Account, we will take reasonable steps to return remaining available Balance to the verified Account holder, subject to lawful deductions, payment reversals and restrictions imposed by law.</p>
+      <p>You may request Account closure after outstanding orders and disputes are resolved. Because credits cannot be cashed out, spend remaining Balance before requesting closure.</p>
+      <p>Unused credits remaining at closure are not paid out in cash and are not transferable. Where mandatory consumer law requires a reimbursement in a specific case, it is returned to the original payment method, subject to lawful deductions and payment reversals.</p>
       <p>Account closure does not erase transaction records that we must retain for legal, tax, fraud prevention, dispute or accounting purposes.</p>
 
       <LegalHeading>Records and corrections</LegalHeading>
-      <p>The Balance activity shown in the Account records top-ups, purchases, refunds, withdrawals, conversions and reversals.</p>
+      <p>The Balance activity shown in the Account records top-ups, purchases, refunds, conversions and reversals.</p>
       <p>Report a suspected error promptly. We may correct a clear technical or accounting error after notifying you and providing a reasonable explanation.</p>
-      <p>A displayed amount created by an obvious system error does not entitle a customer to withdraw or spend value that was not actually funded, refunded or otherwise lawfully credited.</p>
+      <p>A displayed amount created by an obvious system error does not entitle a customer to spend value that was not actually funded, refunded or otherwise lawfully credited.</p>
+
+      <LegalHeading>Questions</LegalHeading>
+      <p>
+        Questions about Balance, a top-up or a transaction record may be sent to{" "}
+        <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
+          {EMAIL}
+        </a>{" "}
+        from the Account email address. Never send a full payment card number, card security code,
+        password or authentication code by email.
+      </p>
 
       <LegalHeading>Changes and legal status</LegalHeading>
       <p>We may update these Balance Terms for legal, regulatory, security or operational reasons. Material changes affecting existing Balance will be communicated in advance where reasonably possible.</p>
@@ -162,7 +177,7 @@ export default function BalanceTermsPage() {
         The legal and regulatory treatment of stored value depends on how a service operates. We may
         modify or suspend the Balance feature if necessary to comply with financial services, consumer
         protection, sanctions or payment requirements while taking reasonable steps to protect customer
-        funds and rights.
+        rights.
       </p>
     </LegalPage>
   );

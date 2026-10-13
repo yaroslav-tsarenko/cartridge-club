@@ -13,7 +13,12 @@ neonConfig.poolQueryViaFetch = true;
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
 function createClient() {
-  const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL });
+  // The Neon adapter speaks Neon's HTTP/WebSocket protocol, so it only works
+  // against a Neon endpoint. A plain Postgres URL (local development, a staging
+  // container) falls back to the standard driver.
+  const url = process.env.DATABASE_URL ?? "";
+  if (!url.includes("neon.tech")) return new PrismaClient();
+  const adapter = new PrismaNeon({ connectionString: url });
   return new PrismaClient({ adapter });
 }
 

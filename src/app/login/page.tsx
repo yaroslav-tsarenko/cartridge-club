@@ -28,7 +28,10 @@ export default function LoginPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Login failed");
-      router.push("/account");
+      // Pages that require a session redirect here with ?next=…; send the
+      // customer back where they were. Only same-site paths are followed.
+      const next = new URLSearchParams(window.location.search).get("next");
+      router.push(next && /^\/(?!\/)/.test(next) ? next : "/account");
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");

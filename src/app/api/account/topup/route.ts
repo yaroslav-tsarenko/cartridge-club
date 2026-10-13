@@ -15,6 +15,15 @@ export async function POST(req: NextRequest) {
   if (!Number.isFinite(amount) || amount <= 0 || amount > 5000) {
     return NextResponse.json({ error: "Enter an amount between 1 and 5000" }, { status: 400 });
   }
+  // The acquirer requires an explicit, unticked-by-default acknowledgement that
+  // credits are platform-only and that immediate supply waives the statutory
+  // withdrawal right. Enforced server-side as well as in the form.
+  if (!body?.withdrawalWaiver) {
+    return NextResponse.json(
+      { error: "Please confirm the immediate-supply acknowledgement to continue" },
+      { status: 400 }
+    );
+  }
   const rate = CURRENCIES[currency]?.rate ?? 1;
   const amountEur = amount / rate;
 

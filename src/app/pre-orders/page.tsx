@@ -49,7 +49,7 @@ export default function PreOrderPolicyPage() {
         </a>
         .
       </p>
-      <p>An eligible cancellation receives a full refund to the original payment method. Balance-funded amounts return to Balance and may then be withdrawn under the Balance Terms.</p>
+      <p>An eligible cancellation receives a full refund to the original payment method. Balance-funded amounts return to Balance and remain usable for other purchases under the Balance Terms.</p>
       <p>Submit the request as early as possible. A cancellation cannot be treated as pre-delivery once automated fulfilment has dispatched the Key following the required immediate-supply consent.</p>
 
       <LegalHeading>After delivery</LegalHeading>

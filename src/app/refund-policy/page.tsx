@@ -6,7 +6,7 @@ const EMAIL = "info@cartridge-club.com";
 
 export default function RefundPolicyPage() {
   return (
-    <LegalPage title="Refund, Cancellation and Withdrawal Policy" updated="26 August 2026">
+    <LegalPage title="Refund, Cancellation and Withdrawal Policy" updated="13 October 2026">
       <p>
         This Policy explains when an order may be cancelled, when a refund is available and how
         Cartridge Club handles invalid, previously redeemed, revoked, undelivered or misdescribed
@@ -16,8 +16,8 @@ export default function RefundPolicyPage() {
       <LegalHeading>Scope and legal rights</LegalHeading>
       <p>
         This Policy applies to Digital Products purchased from Cartridge Club, including game
-        activation keys, third-party gift card codes and pre-orders. Balance top-ups and withdrawals
-        are governed by the Balance Terms.
+        activation keys, third-party gift card codes and pre-orders. Balance top-ups are governed by
+        the Balance Terms.
       </p>
       <p>
         This Policy supplements the Terms and Conditions. It does not exclude statutory remedies or
@@ -55,15 +55,22 @@ export default function RefundPolicyPage() {
         technically possible, redeliver the product or refund the affected amount in full.
       </p>
       <p>
-        Report a suspected technical failure to {EMAIL} with the order number and the
-        approximate time of the transaction. Confirmed duplicate charges are refunded to the original
+        Report a suspected technical failure to{" "}
+        <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
+          {EMAIL}
+        </a>{" "}
+        with the order number and the approximate time of the transaction. Confirmed duplicate charges are refunded to the original
         payment method without deduction.
       </p>
 
       <LegalHeading>Change-of-mind cancellations before delivery</LegalHeading>
       <p>
         If a Key or code has not been sent, disclosed or otherwise supplied, you may request
-        cancellation by emailing {EMAIL} with the order number and Account email.
+        cancellation by emailing{" "}
+        <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
+          {EMAIL}
+        </a>{" "}
+        with the order number and Account email.
       </p>
       <p>
         We will approve an eligible pre-delivery cancellation unless fulfilment has already begun, the
@@ -208,8 +215,11 @@ export default function RefundPolicyPage() {
 
       <LegalHeading>Chargebacks and duplicate recovery</LegalHeading>
       <p>
-        Always contact our support at {EMAIL} before initiating a chargeback with your bank
-        or card issuer. Most billing issues are resolved faster by our team than through the
+        Always contact our support at{" "}
+        <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
+          {EMAIL}
+        </a>{" "}
+        before initiating a chargeback with your bank or card issuer. Most billing issues are resolved faster by our team than through the
         chargeback process, and a chargeback filed without prior contact delays resolution for
         everyone involved.
       </p>
@@ -257,15 +267,26 @@ export default function RefundPolicyPage() {
         deadline; banks and card networks may need additional time to display the credit.
       </p>
 
-      <LegalHeading>Non-refundable credits</LegalHeading>
+      <LegalHeading>Balance credits</LegalHeading>
       <p>
         Balance credits are non-transferable virtual credits usable only within this platform. They
         are not cryptocurrency, not tradable, and not redeemable for cash.
       </p>
       <p>
+        Credits cannot be withdrawn, cashed out, paid out to a bank account or transferred to another
+        user or third party. A top-up is a purchase of platform credits, not a deposit of funds held
+        on your behalf, and there is no cash-out function anywhere on Cartridge Club.
+      </p>
+      <p>
         Once credited, Balance top-ups are non-refundable except where a refund is required by
-        mandatory law or expressly provided in the Balance Terms. Credits spent on a delivered,
-        working Key follow the delivered-Key rules above and are not returned for change of mind.
+        mandatory consumer law, or where a technical failure or unauthorised payment is confirmed
+        under this Policy. In those cases the amount is returned to the original payment method only,
+        never as a cash payout or to a third party.
+      </p>
+      <p>
+        Credits spent on a delivered, working Key follow the delivered-Key rules above and are not
+        returned for change of mind. A refund of a purchase paid from Balance is credited back to
+        Balance, where it remains usable for other purchases and remains non-withdrawable.
       </p>
     </LegalPage>
   );

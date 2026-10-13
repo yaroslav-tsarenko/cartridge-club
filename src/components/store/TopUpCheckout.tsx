@@ -29,7 +29,7 @@ export function TopUpCheckout({ amount, currency }: { amount: number; currency: 
       const res = await fetch("/api/account/topup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount, currency }),
+        body: JSON.stringify({ amount, currency, withdrawalWaiver: waived }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Top-up failed");
@@ -60,7 +60,7 @@ export function TopUpCheckout({ amount, currency }: { amount: number; currency: 
           not cryptocurrency, not tradable, and not redeemable for cash.
         </p>
         <p className="mt-2 text-xs text-muted">
-          Card statement descriptor: <strong className="text-ink">ALDERROCK LTD</strong>
+          Card statement descriptor: <strong className="text-ink">CartridgeClub</strong>
         </p>
       </div>
 

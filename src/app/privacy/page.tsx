@@ -6,11 +6,11 @@ const EMAIL = "info@cartridge-club.com";
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy" updated="26 August 2026">
+    <LegalPage title="Privacy Policy" updated="13 October 2026">
       <p>
         This Privacy Policy explains how ALDERROCK LTD collects, uses, shares, retains and protects
         personal data when individuals use Cartridge Club, create an Account, place an order, fund
-        Balance, request a withdrawal or contact support.
+        Balance or contact support.
       </p>
 
       <LegalHeading>Controller and contact details</LegalHeading>
@@ -50,7 +50,7 @@ export default function PrivacyPage() {
       </p>
       <p>
         Balance data may include top-up amount, designated currency, conversions, purchases, refunds,
-        withdrawals, reversals and available amount.
+        reversals and available amount.
       </p>
       <p>
         Technical data may include IP address, device and browser information, session identifiers,
@@ -82,7 +82,7 @@ export default function PrivacyPage() {
       <LegalHeading>Sources of data</LegalHeading>
       <p>
         We collect data directly from you when you browse, register, order, fund or use Balance,
-        request withdrawal, subscribe or contact us.
+        subscribe or contact us.
       </p>
       <p>
         We receive transaction, authentication and risk data from payment providers, card networks and
@@ -98,8 +98,7 @@ export default function PrivacyPage() {
       <LegalHeading>Purposes and lawful bases</LegalHeading>
       <p>
         We process Account, order, delivery and Balance data as necessary to enter into and perform
-        contracts with customers, including authentication, fulfilment, support, refunds and
-        withdrawals.
+        contracts with customers, including authentication, fulfilment, support and refunds.
       </p>
       <p>
         We process records where necessary to comply with legal obligations relating to accounting,
@@ -133,14 +132,16 @@ export default function PrivacyPage() {
         consistent service and evidence the resolution.
       </p>
 
-      <LegalHeading>Balance and withdrawals</LegalHeading>
+      <LegalHeading>Balance</LegalHeading>
       <p>
-        We use Balance transaction data to record top-ups, conversions, purchases, refunds,
-        withdrawals and reversals and to display an accurate available amount.
+        We use Balance transaction data to record top-ups, conversions, purchases, refunds and
+        reversals and to display an accurate available amount.
       </p>
       <p>
-        A withdrawal may require identity, Account ownership and funding-source verification to prevent
-        unauthorised payments, fraud or transfers to third parties.
+        Balance credits are usable only within Cartridge Club and cannot be withdrawn, cashed out or
+        transferred, so we do not process payout instructions or third-party beneficiary data. A
+        top-up may require identity, Account ownership and funding-source verification to prevent
+        unauthorised payments and fraud.
       </p>
       <p>
         We may temporarily restrict processing of information connected to disputed or suspicious funds
@@ -221,36 +222,82 @@ export default function PrivacyPage() {
         subject to protection of confidential and security-sensitive information.
       </p>
 
-      <LegalHeading>Retention</LegalHeading>
+      <LegalHeading>Data retention</LegalHeading>
       <p>
-        We retain Account and order information for as long as necessary to provide the service and to
-        meet legal, accounting, tax, fraud prevention, dispute and enforcement requirements.
+        We keep personal data only for as long as it is needed for the purpose it was collected for,
+        or for as long as UK and EU law requires us to keep it. Each category below has a defined
+        maximum retention period. When that period ends, the data is deleted or irreversibly
+        anonymised by an automated monthly deletion routine; nothing is kept indefinitely “just in
+        case”.
       </p>
       <p>
-        Uploaded data and provided information are stored temporarily to provide services, comply
-        with legal obligations, resolve disputes, and enforce our agreements (maximum retention
-        period: 24 months from the last interaction, unless a longer period is required by law) and
-        are automatically deleted thereafter. Backup retention does not exceed 35 days.
+        <strong>Account and profile data</strong> (name, email, address, date of birth, login
+        credentials, verification status) — retained while the Account is open and for{" "}
+        <strong>24 months</strong> after Account closure or last customer interaction, whichever is
+        later, then deleted or anonymised.
+      </p>
+      <p>
+        <strong>Order, invoice, Balance transaction and payment records</strong> (order number,
+        products, amounts, currency, VAT data, payment status, card type and last four digits,
+        delivery timestamps) — retained for <strong>6 years</strong> from the end of the financial
+        year in which the transaction occurred, to meet UK company, accounting and tax obligations
+        (Companies Act 2006 s.388 and HMRC record-keeping rules). Where an EU member state imposes a
+        longer statutory VAT or invoicing period, that record is kept for up to{" "}
+        <strong>10 years</strong>. Delivered Keys themselves are masked in our systems after{" "}
+        <strong>12 months</strong>.
+      </p>
+      <p>
+        <strong>Customer support and complaint correspondence</strong> — retained for{" "}
+        <strong>24 months</strong> from the closure of the ticket, or until any related dispute,
+        refund claim or complaint is finally resolved if that takes longer.
+      </p>
+      <p>
+        <strong>Fraud prevention, chargeback and dispute evidence</strong> (risk signals, chargeback
+        files, sanctions screening results) — retained for <strong>6 years</strong>, matching the
+        limitation period for contractual claims in England and Wales and card-scheme dispute
+        windows.
+      </p>
+      <p>
+        <strong>Security, access and technical logs</strong> (IP address, device and session data,
+        authentication events) — retained for a maximum of <strong>12 months</strong>, and for{" "}
+        <strong>30 days</strong> for routine server and application logs that contain no security
+        event.
+      </p>
+      <p>
+        <strong>Authentication tokens</strong> — password reset tokens expire after{" "}
+        <strong>1 hour</strong> and email verification tokens after <strong>24 hours</strong>; both
+        are deleted on use or expiry.
+      </p>
+      <p>
+        <strong>Marketing data and consent records</strong> — retained until you opt out, or after{" "}
+        <strong>24 months</strong> of no interaction with our marketing. A minimal suppression record
+        (email address in hashed form and opt-out date) is kept for as long as we operate marketing,
+        because deleting it would cause marketing to resume. Cookie consent records are kept for{" "}
+        <strong>12 months</strong>.
+      </p>
+      <p>
+        <strong>Analytics and cookie data</strong> — retained for a maximum of{" "}
+        <strong>13 months</strong>, in line with the Cookie Policy and EU guidance on cookie
+        lifetimes.
+      </p>
+      <p>
+        <strong>Backups and disaster recovery copies.</strong> Encrypted backups are kept on a
+        rolling <strong>35-day</strong> cycle and are automatically overwritten; no backup is
+        retained beyond 35 days. Because backups are immutable snapshots, data deleted from live
+        systems — including data deleted following an erasure request — persists in backups until the
+        relevant snapshot is overwritten, which takes no longer than 35 days. During that window the
+        data is isolated and restored only for disaster recovery, never to reinstate deleted records.
+      </p>
+      <p>
+        If an erasure request, Account closure or expiry of a retention period conflicts with a legal
+        obligation, an unresolved dispute, a live fraud investigation or a statutory limitation
+        period, we restrict processing of that data instead of deleting it and delete it once the
+        obligation ends. We will tell you when this applies and why.
       </p>
       <p>
         If you are an enterprise client, we will provide a Data Processing Agreement (DPA) upon
-        request. Requests may be sent to {EMAIL}.
-      </p>
-      <p>
-        Balance transaction and withdrawal records may be retained after Account closure where
-        necessary to evidence ownership, payments, refunds and compliance.
-      </p>
-      <p>
-        Support records are retained for a period appropriate to the issue and any related limitation
-        period. Security logs are retained for a proportionate period based on risk.
-      </p>
-      <p>
-        Marketing data is retained until opt-out or until it is no longer needed, while suppression
-        records may be kept longer to ensure that marketing does not resume.
-      </p>
-      <p>
-        When data is no longer required, we delete, anonymise or securely isolate it unless continued
-        retention is required by law.
+        request. Requests, and questions about the retention period applied to your data, may be sent
+        to {EMAIL}.
       </p>
 
       <LegalHeading>Security</LegalHeading>

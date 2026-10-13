@@ -55,14 +55,14 @@ export default function RestrictedTerritoriesPage() {
       <p>If circumvention is discovered after a valid Key has been delivered, change-of-mind refunds are not guaranteed, but statutory rights concerning faulty or misdescribed content remain unaffected.</p>
 
       <LegalHeading>Balance</LegalHeading>
-      <p>Balance top-ups, purchases and withdrawals are unavailable where the customer or transaction is connected to a Restricted Territory or prohibited person.</p>
-      <p>We may temporarily hold a withdrawal while completing sanctions, identity, payment-source or location checks required by law or proportionate risk controls.</p>
-      <p>We will not transfer Balance to a third party or to an unsupported destination as a means of bypassing this Policy.</p>
+      <p>Balance top-ups and purchases are unavailable where the customer or transaction is connected to a Restricted Territory or prohibited person.</p>
+      <p>We may temporarily hold a top-up or order while completing sanctions, identity, payment-source or location checks required by law or proportionate risk controls.</p>
+      <p>Balance credits cannot be withdrawn, cashed out or transferred, so they cannot be used to move value to a third party or to an unsupported destination.</p>
 
       <LegalHeading>Changes to the list</LegalHeading>
       <p>We may add or remove territories when legal, payment, publisher, security or operational conditions change.</p>
       <p>A change does not retrospectively invalidate a lawfully completed order, but it may prevent future orders, top-ups or delivery not yet begun.</p>
-      <p>Where practicable, affected Account holders will be given information about available Balance withdrawal or outstanding orders, subject to legal restrictions.</p>
+      <p>Where practicable, affected Account holders will be given information about remaining Balance and outstanding orders, subject to legal restrictions.</p>
 
       <LegalHeading>Local law and contact</LegalHeading>
       <p>Customers are responsible for complying with laws applicable to their purchase, import, possession, activation and use of Digital Products.</p>

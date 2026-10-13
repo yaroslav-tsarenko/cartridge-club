@@ -55,6 +55,10 @@ export function TopUpCard({ balanceEur }: { balanceEur: number }) {
         <p className="mt-2 text-[0.7rem] text-muted">
           Amounts are charged in {currency}. Balance is held in EUR for instant key purchases.
         </p>
+        <p className="mt-2 rounded-lg bg-band p-2 text-[0.7rem] text-muted">
+          Credits are non-transferable virtual credits usable only within this platform. They are not
+          cryptocurrency, not tradable, and not redeemable for cash.
+        </p>
       </div>
     </div>
   );
