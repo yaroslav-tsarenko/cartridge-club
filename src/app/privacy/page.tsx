@@ -1,356 +1,371 @@
-import { LegalPage, LegalHeading } from "@/components/site/LegalPage";
+import { LegalPage, LegalHeading, Mail } from "@/components/site/LegalPage";
 
 export const metadata = { title: "Privacy Policy — Cartridge Club" };
 
-const EMAIL = "info@cartridge-club.com";
-
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy" updated="13 October 2026">
+    <LegalPage title="Privacy Policy" updated="14 October 2026">
       <p>
         This Privacy Policy explains how ALDERROCK LTD collects, uses, shares, retains and protects
-        personal data when individuals use Cartridge Club, create an Account, place an order, fund
-        Balance or contact support.
+        personal data when you use Cartridge Club, create an Account, purchase digital products or
+        Credits, use Balance, request a refund or contact support.
       </p>
 
-      <LegalHeading>Controller and contact details</LegalHeading>
+      <LegalHeading>1. Controller and contact details</LegalHeading>
       <p>
-        ALDERROCK LTD is the controller of personal data described in this Policy. Company number:
-        17381132. Registered office: Dept 6984, 196 High Road, Wood Green, London, N22 8HH, United
-        Kingdom.
+        1.1 ALDERROCK LTD is the controller of personal data described in this Policy. Company
+        number: 17381132. Registered office: Dept 6984, 196 High Road, Wood Green, London, N22 8HH,
+        United Kingdom.
       </p>
       <p>
-        Privacy questions and data rights requests may be sent to {EMAIL}. The website is
+        1.2 Privacy questions and data rights requests may be sent to <Mail />. The website is
         https://cartridge-club.com/.
       </p>
       <p>
-        Where a payment provider, card network, bank, Platform or publisher processes data for its own
-        purposes, that organisation may act as a separate controller under its own privacy notice.
+        1.3 Where a payment provider, card network, bank, Platform or publisher processes data for
+        its own purposes, that organisation may act as a separate controller under its own privacy
+        notice.
       </p>
 
-      <LegalHeading>Scope</LegalHeading>
+      <LegalHeading>2. Scope</LegalHeading>
       <p>
-        This Policy applies to website visitors, Account holders, customers, Balance users, newsletter
-        subscribers and individuals who contact support.
+        2.1 This Policy applies to website visitors, Account holders, customers, Balance users,
+        newsletter subscribers and individuals who contact support.
       </p>
       <p>
-        It does not govern a third-party Platform or website reached through a link. Review the
+        2.2 It does not govern a third-party Platform or website reached through a link. Review the
         relevant third party’s privacy information before providing data to it.
       </p>
-      <p>Cartridge Club is intended only for persons aged 18 or older and is not directed to children.</p>
+      <p>2.3 Cartridge Club is intended only for persons aged 18 or older and is not directed to children.</p>
 
-      <LegalHeading>Data we collect</LegalHeading>
+      <LegalHeading>3. Data we collect</LegalHeading>
       <p>
-        Account and identity data may include name, email address, login identifier, age confirmation,
-        country, Account status and verification information.
+        3.1 Account and identity data may include name, email address, login identifier, age
+        confirmation, country, Account status and verification information.
       </p>
       <p>
-        Order data may include products, Keys or entitlement status, order number, price, currency,
-        payment status, delivery time, refund history and support records.
+        3.2 Order data may include products, Keys or entitlement status, order number, price,
+        currency, payment status, delivery time, refund history and support records.
       </p>
       <p>
-        Balance data may include top-up amount, designated currency, conversions, purchases, refunds,
-        reversals and available amount.
+        3.3 Balance records include top-ups, designated currency, conversions, purchases,
+        reservations, restored Credits, refunds, reversals and available Credits.
       </p>
       <p>
-        Technical data may include IP address, device and browser information, session identifiers,
-        cookie choices, security logs, timestamps, approximate location and website interactions.
+        3.4 Technical data may include IP address, device and browser information, session
+        identifiers, cookie choices, security logs, timestamps, approximate location and website
+        interactions.
       </p>
       <p>
-        Communications data includes messages, attachments and information supplied to customer
+        3.5 Communications data includes messages, attachments and information supplied to customer
         support, privacy teams or complaint handlers.
       </p>
       <p>
-        Marketing data includes newsletter subscription, consent or opt-out status, campaign
+        3.6 Marketing data includes newsletter subscription, consent or opt-out status, campaign
         interaction and product interests inferred from lawful interactions.
       </p>
 
-      <LegalHeading>Payment information</LegalHeading>
+      <LegalHeading>4. Payment information</LegalHeading>
       <p>
-        Card payments and Balance top-ups are processed through payment service providers. Card
+        4.1 Card payments and Balance top-ups are processed through payment service providers. Card
         information may be entered directly into a provider-controlled payment form.
       </p>
       <p>
-        We may receive limited payment identifiers, card type, last digits, billing country,
+        4.2 We may receive limited payment identifiers, card type, last digits, billing country,
         authentication result, transaction status, fraud indicators and chargeback information.
       </p>
       <p>
-        Do not send complete card numbers, card security codes, passwords or authentication codes to
-        Cartridge Club by email. We do not require that information for customer support.
+        4.3 Do not send complete card numbers, card security codes, passwords or authentication codes
+        to Cartridge Club by email. We do not require that information for customer support.
       </p>
 
-      <LegalHeading>Sources of data</LegalHeading>
+      <LegalHeading>5. Sources of data</LegalHeading>
       <p>
-        We collect data directly from you when you browse, register, order, fund or use Balance,
-        subscribe or contact us.
+        5.1 We collect data directly from you when you browse, register, order, top up or use
+        Balance, request a refund, subscribe or contact support.
       </p>
       <p>
-        We receive transaction, authentication and risk data from payment providers, card networks and
-        banks.
+        5.2 We receive transaction, authentication and risk data from payment providers, card
+        networks and banks.
       </p>
       <p>
-        We may receive product activation status, fraud signals or dispute information from suppliers,
-        Platforms, security providers and service partners where necessary to fulfil an order or
-        investigate a claim.
+        5.3 We may receive product activation status, fraud signals or dispute information from
+        suppliers, Platforms, security providers and service partners where necessary to fulfil an
+        order or investigate a claim.
       </p>
-      <p>We may derive approximate country, device risk or Account security information from technical data.</p>
+      <p>
+        5.4 We may derive approximate country, device risk or Account security information from
+        technical data.
+      </p>
 
-      <LegalHeading>Purposes and lawful bases</LegalHeading>
+      <LegalHeading>6. Purposes and lawful bases</LegalHeading>
       <p>
-        We process Account, order, delivery and Balance data as necessary to enter into and perform
-        contracts with customers, including authentication, fulfilment, support and refunds.
+        6.1 We process Account, order, delivery and Balance data as necessary to enter into and
+        perform contracts with customers, including authentication, fulfilment, transaction
+        recording, support and refunds.
       </p>
       <p>
-        We process records where necessary to comply with legal obligations relating to accounting,
-        tax, consumer rights, sanctions, law enforcement requests and regulatory compliance.
+        6.2 We process records where necessary to comply with legal obligations relating to
+        accounting, tax, consumer rights, sanctions, law enforcement requests and regulatory
+        compliance.
       </p>
       <p>
-        We rely on legitimate interests to secure the service, prevent fraud, enforce fair terms,
+        6.3 We rely on legitimate interests to secure the service, prevent fraud, enforce fair terms,
         improve operations, maintain evidence, understand service performance and protect customers,
         provided those interests are not overridden by individual rights.
       </p>
       <p>
-        We use consent where required for non-essential cookies and certain electronic marketing.
+        6.4 We use consent where required for non-essential cookies and certain electronic marketing.
         Consent may be withdrawn at any time without affecting earlier lawful processing.
       </p>
       <p>
-        We may process data to establish, exercise or defend legal claims and to protect vital
+        6.5 We may process data to establish, exercise or defend legal claims and to protect vital
         interests in exceptional circumstances.
       </p>
 
-      <LegalHeading>Orders, delivery and support</LegalHeading>
+      <LegalHeading>7. Orders, delivery and support</LegalHeading>
       <p>
-        We use contact and order data to confirm a purchase, send the Key, communicate changes,
+        7.1 We use contact and order data to confirm a purchase, send the Key, communicate changes,
         provide activation support and resolve delivery or refund issues.
       </p>
       <p>
-        We may share the minimum required order or activation information with a supplier, publisher or
-        Platform when necessary to validate a Key or investigate a fault.
+        7.2 We may share the minimum required order or activation information with a supplier,
+        publisher or Platform when necessary to validate a Key or investigate a fault.
       </p>
       <p>
-        Support communications may be retained with the relevant Account or order to maintain
+        7.3 Support communications may be retained with the relevant Account or order to maintain
         consistent service and evidence the resolution.
       </p>
 
-      <LegalHeading>Balance</LegalHeading>
+      <LegalHeading>8. Balance and payment transactions</LegalHeading>
       <p>
-        We use Balance transaction data to record top-ups, conversions, purchases, refunds and
-        reversals and to display an accurate available amount.
+        8.1 We use transaction data to record top-ups, conversions, purchases, restored Credits,
+        refunds, reservations and reversals and to display accurate available Credits.
       </p>
       <p>
-        Balance credits are usable only within Cartridge Club and cannot be withdrawn, cashed out or
-        transferred, so we do not process payout instructions or third-party beneficiary data. A
-        top-up may require identity, Account ownership and funding-source verification to prevent
-        unauthorised payments and fraud.
+        8.2 We may verify Account ownership, payment authority and relevant transaction details when
+        investigating a failed top-up, refund, unauthorised payment or chargeback.
       </p>
       <p>
-        We may temporarily restrict processing of information connected to disputed or suspicious funds
-        while completing proportionate checks.
+        8.3 We may preserve relevant evidence and restrict affected transactions during a
+        proportionate fraud or security investigation. Unrelated data is not retained solely because
+        another transaction is disputed.
       </p>
 
-      <LegalHeading>Fraud prevention and security</LegalHeading>
+      <LegalHeading>9. Fraud prevention and security</LegalHeading>
       <p>
-        We analyse transaction, device, network, Account and behavioural signals to detect payment
+        9.1 We analyse transaction, device, network, Account and behavioural signals to detect payment
         fraud, Account takeover, abuse, sanctions evasion and automated attacks.
       </p>
       <p>
-        Risk tools may produce scores or alerts. We may use automated signals to delay or decline a
-        transaction, with human review available where appropriate and legally required.
+        9.2 Risk tools may produce scores or alerts. We may use automated signals to delay or decline
+        a transaction, with human review available where appropriate and legally required.
       </p>
       <p>
-        You may contact support if you believe a decision was based on inaccurate information or wish
-        to provide additional context.
+        9.3 You may contact support if you believe a decision was based on inaccurate information or
+        wish to provide additional context.
       </p>
 
-      <LegalHeading>Marketing communications</LegalHeading>
+      <LegalHeading>10. Marketing communications</LegalHeading>
       <p>
-        We may send marketing email where you have consented or where a lawful existing-customer
-        exception applies.
+        10.1 We may send marketing email where you have consented or where a lawful
+        existing-customer exception applies.
       </p>
       <p>
-        A marketing subscription is separate from service messages needed for an order, Account,
+        10.2 A marketing subscription is separate from service messages needed for an order, Account,
         security event, Balance transaction or policy change.
       </p>
       <p>
-        Every marketing email will provide an unsubscribe method. You may also opt out by contacting
-        us. We may retain a suppression record to respect the opt-out.
+        10.3 Every marketing email will provide an unsubscribe method. You may also opt out by
+        contacting us. We may retain a suppression record to respect the opt-out.
       </p>
       <p>
-        We do not treat an email supplied solely for delivery of a Key or receipt as blanket consent to
-        unrelated marketing.
-      </p>
-
-      <LegalHeading>Cookies and similar technologies</LegalHeading>
-      <p>
-        We use necessary cookies for security, sessions, Account access, cart functions, currency and
-        consent preferences.
-      </p>
-      <p>
-        With required consent, we may use analytics, advertising or similar technologies to understand
-        performance and measure campaigns.
-      </p>
-      <p>Details and controls are provided in the Cookie Policy and the website’s cookie settings tool.</p>
-
-      <LegalHeading>Recipients and service providers</LegalHeading>
-      <p>
-        We may disclose relevant data to payment processors, acquiring banks, card networks, fraud and
-        identity verification providers, hosting and infrastructure providers, email delivery services,
-        customer support tools, analytics providers and professional advisers.
-      </p>
-      <p>
-        We may disclose limited information to publishers, suppliers or Platforms where necessary to
-        fulfil an order, validate a Key, resolve an activation problem or investigate misuse.
-      </p>
-      <p>
-        We may share data with regulators, courts, law enforcement, tax authorities or other public
-        bodies where required by law or necessary to protect legal rights.
-      </p>
-      <p>
-        If the business or relevant assets are reorganised, sold or transferred, data may be disclosed
-        under appropriate confidentiality and legal safeguards.
+        10.4 We do not treat an email supplied solely for delivery of a Key or receipt as blanket
+        consent to unrelated marketing.
       </p>
 
-      <LegalHeading>International transfers</LegalHeading>
-      <p>Some service providers or recipients may process personal data outside the United Kingdom.</p>
+      <LegalHeading>11. Cookies and similar technologies</LegalHeading>
       <p>
-        Where transfer restrictions apply, we use an adequacy regulation, the UK International Data
-        Transfer Agreement, the UK Addendum to approved standard contractual clauses or another lawful
-        safeguard.
+        11.1 We use necessary cookies for security, sessions, Account access, cart functions,
+        currency and consent preferences.
       </p>
       <p>
-        You may contact us for information about the safeguard relevant to a restricted transfer,
-        subject to protection of confidential and security-sensitive information.
+        11.2 With required consent, we may use analytics, advertising or similar technologies to
+        understand performance and measure campaigns.
+      </p>
+      <p>11.3 Details and controls are provided in the Cookie Policy and the website’s cookie settings tool.</p>
+
+      <LegalHeading>12. Recipients and service providers</LegalHeading>
+      <p>
+        12.1 We may disclose relevant data to payment processors, acquiring banks, card networks,
+        fraud and identity verification providers, hosting and infrastructure providers, email
+        delivery services, customer support tools, analytics providers and professional advisers.
+      </p>
+      <p>
+        12.2 We may disclose limited information to publishers, suppliers or Platforms where
+        necessary to fulfil an order, validate a Key, resolve an activation problem or investigate
+        misuse.
+      </p>
+      <p>
+        12.3 We may share data with regulators, courts, law enforcement, tax authorities or other
+        public bodies where required by law or necessary to protect legal rights.
+      </p>
+      <p>
+        12.4 If the business or relevant assets are reorganised, sold or transferred, data may be
+        disclosed under appropriate confidentiality and legal safeguards.
       </p>
 
-      <LegalHeading>Data retention</LegalHeading>
+      <LegalHeading>13. International transfers</LegalHeading>
+      <p>13.1 Some service providers or recipients may process personal data outside the United Kingdom.</p>
       <p>
-        We keep personal data only for as long as it is needed for the purpose it was collected for,
-        or for as long as UK and EU law requires us to keep it. Each category below has a defined
-        maximum retention period. When that period ends, the data is deleted or irreversibly
-        anonymised by an automated monthly deletion routine; nothing is kept indefinitely “just in
-        case”.
+        13.2 Where transfer restrictions apply, we use an adequacy regulation, the UK International
+        Data Transfer Agreement, the UK Addendum to approved standard contractual clauses or another
+        lawful safeguard.
       </p>
       <p>
-        <strong>Account and profile data</strong> (name, email, address, date of birth, login
-        credentials, verification status) — retained while the Account is open and for{" "}
-        <strong>24 months</strong> after Account closure or last customer interaction, whichever is
-        later, then deleted or anonymised.
-      </p>
-      <p>
-        <strong>Order, invoice, Balance transaction and payment records</strong> (order number,
-        products, amounts, currency, VAT data, payment status, card type and last four digits,
-        delivery timestamps) — retained for <strong>6 years</strong> from the end of the financial
-        year in which the transaction occurred, to meet UK company, accounting and tax obligations
-        (Companies Act 2006 s.388 and HMRC record-keeping rules). Where an EU member state imposes a
-        longer statutory VAT or invoicing period, that record is kept for up to{" "}
-        <strong>10 years</strong>. Delivered Keys themselves are masked in our systems after{" "}
-        <strong>12 months</strong>.
-      </p>
-      <p>
-        <strong>Customer support and complaint correspondence</strong> — retained for{" "}
-        <strong>24 months</strong> from the closure of the ticket, or until any related dispute,
-        refund claim or complaint is finally resolved if that takes longer.
-      </p>
-      <p>
-        <strong>Fraud prevention, chargeback and dispute evidence</strong> (risk signals, chargeback
-        files, sanctions screening results) — retained for <strong>6 years</strong>, matching the
-        limitation period for contractual claims in England and Wales and card-scheme dispute
-        windows.
-      </p>
-      <p>
-        <strong>Security, access and technical logs</strong> (IP address, device and session data,
-        authentication events) — retained for a maximum of <strong>12 months</strong>, and for{" "}
-        <strong>30 days</strong> for routine server and application logs that contain no security
-        event.
-      </p>
-      <p>
-        <strong>Authentication tokens</strong> — password reset tokens expire after{" "}
-        <strong>1 hour</strong> and email verification tokens after <strong>24 hours</strong>; both
-        are deleted on use or expiry.
-      </p>
-      <p>
-        <strong>Marketing data and consent records</strong> — retained until you opt out, or after{" "}
-        <strong>24 months</strong> of no interaction with our marketing. A minimal suppression record
-        (email address in hashed form and opt-out date) is kept for as long as we operate marketing,
-        because deleting it would cause marketing to resume. Cookie consent records are kept for{" "}
-        <strong>12 months</strong>.
-      </p>
-      <p>
-        <strong>Analytics and cookie data</strong> — retained for a maximum of{" "}
-        <strong>13 months</strong>, in line with the Cookie Policy and EU guidance on cookie
-        lifetimes.
-      </p>
-      <p>
-        <strong>Backups and disaster recovery copies.</strong> Encrypted backups are kept on a
-        rolling <strong>35-day</strong> cycle and are automatically overwritten; no backup is
-        retained beyond 35 days. Because backups are immutable snapshots, data deleted from live
-        systems — including data deleted following an erasure request — persists in backups until the
-        relevant snapshot is overwritten, which takes no longer than 35 days. During that window the
-        data is isolated and restored only for disaster recovery, never to reinstate deleted records.
-      </p>
-      <p>
-        If an erasure request, Account closure or expiry of a retention period conflicts with a legal
-        obligation, an unresolved dispute, a live fraud investigation or a statutory limitation
-        period, we restrict processing of that data instead of deleting it and delete it once the
-        obligation ends. We will tell you when this applies and why.
-      </p>
-      <p>
-        If you are an enterprise client, we will provide a Data Processing Agreement (DPA) upon
-        request. Requests, and questions about the retention period applied to your data, may be sent
-        to {EMAIL}.
+        13.3 You may contact us for information about the safeguard relevant to a restricted
+        transfer, subject to protection of confidential and security-sensitive information.
       </p>
 
-      <LegalHeading>Security</LegalHeading>
+      <LegalHeading>14. Data retention and automatic deletion</LegalHeading>
       <p>
-        We use proportionate technical and organisational measures designed to protect personal data
-        against unauthorised access, loss, alteration and disclosure.
+        14.1 We apply the category-specific periods below. We retain only the data needed for the
+        stated purpose and use irreversible anonymisation where identification is no longer
+        necessary. The accounting retention period does not apply automatically to every item of
+        profile, technical or marketing data.
       </p>
       <p>
-        Measures may include access controls, authentication, encryption in transit, monitoring,
+        14.2 Account profile, settings and login data: while the Account is active and needed to
+        provide the service. Following closure, data not needed for another identified purpose is
+        automatically deleted within 30 days. Necessary transaction records are kept separately for
+        the periods below.
+      </p>
+      <p>
+        14.3 Inactive Accounts: after 24 months without a login, purchase or top-up, an Account may
+        be scheduled for closure only if it has no Credits, outstanding orders, unresolved disputes
+        or other obligations requiring continued access. We give at least 30 days’ notice. If it is
+        closed, unnecessary profile data is automatically deleted within 30 days. Remaining Credits
+        do not expire because of inactivity.
+      </p>
+      <p>
+        14.4 Order, payment, top-up, refund and accounting records: six years after the end of the
+        accounting period to which they relate. This includes only identifiers and supporting records
+        needed for accounting, tax, proof of delivery and related legal obligations. A longer period
+        applies only where required by a specific law, ongoing tax enquiry or documented legal hold.
+      </p>
+      <p>
+        14.5 Ordinary support correspondence and attachments: 24 months after the ticket is closed.
+        Relevant evidence needed for an accounting record or an identified claim is retained
+        separately under the applicable transaction period or legal hold. Other attachments are not
+        retained automatically for six years.
+      </p>
+      <p>
+        14.6 Identity verification documents, where collected by us: copies are automatically deleted
+        within 90 days after verification is completed unless a specific legal obligation or
+        documented hold requires retention. A minimal verification result may be retained with the
+        relevant transaction record. We do not retain full identity documents solely because a
+        verification result must be kept.
+      </p>
+      <p>
+        14.7 Routine technical and security logs: 180 days from recording. Only evidence necessary
+        for an identified security incident, fraud case or legal claim is retained separately while
+        that matter requires it.
+      </p>
+      <p>
+        14.8 Identifiable analytics data, where used: no more than 12 months from the recorded event.
+        Aggregate data that no longer identifies an individual may be kept longer.
+      </p>
+      <p>
+        14.9 Marketing profile and preferences: until you unsubscribe or complete 24 months without
+        relevant interaction, whichever occurs first. The profile is removed from active marketing
+        systems promptly and unnecessary profile data is automatically deleted within 30 days. We
+        keep only minimal suppression information to prevent further unwanted marketing.
+      </p>
+      <p>
+        14.10 Consent evidence and suppression records: up to six years after consent is withdrawn or
+        last relied upon, or after an opt-out is recorded, as applicable and only while necessary to
+        demonstrate lawful processing or honour the opt-out. Before deleting a suppression record, we
+        ensure the related address is removed from marketing sources that could reactivate unwanted
+        messages.
+      </p>
+      <p>
+        14.11 After an ordinary retention period expires, live-system data is automatically deleted
+        or irreversibly anonymised within 30 days. Where a category expressly states a deletion
+        deadline, such as 90 days for identity document copies or 30 days after Account closure, that
+        deadline already includes processing time and is not extended by a further 30 days.
+      </p>
+      <p>
+        14.12 Backups are automatically overwritten or deleted no later than 35 days after creation.
+        Data deleted from live systems may remain in an existing backup for no more than a further 35
+        days. It is placed beyond ordinary use and is not used for marketing, Account activity or
+        other operational purposes during that period.
+      </p>
+      <p>
+        14.13 If a backup is restored for disaster recovery, applicable deletion instructions are
+        reapplied before the restored data is returned to ordinary use. Routine backups are not used
+        to extend the retention periods above.
+      </p>
+      <p>
+        14.14 A documented legal hold applies only to records needed for an identified dispute,
+        investigation or legal obligation. Access is restricted and the need is reviewed at least
+        every six months. Records are deleted within 30 days after the hold ends and any otherwise
+        applicable retention period has expired. We record the reason for retaining relevant records
+        beyond their ordinary period.
+      </p>
+      <p>
+        14.15 These schedules apply to data under our control, including processors acting on our
+        instructions. Banks, payment providers and Platforms acting as separate controllers may have
+        their own retention duties and privacy notices. Their independent processing is not described
+        as deletion controlled by Cartridge Club.
+      </p>
+
+      <LegalHeading>15. Security</LegalHeading>
+      <p>
+        15.1 We use proportionate technical and organisational measures designed to protect personal
+        data against unauthorised access, loss, alteration and disclosure.
+      </p>
+      <p>
+        15.2 Measures may include access controls, authentication, encryption in transit, monitoring,
         backups, supplier due diligence and incident response procedures.
       </p>
       <p>
-        No online system is completely secure. You must use a unique password, protect the email
+        15.3 No online system is completely secure. You must use a unique password, protect the email
         Account used for delivery and notify us promptly of suspected compromise.
       </p>
 
-      <LegalHeading>Your rights</LegalHeading>
+      <LegalHeading>16. Your rights</LegalHeading>
       <p>
-        Depending on applicable law and the processing, you may request access, correction, deletion,
-        restriction, portability or objection and may withdraw consent.
+        16.1 Depending on applicable law and the processing, you may request access, correction,
+        deletion, restriction, portability or objection and may withdraw consent.
       </p>
       <p>
-        The right to object to direct marketing applies at any time. Other rights may be limited where
-        processing is required by law, contract, compelling legitimate grounds or legal claims.
+        16.2 The right to object to direct marketing applies at any time. Other rights may be limited
+        where processing is required by law, contract, compelling legitimate grounds or legal claims.
       </p>
       <p>
-        We may request information reasonably necessary to confirm identity and prevent disclosure to
-        an unauthorised person.
+        16.3 We may request information reasonably necessary to confirm identity and prevent
+        disclosure to an unauthorised person.
       </p>
       <p>
-        We respond within the period required by applicable law and will explain if a request is
+        16.4 We respond within the period required by applicable law and will explain if a request is
         restricted or refused.
       </p>
 
-      <LegalHeading>Complaints</LegalHeading>
+      <LegalHeading>17. Complaints</LegalHeading>
       <p>
-        Contact us first at{" "}
-        <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
-          {EMAIL}
-        </a>{" "}
-        so we can investigate a privacy concern.
+        17.1 Contact us first at <Mail /> so we can investigate a privacy concern.
       </p>
       <p>
-        You may complain to the UK Information Commissioner’s Office at https://ico.org.uk/ or to
-        another competent data protection authority where applicable.
+        17.2 You may complain to the UK Information Commissioner’s Office at https://ico.org.uk/ or
+        to another competent data protection authority where applicable.
       </p>
-      <p>Raising a complaint does not affect any other legal remedy available to you.</p>
+      <p>17.3 Raising a complaint does not affect any other legal remedy available to you.</p>
 
-      <LegalHeading>Changes to this Policy</LegalHeading>
-      <p>We may update this Policy to reflect legal, technical, supplier or business changes.</p>
+      <LegalHeading>18. Changes to this Policy</LegalHeading>
+      <p>18.1 We may update this Policy to reflect legal, technical, supplier or business changes.</p>
       <p>
-        The current version and effective date will be published on Cartridge Club. Material changes
-        will be brought to users’ attention where required.
+        18.2 The current version and effective date will be published on Cartridge Club. Material
+        changes will be brought to users’ attention where required.
       </p>
     </LegalPage>
   );

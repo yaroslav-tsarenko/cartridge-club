@@ -118,6 +118,14 @@ export function orderEmail(opts: {
     `<p style="font-size:15px;line-height:1.6">Thanks, ${opts.name}! Your game keys are below and your PDF invoice is attached.</p>
      <table width="100%" cellpadding="0" cellspacing="0" style="margin:16px 0">${rows}</table>
      <p style="font-size:16px"><strong>Total paid: ${opts.total}</strong></p>
-     <p style="font-size:13px;color:#6b7280">Activation help is on your account dashboard under each order.</p>`
+     <p style="font-size:13px;color:#6b7280">Activation help is on your account dashboard under each order.</p>
+     <p style="font-size:12px;color:#6b7280;border-top:1px solid #e6ddca;padding-top:12px;margin-top:16px">
+       Card statement descriptor: <strong>CartridgeClub</strong>.<br/>
+       At checkout you requested immediate delivery of this digital content and acknowledged:
+       &ldquo;I understand that by purchasing digital goods and requesting immediate delivery, I waive my
+       statutory right of withdrawal once delivery begins.&rdquo; This confirms that consent and
+       acknowledgement for your records. Remedies for a faulty, invalid or misdescribed Key are
+       unaffected.
+     </p>`
   );
 }

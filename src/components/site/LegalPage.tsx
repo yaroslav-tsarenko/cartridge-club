@@ -28,3 +28,14 @@ export function LegalPage({
 export function LegalHeading({ children }: { children: React.ReactNode }) {
   return <h2 className="font-heading text-lg text-ink">{children}</h2>;
 }
+
+export const LEGAL_EMAIL = "info@cartridge-club.com";
+
+/** The contact address, rendered as a mailto link wherever a policy cites it. */
+export function Mail() {
+  return (
+    <a className="text-cobalt hover:underline" href={`mailto:${LEGAL_EMAIL}`}>
+      {LEGAL_EMAIL}
+    </a>
+  );
+}

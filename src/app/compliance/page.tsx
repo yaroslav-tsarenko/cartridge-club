@@ -13,7 +13,11 @@ const SHOTS = "/compliance/screenshots";
 export default function CompliancePage() {
   return (
     <>
-      <Header />
+      {/* Site chrome and the download list are omitted when the page is printed
+          to PDF for sending — the PDF is the document itself. */}
+      <div className="print:hidden">
+        <Header />
+      </div>
       <main id="main" className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <p className="cc-tag text-[0.65rem] text-muted">For payment provider review</p>
         <h1 className="mt-2 font-display text-4xl">Compliance pack</h1>
@@ -23,7 +27,7 @@ export default function CompliancePage() {
           <a className="text-cobalt hover:underline" href="mailto:info@cartridge-club.com">
             info@cartridge-club.com
           </a>{" "}
-          · Last updated 13 October 2026
+          · Last updated 14 October 2026
         </p>
 
         <p className="mt-5 text-sm leading-relaxed text-ink/90">
@@ -32,7 +36,7 @@ export default function CompliancePage() {
           Confirmation email and invoice the customer receives after payment.
         </p>
 
-        <div className="cc-outline-plate mt-6 rounded-card bg-card p-5">
+        <div className="cc-outline-plate mt-6 rounded-card bg-card p-5 print:hidden">
           <h2 className="font-heading text-lg">Attachments</h2>
           <p className="mt-1 text-sm text-muted">
             Everything in this pack, downloadable from this page.
@@ -80,26 +84,26 @@ export default function CompliancePage() {
             rows={[
               [
                 <Lnk key="bt" href="/balance-terms">/balance-terms</Lnk>,
-                'Rewritten. The former “Withdrawal of available Balance” section is replaced by “No cash-out, no transfer”. Eligibility, currency conversion, refunds, payment reversals, security, account closure and records no longer reference withdrawals.',
+                "Rewritten. Clauses 1.2 and 1.3 define Credits as non-transferable virtual credits that are not redeemable for cash and cannot be sold, assigned, gifted or transferred between Accounts. The former cash-redemption section is gone; clause 7 covers top-up corrections and payment errors without creating a right to redeem Credits for money.",
               ],
               [
                 <Lnk key="t" href="/terms">/terms</Lnk>,
-                "The Balance clause no longer offers withdrawal through customer support and now carries the non-transferable-credits wording. The Payment section states the card statement descriptor.",
+                "Clause 9 defines Balance as the feature displaying Credits and repeats the non-transferable, not-redeemable-for-cash wording. Clause 8.5 states the card statement descriptor; clause 10 covers immediate supply and the withdrawal acknowledgement.",
               ],
               [
                 <Lnk key="p" href="/privacy">/privacy</Lnk>,
-                "“Balance and withdrawals” renamed to “Balance”; the policy states that no payout instructions or third-party beneficiary data are processed.",
+                "Section 8 covers Balance and payment transactions — recording top-ups, purchases, restored Credits, refunds and reversals. No payout instructions or third-party beneficiary data are processed.",
               ],
               [
                 <Lnk key="r" href="/refund-policy">/refund-policy</Lnk>,
-                "Credits cannot be withdrawn, cashed out, paid to a bank account or transferred. Where mandatory law or a confirmed error requires a reimbursement, it goes to the original payment method only.",
+                "Section 17 repeats that Credits are not redeemable for cash. Card purchases are refunded to the original payment route and Credits-funded purchases restore Credits (section 12); a payment correction does not create an entitlement to redeem Credits for money (clause 3.3).",
               ],
               [
                 <span key="o" className="flex flex-wrap gap-x-1">
                   <Lnk href="/pre-orders">/pre-orders</Lnk>,{" "}
                   <Lnk href="/restricted-territories">/restricted-territories</Lnk>
                 </span>,
-                "Remaining withdrawal references replaced: refunded amounts return to Balance and stay usable for purchases.",
+                "Cancelled pre-orders are refunded through the original payment route and restore Credits. Credits cannot be transferred to another Account or used to bypass territory restrictions, and paid Credits are not forfeited merely because the territory list changes.",
               ],
             ]}
           />
@@ -133,31 +137,56 @@ export default function CompliancePage() {
           <Table
             head={["Data category", "Retention"]}
             rows={[
-              ["Account and profile data", "24 months after account closure or last interaction"],
               [
-                "Orders, invoices, Balance transactions, payment records",
-                "6 years from the end of the financial year (Companies Act 2006 s.388, HMRC); up to 10 years where an EU member state’s VAT rules require it. Delivered keys masked after 12 months",
+                "Account profile, settings and login data",
+                "While the Account is active; after closure, data not needed for another identified purpose is automatically deleted within 30 days",
               ],
-              ["Customer support and complaint correspondence", "24 months after the ticket closes, or until a related dispute ends"],
-              ["Fraud, chargeback and dispute evidence", "6 years"],
-              ["Security, access and technical logs", "12 months; 30 days for routine logs without a security event"],
-              ["Password reset / email verification tokens", "1 hour / 24 hours, deleted on use or expiry"],
               [
-                "Marketing and consent records",
-                "Until opt-out or 24 months without interaction; hashed suppression record kept while marketing operates; cookie consent 12 months",
+                "Inactive Accounts",
+                "After 24 months without a login, purchase or top-up an Account may be scheduled for closure, but only if it holds no Credits, orders, disputes or other obligations, and only after at least 30 days’ notice",
               ],
-              ["Analytics and cookie data", "13 months"],
+              [
+                "Order, payment, top-up, refund and accounting records",
+                "Six years after the end of the accounting period, limited to the identifiers and records needed for accounting, tax and proof of delivery. Longer only under a specific law, tax enquiry or documented legal hold",
+              ],
+              [
+                "Support correspondence and attachments",
+                "24 months after the ticket is closed; evidence needed for an accounting record or identified claim is kept separately",
+              ],
+              [
+                "Identity verification documents",
+                "Copies deleted within 90 days of completed verification; only a minimal verification result is kept with the transaction record",
+              ],
+              ["Routine technical and security logs", "180 days; incident or fraud evidence kept separately while that matter requires it"],
+              ["Identifiable analytics data", "No more than 12 months from the recorded event"],
+              [
+                "Marketing profile and preferences",
+                "Until unsubscribe or 24 months without relevant interaction; profile data deleted within 30 days, minimal suppression information retained",
+              ],
+              [
+                "Consent evidence and suppression records",
+                "Up to six years after consent is withdrawn or an opt-out is recorded, only while needed to demonstrate lawful processing or honour the opt-out",
+              ],
+              [
+                "Expiry of any ordinary period",
+                "Live-system data automatically deleted or irreversibly anonymised within 30 days",
+              ],
               [
                 "Backups and disaster recovery copies",
-                "Encrypted, rolling 35-day cycle, automatically overwritten. Data deleted from live systems, including after an erasure request, disappears from backups within 35 days",
+                "Overwritten or deleted no later than 35 days after creation. Data deleted from live systems may persist in an existing backup for no more than a further 35 days, placed beyond ordinary use; deletion instructions are reapplied before a restored backup returns to use",
+              ],
+              [
+                "Legal holds",
+                "Applied only to records needed for an identified dispute, investigation or legal obligation, access restricted and reviewed at least every six months; deleted within 30 days after the hold ends",
               ],
             ]}
           />
           <p>
-            The policy also covers legal holds: where an erasure request or an expiring retention
-            period conflicts with a statutory obligation, an unresolved dispute, a live fraud
-            investigation or a limitation period, processing is restricted instead of deleted, the
-            data is deleted once the obligation ends, and the customer is told that this applies.
+            The schedule applies to data under our control, including processors acting on our
+            instructions. Banks, payment providers and Platforms acting as separate controllers keep
+            their own records under their own notices, which the policy does not present as deletion
+            controlled by Cartridge Club. Accounts holding Credits are excluded from automatic
+            inactivity closure, so Credits are never lost to a deletion routine.
           </p>
         </Section>
 
@@ -176,7 +205,9 @@ export default function CompliancePage() {
             A mandatory checkbox, unticked by default, must be accepted before payment can be
             submitted. It is shown to every customer, not only to EU/UK customers, and is enforced
             both in the form and on the server — a request without the acknowledgement is rejected.
-            The same acknowledgement is required for a Balance top-up.
+            The checkbox records both the express request for immediate delivery and the
+            acknowledgement, and the order confirmation email repeats them so the customer keeps the
+            confirmation on a durable medium.
           </p>
           <Quote>
             I understand that by purchasing digital goods and requesting immediate delivery, I waive
@@ -196,8 +227,8 @@ export default function CompliancePage() {
         {/* ── 4 ───────────────────────────────────────── */}
         <Section n="4" title="Refund Policy">
           <p>
-            The <Lnk href="/refund-policy">Refund, Cancellation and Withdrawal Policy</Lnk> has been
-            reviewed against each item requested and contains:
+            The <Lnk href="/refund-policy">Refund and Cancellation Policy</Lnk> has been reviewed
+            against each item requested and contains:
           </p>
           <ul className="ml-5 list-disc space-y-1.5">
             <li>
@@ -212,25 +243,37 @@ export default function CompliancePage() {
               deduction.
             </li>
             <li>
-              <strong>Response times</strong> — acknowledged within 2 business days, substantive
-              decision within 14 days of receiving the information needed to investigate.
+              <strong>Response times</strong> (section 16) — acknowledged within 2 business days,
+              Monday to Friday excluding public holidays in England and Wales; substantive decision
+              within 14 calendar days of receiving the request, with any shorter statutory deadline
+              taking precedence.
             </li>
             <li>
-              <strong>Submission window</strong> — refund and dispute requests within 30 days of
-              purchase, longer where mandatory consumer law provides.
+              <strong>Refund release</strong> (section 12) — released without undue delay and, for
+              applicable UK statutory digital-content refunds, no later than 14 calendar days after
+              agreeing entitlement; card refunds go to the original payment route and are not
+              replaced with Credits without the customer’s agreement.
             </li>
             <li>
-              <strong>Chargeback procedure</strong> — contact support first, no duplicate recovery
-              for the same transaction, handling of abusive chargebacks, without limiting the right
-              to dispute an unauthorised transaction.
+              <strong>Submission window</strong> (section 15) — standard requests within 30 calendar
+              days of purchase. This administrative window does not shorten statutory rights, and
+              pre-orders and later-discovered problems are not rejected merely because 30 days have
+              passed.
+            </li>
+            <li>
+              <strong>Chargeback procedure</strong> (section 13) — customers are encouraged to
+              contact support first so we can resolve the issue, but that is expressly not a
+              condition of their right to contact their bank or dispute a transaction. No duplicate
+              recovery for the same amount; a good-faith dispute is not treated as abuse.
             </li>
             <li>
               <strong>Billing contact</strong> — info@cartridge-club.com, linked in the
-              technical-failure, cancellation, chargeback and dispute sections.
+              cancellation, chargeback and support sections.
             </li>
             <li>
-              <strong>No contradictions on Balance</strong> — credits are non-withdrawable;
-              reimbursement, where legally required, is made to the original payment method only.
+              <strong>No contradictions on Balance</strong> (section 17) — Credits are not redeemable
+              for cash; a payment correction does not create an entitlement to redeem Credits for
+              money, and refunds of Credits-funded purchases restore Credits.
             </li>
           </ul>
         </Section>
@@ -272,7 +315,9 @@ export default function CompliancePage() {
           </div>
         </Section>
       </main>
-      <Footer />
+      <div className="print:hidden">
+        <Footer />
+      </div>
     </>
   );
 }

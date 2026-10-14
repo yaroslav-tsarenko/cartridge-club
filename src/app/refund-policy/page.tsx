@@ -1,292 +1,321 @@
-import { LegalPage, LegalHeading } from "@/components/site/LegalPage";
+import { LegalPage, LegalHeading, Mail } from "@/components/site/LegalPage";
 
-export const metadata = { title: "Refund Policy — Cartridge Club" };
-
-const EMAIL = "info@cartridge-club.com";
+export const metadata = { title: "Refund & Cancellation Policy — Cartridge Club" };
 
 export default function RefundPolicyPage() {
   return (
-    <LegalPage title="Refund, Cancellation and Withdrawal Policy" updated="13 October 2026">
+    <LegalPage title="Refund and Cancellation Policy" updated="14 October 2026">
       <p>
         This Policy explains when an order may be cancelled, when a refund is available and how
         Cartridge Club handles invalid, previously redeemed, revoked, undelivered or misdescribed
         digital products.
       </p>
 
-      <LegalHeading>Scope and legal rights</LegalHeading>
+      <LegalHeading>1. Scope and legal rights</LegalHeading>
       <p>
-        This Policy applies to Digital Products purchased from Cartridge Club, including game
-        activation keys, third-party gift card codes and pre-orders. Balance top-ups are governed by
-        the Balance Terms.
+        1.1 This Policy applies to Digital Products purchased from Cartridge Club, including game
+        Keys, third-party gift card codes and pre-orders, and to top-up errors and refunds. The
+        Balance Terms additionally govern Credits.
       </p>
       <p>
-        This Policy supplements the Terms and Conditions. It does not exclude statutory remedies or
-        other mandatory rights available under applicable consumer law.
+        1.2 This Policy supplements the Terms and Conditions. It does not exclude statutory remedies
+        or other mandatory rights available under applicable consumer law.
       </p>
       <p>
-        For UK consumers, digital content must be of satisfactory quality, fit for any purpose made
-        known to us and as described. Remedies may include repair or replacement and, where the legal
-        conditions are met, a price reduction or refund.
-      </p>
-
-      <LegalHeading>Refund eligibility at a glance</LegalHeading>
-      <p>A refund or replacement is normally available where:</p>
-      <p>
-        (a) the Key is invalid, rejected or shown as already redeemed before delivery to you; (b) the
-        Key was revoked without customer fault; (c) the product is materially misdescribed or
-        activates a different product from the accepted order; (d) an accepted order cannot be
-        delivered within a reasonable time; (e) a pre-order is cancelled before any Key or
-        entitlement is disclosed; or (f) a refund is otherwise required by mandatory consumer law.
-      </p>
-      <p>A refund is normally not available where:</p>
-      <p>
-        (a) a correctly described, working Key has already been sent or revealed; (b) the customer
-        selected the wrong Platform, region, edition or language, or does not meet system
-        requirements disclosed before purchase; (c) the customer changed their mind after delivery
-        began following the withdrawal waiver given at checkout; or (d) the Key was successfully
-        redeemed by the customer or by someone to whom the customer disclosed it.
+        1.3 For UK consumers, digital content must be of satisfactory quality, fit for any purpose
+        made known to us and as described. Remedies may include repair or replacement and, where the
+        legal conditions are met, a price reduction or refund.
       </p>
 
-      <LegalHeading>Technical failure refunds</LegalHeading>
+      <LegalHeading>2. Refund eligibility</LegalHeading>
       <p>
-        If a technical failure on our side prevents completion of a paid order — for example a
-        payment is captured but no Key is issued, the same order is charged twice, or a delivery
-        system error makes the Key permanently unavailable — we will, at your choice and where
-        technically possible, redeliver the product or refund the affected amount in full.
+        2.1 A refund, replacement or other applicable remedy is available for confirmed invalid Keys,
+        Keys already redeemed before delivery, revocation without customer fault, materially
+        incorrect products, non-delivery, duplicate charges, failed top-ups and other circumstances
+        covered by mandatory law.
       </p>
       <p>
-        Report a suspected technical failure to{" "}
-        <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
-          {EMAIL}
-        </a>{" "}
-        with the order number and the approximate time of the transaction. Confirmed duplicate charges are refunded to the original
-        payment method without deduction.
-      </p>
-
-      <LegalHeading>Change-of-mind cancellations before delivery</LegalHeading>
-      <p>
-        If a Key or code has not been sent, disclosed or otherwise supplied, you may request
-        cancellation by emailing{" "}
-        <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
-          {EMAIL}
-        </a>{" "}
-        with the order number and Account email.
+        2.2 A refund is normally unavailable solely because a customer dislikes a correctly described
+        product, selected the wrong Platform or region despite accurate disclosure, or changes their
+        mind after the applicable cancellation right has lawfully ended.
       </p>
       <p>
-        We will approve an eligible pre-delivery cancellation unless fulfilment has already begun, the
-        Key has been dispatched, or a legal or technical restriction prevents cancellation.
-      </p>
-      <p>
-        An approved cancellation is refunded to the original payment method. Amounts paid from Balance
-        are restored to Balance unless applicable law requires or we agree to another method.
+        2.3 Delivery or activation does not remove rights relating to defective or misdescribed
+        products. We assess the cause of a reported problem rather than rejecting it solely because a
+        Key was activated.
       </p>
 
-      <LegalHeading>Immediate supply and the cancellation period</LegalHeading>
+      <LegalHeading>3. Technical failures and payment errors</LegalHeading>
       <p>
-        Where a statutory cancellation period applies to digital content, we request prior express
-        consent to begin supply immediately and acknowledgement that the cancellation right will be
-        lost once supply begins.
+        3.1 If a technical failure prevents delivery after payment, we investigate promptly and, as
+        appropriate, redeliver the product or refund the affected transaction. If fulfilment is
+        impossible, an accepted order is refunded.
       </p>
       <p>
-        Because an in-stock Key is normally emailed after payment, the ordinary change-of-mind
-        cancellation right generally ends when the Key is dispatched following that consent and
-        acknowledgement.
+        3.2 A confirmed duplicate charge is refunded to the original payment route without deduction.
+        If a top-up payment is captured but Credits are not added, we reconcile the payment and
+        correct the missing Credits or refund the failed transaction as appropriate.
       </p>
       <p>
-        If the required consent or acknowledgement was not properly obtained, your legal cancellation
-        rights remain unaffected and will be assessed under applicable law.
-      </p>
-
-      <LegalHeading>Delivered or disclosed Keys</LegalHeading>
-      <p>
-        A correctly described and functioning Key that has been sent to the order email address is
-        normally not refundable for change of mind, accidental purchase or failure to check Platform,
-        region, edition, language or system requirements.
-      </p>
-      <p>
-        This restriction is necessary because a disclosed Key can be copied, redeemed or transferred
-        and cannot reliably be returned as unused.
-      </p>
-      <p>
-        The restriction does not apply where the Key is invalid, previously redeemed before delivery,
-        revoked without customer fault, materially misdescribed or otherwise fails to conform to the
-        contract.
+        3.3 If a refunded or reversed top-up had already created Credits, the corresponding Credits
+        are reversed to prevent double recovery. A payment correction does not create an ordinary
+        entitlement to redeem Credits for money.
       </p>
 
-      <LegalHeading>Invalid, used, revoked or incorrect Keys</LegalHeading>
+      <LegalHeading>4. Change-of-mind cancellations before delivery</LegalHeading>
       <p>
-        Contact support promptly if a Key is rejected as invalid, shown as already used, later
+        4.1 If a Key or code has not been sent, disclosed or otherwise supplied, you may request
+        cancellation by emailing <Mail /> with the order number and Account email.
+      </p>
+      <p>
+        4.2 We accept eligible cancellation requests made before the Key or other entitlement is
+        dispatched or disclosed. Internal payment checks or order preparation alone do not remove a
+        statutory cancellation right.
+      </p>
+      <p>
+        4.3 An approved cancellation is refunded through the original payment route. A Credits-funded
+        purchase normally restores the corresponding Credits; mandatory legal requirements take
+        precedence.
+      </p>
+
+      <LegalHeading>5. Immediate supply and the cancellation period</LegalHeading>
+      <p>
+        5.1 Where UK or EU law provides a cancellation period for digital content, the statutory
+        right of withdrawal is lost only after supply begins following the required prior express
+        consent, acknowledgement and contract confirmation.
+      </p>
+      <p>
+        5.2 For eligible digital-content orders, checkout records your express request for immediate
+        delivery and acknowledgement: “I understand that by purchasing digital goods and requesting
+        immediate delivery, I waive my statutory right of withdrawal once delivery begins.” The
+        choice is not selected by default. We confirm it by email or another durable medium.
+      </p>
+      <p>
+        5.3 For a Key delivered by email, supply begins when the Key is dispatched following these
+        requirements. Authorising payment or purchasing Credits alone does not mean that a particular
+        Key has been supplied.
+      </p>
+      <p>
+        5.4 If the legal requirements have not been met, statutory cancellation rights remain
+        available. This Policy also preserves remedies for defective, invalid or misdescribed
+        products after delivery or activation.
+      </p>
+      <p>
+        5.5 Third-party gift cards and Balance top-ups are assessed under the cancellation rules
+        applicable to their legal nature. A digital-content acknowledgement does not automatically
+        remove rights relating to those separate transactions.
+      </p>
+
+      <LegalHeading>6. Delivered or disclosed Keys</LegalHeading>
+      <p>
+        6.1 After a correctly described and functioning Key is delivered, change-of-mind refunds are
+        normally unavailable where the applicable cancellation right has validly ended. This includes
+        accidental purchase and failure to check requirements disclosed before purchase.
+      </p>
+      <p>
+        6.2 This restriction is necessary because a disclosed Key can be copied, redeemed or
+        transferred and cannot reliably be returned as unused.
+      </p>
+      <p>
+        6.3 The restriction does not apply where the Key is invalid, previously redeemed before
+        delivery, revoked without customer fault, materially misdescribed or otherwise fails to
+        conform to the contract.
+      </p>
+
+      <LegalHeading>7. Invalid, used, revoked or incorrect Keys</LegalHeading>
+      <p>
+        7.1 Contact support promptly if a Key is rejected as invalid, shown as already used, later
         revoked, or activates a different product from the accepted order.
       </p>
       <p>
-        We may ask for the order number, Account email, the exact error message, screenshots, Platform
-        support correspondence, activation date and other information reasonably required to
+        7.2 We may ask for the order number, Account email, the exact error message, screenshots,
+        Platform support correspondence, activation date and other information reasonably required to
         investigate.
       </p>
       <p>
-        If the issue is confirmed, we will normally provide a working replacement within a reasonable
-        time and without significant inconvenience. If replacement is impossible, disproportionate or
-        unsuccessful, we will provide the remedy required by law, which may include a price reduction
-        or refund.
+        7.3 If the issue is confirmed, we will normally provide a working replacement within a
+        reasonable time and without significant inconvenience. If replacement is impossible,
+        disproportionate or unsuccessful, we will provide the remedy required by law, which may
+        include a price reduction or refund.
       </p>
       <p>
-        We may decline a claim where evidence shows that the Key was successfully redeemed by you or
-        someone to whom you disclosed it, or that the failure results from an unsupported region,
-        Account, device or Platform restriction accurately disclosed before purchase.
-      </p>
-
-      <LegalHeading>Non-delivery</LegalHeading>
-      <p>
-        If the delivery email does not arrive, check spam, junk, promotions and filtering folders and
-        confirm that the order email address is correct.
-      </p>
-      <p>
-        Contact support if delivery remains outstanding. We will verify order status, resend the email
-        where appropriate or use another reasonable method to complete delivery.
-      </p>
-      <p>
-        If we cannot deliver an accepted order within a reasonable time, you may cancel and receive a
-        refund for the undelivered Digital Product.
+        7.4 Successful activation alone does not defeat a claim for a defect or misdescription. We
+        may reject a claim only where evidence shows that the claimed issue was caused by the
+        customer or a person to whom the customer disclosed the Key, or by an accurately disclosed
+        incompatibility or restriction, and no mandatory remedy applies.
       </p>
 
-      <LegalHeading>Compatibility and customer selection errors</LegalHeading>
+      <LegalHeading>8. Non-delivery</LegalHeading>
       <p>
-        You must check the stated Platform, DRM, region, edition, language, device and system
+        8.1 If the delivery email does not arrive, check spam, junk, promotions and filtering folders
+        and confirm that the order email address is correct.
+      </p>
+      <p>
+        8.2 Contact support if delivery remains outstanding. We will verify order status, resend the
+        email where appropriate or use another reasonable method to complete delivery.
+      </p>
+      <p>
+        8.3 If we cannot deliver an accepted order within a reasonable time, you may cancel and
+        receive a refund for the undelivered Digital Product.
+      </p>
+
+      <LegalHeading>9. Compatibility and customer selection errors</LegalHeading>
+      <p>
+        9.1 You must check the stated Platform, DRM, region, edition, language, device and system
         requirements before purchase.
       </p>
       <p>
-        A correctly supplied Key is not faulty merely because the customer selected the wrong version,
-        does not meet system requirements, already owns the product, dislikes the product, or is
-        restricted by a Platform rule disclosed before purchase.
+        9.2 A correctly supplied Key is not faulty merely because the customer selected the wrong
+        version, does not meet system requirements, already owns the product, dislikes the product,
+        or is restricted by a Platform rule disclosed before purchase.
       </p>
       <p>
-        If a selection error is reported before disclosure of the Key, we will consider cancellation
-        under the pre-delivery rules.
+        9.3 If a selection error is reported before disclosure of the Key, we will consider
+        cancellation under the pre-delivery rules.
       </p>
 
-      <LegalHeading>Third-party gift card codes</LegalHeading>
+      <LegalHeading>10. Third-party gift card codes</LegalHeading>
       <p>
-        A third-party gift card code is treated as disclosed digital content once sent to the
-        customer. It is normally non-refundable after disclosure except where the code is faulty,
-        already redeemed before delivery, misdescribed or mandatory law provides otherwise.
+        10.1 A valid third-party gift card code is normally not returnable after disclosure where
+        cancellation rights have lawfully ended. This does not exclude rights for a faulty,
+        previously redeemed or misdescribed code, or statutory rights that remain available for that
+        particular gift card.
       </p>
       <p>
-        We cannot refund a valid code because the customer’s Platform account, country, currency or
-        intended purchase is ineligible where the relevant restriction was disclosed or reasonably
+        10.2 We cannot refund a valid code because the customer’s Platform account, country, currency
+        or intended purchase is ineligible where the relevant restriction was disclosed or reasonably
         apparent before purchase.
       </p>
       <p>
-        Where an issuer must investigate a code, the customer agrees to provide reasonable information
-        and allow a reasonable period for the issuer or supplier to confirm its status.
+        10.3 Where an issuer must investigate a code, the customer agrees to provide reasonable
+        information and allow a reasonable period for the issuer or supplier to confirm its status.
       </p>
 
-      <LegalHeading>Pre-orders</LegalHeading>
+      <LegalHeading>11. Pre-orders</LegalHeading>
       <p>
-        A pre-order may be cancelled for a full refund at any time before its Key, bonus Key, preload
-        entitlement or early-access entitlement is dispatched or disclosed.
+        11.1 A pre-order may be cancelled for a full refund at any time before its Key, bonus Key,
+        preload entitlement or early-access entitlement is dispatched or disclosed.
       </p>
       <p>
-        After any Key or entitlement is dispatched, the immediate-supply and delivered-Key rules
+        11.2 After any Key or entitlement is dispatched, the immediate-supply and delivered-Key rules
         apply. Statutory rights concerning faulty or misdescribed content remain unaffected.
       </p>
       <p>
-        If a publisher cancels a product or we cannot fulfil the pre-order, we will cancel the affected
-        order and issue a full refund.
+        11.3 If a publisher cancels a product or we cannot fulfil the pre-order, we will cancel the
+        affected order and issue a full refund.
       </p>
 
-      <LegalHeading>Refund method and timing</LegalHeading>
+      <LegalHeading>12. Refund method and timing</LegalHeading>
       <p>
-        Card payments are refunded to the same card or payment route used for the purchase unless that
-        is impossible or you expressly agree to another lawful method.
+        12.1 Card purchases are refunded to the same card or payment route used for the purchase
+        unless another method is required by law or expressly agreed by the customer. We do not
+        replace a card refund with Credits without that agreement.
       </p>
       <p>
-        Purchases paid from Balance are refunded to Balance. If a supported mixed payment is used, each
-        portion is normally returned to its corresponding source.
+        12.2 An approved refund for a purchase paid with Credits normally restores those Credits to
+        Balance. For supported split payments, each portion is returned to its corresponding source.
+        Restored Credits are usable for eligible purchases and retain the restrictions in the Balance
+        Terms. Mandatory refund rights and methods take precedence.
       </p>
       <p>
-        We process an approved refund without undue delay and within any statutory deadline. Banks,
-        card networks and payment providers may require additional time to show the credit after we
-        release it.
+        12.3 We release approved refunds without undue delay. For applicable UK statutory
+        digital-content refunds, we do so no later than 14 calendar days after agreeing that the
+        customer is entitled to the refund. For statutory cancellation, the applicable deadline may
+        instead run from receipt of the cancellation notice. We comply with the deadline governing
+        the particular refund, including any shorter applicable deadline.
       </p>
       <p>
-        We do not impose a fee for a refund required by law. Currency conversion differences or fees
-        independently applied by a bank or card issuer are outside our control.
-      </p>
-
-      <LegalHeading>Chargebacks and duplicate recovery</LegalHeading>
-      <p>
-        Always contact our support at{" "}
-        <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
-          {EMAIL}
-        </a>{" "}
-        before initiating a chargeback with your bank or card issuer. Most billing issues are resolved faster by our team than through the
-        chargeback process, and a chargeback filed without prior contact delays resolution for
-        everyone involved.
+        12.4 A bank or card issuer may need additional time to display a released refund. This does
+        not extend our deadline for issuing it. We do not impose a fee for a refund required by law.
       </p>
       <p>
-        A chargeback does not create an additional right to retain a refund, replacement Key or
-        restored Balance for the same transaction. Duplicate recovery may be reversed.
-      </p>
-      <p>
-        Fraudulent or abusive chargebacks may result in Account restriction and recovery of amounts
-        lawfully owed, without limiting your right to dispute an unauthorised transaction.
+        12.5 Card refunds are normally issued in the original transaction currency. Separate
+        conversion rates or fees applied by your issuer may affect the amount shown on your
+        statement.
       </p>
 
-      <LegalHeading>How to submit a dispute or refund request</LegalHeading>
+      <LegalHeading>13. Chargebacks and duplicate recovery</LegalHeading>
       <p>
-        Send billing and refund requests to our dedicated billing contact{" "}
-        <a className="text-cobalt hover:underline" href={`mailto:${EMAIL}`}>
-          {EMAIL}
-        </a>{" "}
-        from the email associated with the order whenever possible.
+        13.1 We encourage you to contact <Mail /> first so that we can investigate and resolve a
+        billing issue. Prior contact is not a condition of your right to contact your bank, report an
+        unauthorised transaction or initiate a payment dispute.
       </p>
       <p>
-        Include the order number, product name, purchase date, reason for the request and supporting
-        evidence — for example screenshots of the exact error message, the activation attempt on the
-        relevant Platform, correspondence with Platform support and, where relevant, confirmation
-        that the Key has not been redeemed. Never send a full payment card number, card security code
-        or password by email.
+        13.2 If a chargeback is already open, tell support so that we can coordinate with the payment
+        provider and avoid duplicate reimbursement. We may provide relevant payment, delivery and
+        consent evidence through the dispute process.
       </p>
       <p>
-        We may require reasonable verification before disclosing order information or issuing a refund
-        to protect the customer and prevent fraud.
+        13.3 You are not entitled to recover the same amount twice through a refund, chargeback or
+        restored Credits. Any correction is limited to the duplicate or reversed amount lawfully due.
       </p>
-
-      <LegalHeading>Refund request window</LegalHeading>
       <p>
-        Refund and dispute requests must be submitted within 30 days of the purchase date. Requests
-        received after that window are considered only where mandatory consumer law provides a longer
-        period.
+        13.4 A good-faith dispute does not itself constitute abuse or justify permanent Account
+        closure. Confirmed fraudulent disputes may result in proportionate restrictions and recovery
+        of amounts lawfully owed.
       </p>
 
-      <LegalHeading>Response times</LegalHeading>
+      <LegalHeading>14. How to request support or a refund</LegalHeading>
       <p>
-        We acknowledge billing and refund requests within 2 business days and aim to provide a
-        substantive decision within 14 days of receiving all information reasonably required to
-        investigate. Approved refunds are released without undue delay and within any statutory
-        deadline; banks and card networks may need additional time to display the credit.
+        14.1 Send billing, technical and refund requests to <Mail />, preferably from the order email
+        address.
+      </p>
+      <p>
+        14.2 Include the order or top-up reference, product, payment date, issue and relevant
+        evidence, such as the exact error message, activation screenshot or supplier correspondence.
+        Never email full card numbers, card security codes, passwords or authentication codes.
+      </p>
+      <p>
+        14.3 We may request information reasonably necessary to verify ownership and investigate. We
+        request missing information promptly and do not require irrelevant documents or formalities
+        that impede statutory rights.
       </p>
 
-      <LegalHeading>Balance credits</LegalHeading>
+      <LegalHeading>15. Refund request window</LegalHeading>
       <p>
-        Balance credits are non-transferable virtual credits usable only within this platform. They
-        are not cryptocurrency, not tradable, and not redeemable for cash.
+        15.1 Standard refund and billing requests must be submitted within 30 calendar days of
+        purchase. This administrative window does not shorten statutory rights or applicable legal
+        claim periods.
       </p>
       <p>
-        Credits cannot be withdrawn, cashed out, paid out to a bank account or transferred to another
-        user or third party. A top-up is a purchase of platform credits, not a deposit of funds held
-        on your behalf, and there is no cash-out function anywhere on Cartridge Club.
+        15.2 A pre-order may be cancelled before delivery under the Pre-order Policy even if more
+        than 30 days have passed. Problems discovered later, including later revocation, are assessed
+        under applicable consumer law and are not automatically rejected solely because 30 days have
+        passed.
+      </p>
+
+      <LegalHeading>16. Acknowledgement and decision times</LegalHeading>
+      <p>
+        16.1 We acknowledge billing and refund requests within two business days of receipt. Business
+        days are Monday to Friday, excluding public holidays in England and Wales. Acknowledgement
+        confirms receipt and does not mean approval.
       </p>
       <p>
-        Once credited, Balance top-ups are non-refundable except where a refund is required by
-        mandatory consumer law, or where a technical failure or unauthorised payment is confirmed
-        under this Policy. In those cases the amount is returned to the original payment method only,
-        never as a cash payout or to a third party.
+        16.2 We issue a substantive decision within 14 calendar days of receiving the request. We
+        request reasonably necessary information promptly; requesting it does not automatically
+        restart this period. A shorter statutory deadline takes precedence.
       </p>
       <p>
-        Credits spent on a delivered, working Key follow the delivered-Key rules above and are not
-        returned for change of mind. A refund of a purchase paid from Balance is credited back to
-        Balance, where it remains usable for other purchases and remains non-withdrawable.
+        16.3 The decision explains the outcome and any replacement, correction or refund. The
+        separate deadlines for releasing a refund are described in the refund method section above.
+        These timeframes do not extend a mandatory cancellation or remedy deadline.
+      </p>
+
+      <LegalHeading>17. Balance top-ups and Credits</LegalHeading>
+      <p>
+        17.1 Credits are non-transferable virtual credits usable only within this platform. They are
+        not cryptocurrency, not tradable, and not redeemable for cash.
+      </p>
+      <p>
+        17.2 A correctly processed top-up is not refundable merely because you change your mind or no
+        longer wish to use Cartridge Club. Mandatory cancellation rights, unauthorised payment
+        remedies and refunds for duplicate charges, failed top-ups or other legally required cases
+        remain available.
+      </p>
+      <p>
+        17.3 A lawful refund or reversal of the underlying top-up payment cancels the corresponding
+        Credits. Refunds of purchases made with Credits normally restore Credits, subject to
+        mandatory legal requirements.
       </p>
     </LegalPage>
   );

@@ -12,7 +12,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 
 const BASE = process.env.BASE ?? "http://localhost:3002";
 const OUT = "public/compliance/screenshots";
-const DOCS = "docs/payally";
+const DOCS = "public/compliance";
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 const CUSTOMER = { email: "oliver.bennett@example.com", password: "Shopper!2026" };
