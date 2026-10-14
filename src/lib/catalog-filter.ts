@@ -56,8 +56,13 @@ const RU_TERMS = new RegExp(
   "i"
 );
 
-// Regional limitation strings that point at RU/BY activation.
-const RU_REGION = /\b(russia|russian federation|belarus|cis)\b/i;
+// Regional limitation strings that point at RU/BY activation. Kinguin also uses
+// bare country codes ("RU VPN") and marks RU-locked stock as VPN-activated.
+const RU_REGION = /(\b(russia|russian federation|belarus|cis|ru|by)\b|\bvpn\b)/i;
+
+// Keys sold as "VPN Required" or "RU/Multilanguage" are RU/CIS-locked by
+// definition, even when the title names no country.
+const VPN_LOCKED = /(\bvpn\b|\bru\s*\/)/i;
 
 // Adult brands / platforms — distinctive enough to match as substrings.
 const ADULT_BRANDS = [
@@ -136,6 +141,7 @@ export function isBlockedName(name: string): boolean {
   if (!name) return false;
   if (CYRILLIC.test(name)) return true;
   if (ROUBLE.test(name)) return true;
+  if (VPN_LOCKED.test(name)) return true;
   const text = name.replace(SAFE_PHRASES, " ");
   if (RU_TERMS.test(text)) return true;
   if (ADULT_TERMS.test(text)) return true;

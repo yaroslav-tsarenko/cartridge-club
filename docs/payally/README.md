@@ -16,8 +16,12 @@ apart.
 | [`public/compliance/cartridge-club-compliance-pack.zip`](../../public/compliance/cartridge-club-compliance-pack.zip) | Everything below in one archive |
 | [`public/compliance/compliance-pack.pdf`](../../public/compliance/compliance-pack.pdf) | The page as a single PDF with embedded screenshots, for email |
 | [`public/compliance/order-confirmation-email.html`](../../public/compliance/order-confirmation-email.html) | The Order Confirmation email the customer receives |
-| [`public/compliance/invoice.pdf`](../../public/compliance/invoice.pdf) | The PDF invoice attached to that email |
-| [`public/compliance/screenshots/`](../../public/compliance/screenshots) | The 15 screenshots |
+| [`public/compliance/invoice.pdf`](../../public/compliance/invoice.pdf) | The payment receipt / invoice attached to that email |
+| [`public/compliance/screenshots/`](../../public/compliance/screenshots) | The 16 screenshots |
+
+The purchase example is a test transaction: card acquiring is not connected yet, so it was placed
+with the standard test card number and no money moved. Order creation, key delivery, the
+confirmation email, the receipt and the back-office record are the production code paths.
 
 ## Published policies
 

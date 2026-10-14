@@ -142,6 +142,10 @@ export async function POST(req: NextRequest) {
       })),
       total: formatMoney(totalEur, currency),
       currency,
+      payment: {
+        method: payment === "balance" ? "Account balance (Credits)" : "Card (Visa / Mastercard)",
+        descriptor: "CartridgeClub",
+      },
     });
     await sendMail({
       to: user.email,

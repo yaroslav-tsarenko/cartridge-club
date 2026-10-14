@@ -4,6 +4,7 @@ import { currentUser } from "@/lib/auth";
 import { isAdminEmail } from "@/lib/admin";
 import { buildInvoicePdf } from "@/lib/invoice";
 import { formatMoney, type CurrencyCode } from "@/lib/currency";
+import { paidFromBalanceIds } from "../../../_lib";
 
 /** Rebuilds the PDF invoice attached to the order's confirmation email. */
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -34,6 +35,12 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
     })),
     total: formatMoney(order.total, currency),
     currency,
+    payment: {
+      method: (await paidFromBalanceIds([order.id])).has(order.id)
+        ? "Account balance (Credits)"
+        : "Card (Visa / Mastercard)",
+      descriptor: "CartridgeClub",
+    },
   });
 
   return new NextResponse(new Uint8Array(pdf), {

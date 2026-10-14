@@ -9,6 +9,7 @@
  */
 import { chromium, type Page } from "playwright-core";
 import { mkdirSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 
 const BASE = process.env.BASE ?? "http://localhost:3002";
 const OUT = "public/compliance/screenshots";
@@ -131,6 +132,19 @@ async function main() {
   const pdf = await apage.request.get(`${BASE}${adminOrderHref}/invoice`);
   writeFileSync(`${DOCS}/invoice.pdf`, await pdf.body());
   console.log("  ✓ invoice.pdf");
+
+  // A readable image of the receipt for the compliance page (macOS `sips`).
+  try {
+    execFileSync("sips", [
+      "-s", "format", "png",
+      "--resampleWidth", "1000",
+      `${DOCS}/invoice.pdf`,
+      "--out", `${OUT}/16-payment-receipt.png`,
+    ], { stdio: "ignore" });
+    console.log("  ✓ 16-payment-receipt.png");
+  } catch {
+    console.log("  · skipped 16-payment-receipt.png (sips unavailable)");
+  }
 
   await browser.close();
   console.log("Done.");

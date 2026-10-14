@@ -8,6 +8,8 @@ export type InvoiceData = {
   lines: { name: string; qty: number; unit: string; total: string }[];
   total: string;
   currency: string;
+  /** How the order was settled; shown so the document also serves as the receipt. */
+  payment?: { method: string; descriptor?: string };
 };
 
 export async function buildInvoicePdf(data: InvoiceData): Promise<Buffer> {
@@ -28,10 +30,13 @@ export async function buildInvoicePdf(data: InvoiceData): Promise<Buffer> {
     color = ink
   ) => page.drawText(s, { x, y: yy, size, font: f, color });
 
+  const leaf = rgb(0.231, 0.667, 0.341);
+
   text("CARTRIDGE CLUB", 40, y, 20, bold);
-  text("INVOICE", 470, y, 20, bold);
+  text("INVOICE / RECEIPT", 350, y, 20, bold);
   y -= 18;
   text("Official game keys — instant email delivery", 40, y, 9, font, muted);
+  text("Payment status: PAID", 350, y, 9, bold, leaf);
   y -= 40;
 
   // Seller
@@ -84,7 +89,22 @@ export async function buildInvoicePdf(data: InvoiceData): Promise<Buffer> {
   y -= 20;
   text("Total paid", 410, y, 11, bold);
   text(data.total, 500, y, 11, bold);
-  y -= 40;
+  y -= 36;
+
+  // Payment details — this document doubles as the customer's receipt.
+  page.drawRectangle({ x: 40, y: y - 54, width: 515, height: 70, color: rgb(0.96, 0.94, 0.9) });
+  text("Payment details", 46, y, 9, bold);
+  const details: [string, string][] = [
+    ["Payment method", data.payment?.method ?? "Card (Visa / Mastercard)"],
+    ["Card statement descriptor", data.payment?.descriptor ?? "CartridgeClub"],
+    ["Amount paid", `${data.total} (${data.currency})`],
+    ["Payment date", data.date],
+  ];
+  details.forEach(([label, value], i) => {
+    text(label, 46, y - 14 - i * 12, 8, font, muted);
+    text(value, 230, y - 14 - i * 12, 8);
+  });
+  y -= 76;
 
   text("Merchant of Record: ALDERROCK LTD.", 40, y, 8, font, muted);
   y -= 12;
