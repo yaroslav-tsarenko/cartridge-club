@@ -32,10 +32,38 @@ export default function CompliancePage() {
           Confirmation email and invoice the customer receives after payment.
         </p>
 
-        <div className="mt-5 flex flex-wrap gap-2">
-          <Download href="/compliance/compliance-pack.pdf">Download this pack (PDF)</Download>
-          <Download href="/compliance/order-confirmation-email.html">Order Confirmation email</Download>
-          <Download href="/compliance/invoice.pdf">Invoice (PDF)</Download>
+        <div className="cc-outline-plate mt-6 rounded-card bg-card p-5">
+          <h2 className="font-heading text-lg">Attachments</h2>
+          <p className="mt-1 text-sm text-muted">
+            Everything in this pack, downloadable from this page.
+          </p>
+          <ul className="mt-4 divide-y divide-line">
+            <Attachment
+              href="/compliance/cartridge-club-compliance-pack.zip"
+              name="cartridge-club-compliance-pack.zip"
+              note="Everything below in one archive — the PDF pack, the email, the invoice and all 15 screenshots"
+            />
+            <Attachment
+              href="/compliance/compliance-pack.pdf"
+              name="compliance-pack.pdf"
+              note="This document as a single PDF with every screenshot embedded"
+            />
+            <Attachment
+              href="/compliance/order-confirmation-email.html"
+              name="order-confirmation-email.html"
+              note="The Order Confirmation email the customer receives after payment"
+            />
+            <Attachment
+              href="/compliance/invoice.pdf"
+              name="invoice.pdf"
+              note="The PDF invoice attached to that email"
+            />
+            <Attachment
+              href={`${SHOTS}/13-admin-order-detail.png`}
+              name="screenshots/ (15 files)"
+              note="Customer journey, back office and the confirmation email — all shown inline below"
+            />
+          </ul>
         </div>
 
         {/* ── 1 ───────────────────────────────────────── */}
@@ -313,6 +341,25 @@ function Lnk({ href, children }: { href: string; children: React.ReactNode }) {
     <a href={href} className="text-cobalt hover:underline">
       {children}
     </a>
+  );
+}
+
+function Attachment({ href, name, note }: { href: string; name: string; note: string }) {
+  return (
+    <li className="flex flex-wrap items-center justify-between gap-3 py-3">
+      <div className="min-w-0">
+        <p className="font-heading text-sm">{name}</p>
+        <p className="text-xs text-muted">{note}</p>
+      </div>
+      <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        className="cc-outline shrink-0 rounded-lg bg-bg px-3 py-1.5 text-sm hover:bg-band"
+      >
+        Open ↗
+      </a>
+    </li>
   );
 }
 
