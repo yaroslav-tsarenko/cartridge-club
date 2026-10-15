@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 import { currentUser } from "@/lib/auth";
-import { CURRENCIES, type CurrencyCode } from "@/lib/currency";
+import { type CurrencyCode } from "@/lib/currency";
+import { creditUserBalance } from "@/lib/orders";
 
 // Balance is stored in EUR (base unit). Top-up amount arrives in the user's
 // selected currency and is converted to EUR before crediting.
@@ -24,21 +24,7 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
   }
-  const rate = CURRENCIES[currency]?.rate ?? 1;
-  const amountEur = amount / rate;
 
-  await prisma.$transaction([
-    prisma.user.update({ where: { id: user.id }, data: { balance: { increment: amountEur } } }),
-    prisma.balanceTransaction.create({
-      data: {
-        userId: user.id,
-        amount: amountEur,
-        type: "topup",
-        description: `Top-up ${CURRENCIES[currency].symbol}${amount.toFixed(2)} ${currency}`,
-      },
-    }),
-  ]);
-
-  const updated = await prisma.user.findUnique({ where: { id: user.id } });
-  return NextResponse.json({ ok: true, balance: updated?.balance ?? 0 });
+  const result = await creditUserBalance(user.id, amount, currency);
+  return NextResponse.json({ ok: true, balance: result.balance });
 }
