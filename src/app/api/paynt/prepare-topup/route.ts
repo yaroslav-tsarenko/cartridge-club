@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { currentUser } from "@/lib/auth";
-import { prepareCheckout } from "@/lib/paynt";
+import { prepareCheckout, extractClientIp } from "@/lib/paynt";
 import { type CurrencyCode, CURRENCIES, DEFAULT_CURRENCY } from "@/lib/currency";
 
 export async function POST(req: NextRequest) {
@@ -48,6 +48,7 @@ export async function POST(req: NextRequest) {
         email: user.email,
         givenName: user.firstName,
         surname: user.lastName,
+        ip: extractClientIp(req),
       },
       billing: {
         street1: user.street,

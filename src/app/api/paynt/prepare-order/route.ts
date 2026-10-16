@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@/lib/auth";
 import { isBlockedName } from "@/lib/catalog-filter";
-import { prepareCheckout } from "@/lib/paynt";
+import { prepareCheckout, extractClientIp } from "@/lib/paynt";
 import { type CurrencyCode, CURRENCIES } from "@/lib/currency";
 
 type CartLine = { productId: string; kinguinId: number; name: string; qty: number; priceEur: number };
@@ -80,6 +80,7 @@ export async function POST(req: NextRequest) {
           email: user.email,
           givenName: user.firstName,
           surname: user.lastName,
+          ip: extractClientIp(req),
         },
         billing: {
           street1: user.street,

@@ -100,6 +100,7 @@ PAYNT_WEBHOOK_SECRET=""
 - `customer.email`
 - `customer.givenName` (имя)
 - `customer.surname` (фамилия)
+- `customer.ip` — **Критический нюанс для каналов с 3DS/антифродом:** шлюз требует реальный публичный IPv4/IPv6 покупателя. Без него транзакция отклоняется с ошибкой: `Reference code: 100.900.400: request contains no ip number`. При локальной разработке (`localhost`) передавайте публичный IP разработчика через заголовки или fallback.
 - `billing.street1`
 - `billing.city`
 - `billing.postcode`
