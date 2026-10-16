@@ -1,27 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaNeon } from "@prisma/adapter-neon";
-import { neonConfig } from "@neondatabase/serverless";
-import ws from "ws";
-
-// Minimise Neon free-tier compute:
-// - Simple (non-transactional) queries go over stateless HTTP fetch, so the
-//   compute endpoint can autosuspend almost immediately after each request.
-// - Only interactive transactions open a WebSocket connection.
-neonConfig.webSocketConstructor = ws;
-neonConfig.poolQueryViaFetch = true;
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
-function createClient() {
-  // The Neon adapter speaks Neon's HTTP/WebSocket protocol, so it only works
-  // against a Neon endpoint. A plain Postgres URL (local development, a staging
-  // container) falls back to the standard driver.
-  const url = process.env.DATABASE_URL ?? "";
-  if (!url.includes("neon.tech")) return new PrismaClient();
-  const adapter = new PrismaNeon({ connectionString: url });
-  return new PrismaClient({ adapter });
-}
-
-export const prisma = globalForPrisma.prisma ?? createClient();
+export const prisma =
+  globalForPrisma.prisma ??
+  new PrismaClient({
+    log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
+  });
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
