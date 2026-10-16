@@ -105,6 +105,18 @@ PAYNT_WEBHOOK_SECRET=""
 - `billing.postcode`
 - `billing.country` — **Критический нюанс:** OPPWA принимает страну **исключительно в виде двухбуквенного кода ISO 3166-1 alpha-2** (`GB`, `US`, `DE`, `ES`, `LV` и т.д.). Полные названия («United Kingdom») вызовут ошибку валидации. Используйте маппер стран.
 
+### ⚠️ Критический нюанс: Куда передавать `shopperResultUrl`
+В технологии **Copy & Pay** URL редиректа передаётся **ИСКЛЮЧИТЕЛЬНО** в атрибуте `action` HTML-формы:
+`<form action="{shopperResultUrl}" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>`
+**НЕ ПЕРЕДАВАЙТЕ** `shopperResultUrl` в теле серверного запроса `POST /v1/checkouts`! Если передать его и на сервере, и в форме, виджет при отправке вернёт ошибку:
+`code: 200.300.404, message: "shopperResultUrl was already set and cannot be overwritten"`.
+
+### ⚠️ Ошибка браузера HTTP 431 (Request Header Fields Too Large)
+При локальной разработке на `localhost` браузер передаёт все куки, накопленные от других проектов на любых портах `localhost`. Если размер заголовков превышает лимит Node.js (16 КБ), сервер возвращает 431.
+**Решение:**
+1. Запускать Node с флагом: `NODE_OPTIONS='--max-http-header-size=65536' next dev`
+2. Или очистить куки для `localhost` в DevTools -> Application -> Storage -> Clear site data.
+
 ### Ответ шлюза при успехе:
 ```json
 {

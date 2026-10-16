@@ -127,10 +127,6 @@ export async function prepareCheckout(
     body.set("billing.country", toCountryCode2(params.billing.country));
   }
 
-  if (params.shopperResultUrl) {
-    body.set("shopperResultUrl", params.shopperResultUrl);
-  }
-
   const res = await fetch(endpoint, {
     method: "POST",
     headers: {
