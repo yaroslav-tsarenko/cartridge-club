@@ -24,10 +24,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const host = req.headers.get("host");
+  const proto =
+    req.headers.get("x-forwarded-proto") || (host?.includes("localhost") ? "http" : "https");
   const origin =
-    process.env.NEXT_PUBLIC_SITE_URL ||
     req.headers.get("origin") ||
-    "https://cartridge-club.com";
+    (host ? `${proto}://${host}` : process.env.NEXT_PUBLIC_SITE_URL || "https://cartridge-club.com");
 
   const ref = `topup_${user.id.slice(-6)}_${Date.now()}`;
   const shopperResultUrl = `${origin.replace(
