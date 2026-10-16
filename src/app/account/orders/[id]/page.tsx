@@ -3,14 +3,22 @@ import { notFound, redirect } from "next/navigation";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Price } from "@/components/ui/Price";
-import { KeyReveal } from "@/components/account/OrderKeys";
+import { KeyReveal, CartClearer } from "@/components/account/OrderKeys";
 import { currentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export const metadata = { title: "Order — Cartridge Club" };
 
-export default async function OrderPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function OrderPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams?: Promise<{ new?: string }>;
+}) {
   const { id } = await params;
+  const sp = await searchParams;
+  const isNew = sp?.new === "1";
   const user = await currentUser();
   if (!user) redirect(`/login?next=/account/orders/${id}`);
 
@@ -33,6 +41,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
     <>
       <Header />
       <main id="main" className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+        {isNew && <CartClearer />}
         <Link href="/account" className="text-sm text-muted hover:text-cobalt">
           ← Back to account
         </Link>

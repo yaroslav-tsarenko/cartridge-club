@@ -16,6 +16,7 @@ interface PayntCheckoutData {
   scriptUrl: string;
   integrity?: string;
   shopperResultUrl: string;
+  totalEur: number;
 }
 
 export function CheckoutForm({
@@ -114,8 +115,8 @@ export function CheckoutForm({
         scriptUrl: data.scriptUrl,
         integrity: data.integrity,
         shopperResultUrl: data.shopperResultUrl,
+        totalEur: totalEur,
       });
-      clear();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to initialize card checkout");
     } finally {
@@ -151,7 +152,7 @@ export function CheckoutForm({
             </div>
             <div className="text-right">
               <span className="text-xs text-muted block">Total to pay</span>
-              <Price amountEur={totalEur} className="font-display text-3xl sm:text-4xl text-ink" />
+              <Price amountEur={payntData.totalEur} className="font-display text-3xl sm:text-4xl text-ink" />
             </div>
           </div>
 
