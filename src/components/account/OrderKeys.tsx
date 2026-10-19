@@ -1,6 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useCart } from "@/components/providers/CartProvider";
+
+export function CartClearer() {
+  const { clear } = useCart();
+  useEffect(() => {
+    clear();
+  }, [clear]);
+  return null;
+}
 
 export function KeyReveal({ keys }: { keys: string[] }) {
   const [shown, setShown] = useState(false);

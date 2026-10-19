@@ -1,44 +1,107 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { PaymentLogos } from "@/components/site/PaymentLogos";
 import { CURRENCIES, DEFAULT_CURRENCY, type CurrencyCode } from "@/lib/currency";
+import { PayntWidget } from "@/components/store/PayntWidget";
+
+interface PayntCheckoutData {
+  checkoutId: string;
+  scriptUrl: string;
+  integrity?: string;
+  shopperResultUrl: string;
+}
 
 export function TopUpCheckout({ amount, currency }: { amount: number; currency: CurrencyCode }) {
-  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [card, setCard] = useState({ number: "", expiry: "", cvc: "", name: "" });
   const [waived, setWaived] = useState(false);
+  const [payntData, setPayntData] = useState<PayntCheckoutData | null>(null);
 
   const cur = CURRENCIES[currency] ?? CURRENCIES[DEFAULT_CURRENCY];
-  const cardComplete =
-    card.number.replace(/\s/g, "").length >= 15 &&
-    /^\d{2}\/\d{2}$/.test(card.expiry) &&
-    card.cvc.length >= 3 &&
-    card.name.trim().length > 1;
 
-  async function pay() {
+  async function startTopupPayment() {
     setError(null);
-    if (!cardComplete) return setError("Please enter your card details.");
     if (!waived) return setError("Please confirm the withdrawal waiver to continue.");
     setLoading(true);
     try {
-      const res = await fetch("/api/account/topup", {
+      const res = await fetch("/api/paynt/prepare-topup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount, currency, withdrawalWaiver: waived }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Top-up failed");
-      router.push("/account?topped=1");
-      router.refresh();
+      if (!res.ok) throw new Error(data.error || "Failed to initialize top-up");
+
+      setPayntData({
+        checkoutId: data.checkoutId,
+        scriptUrl: data.scriptUrl,
+        integrity: data.integrity,
+        shopperResultUrl: data.shopperResultUrl,
+      });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Top-up failed");
+    } finally {
       setLoading(false);
     }
+  }
+
+  // When card checkout is initialized, replace the entire block with full-width payment view
+  if (payntData) {
+    return (
+      <div className="mx-auto mt-6 w-full max-w-4xl">
+        <button
+          type="button"
+          onClick={() => setPayntData(null)}
+          className="mb-4 inline-flex items-center gap-2 text-sm text-muted transition hover:text-ink font-medium"
+        >
+          <span className="text-base">←</span> Back to checkout options
+        </button>
+
+        <div className="cc-outline-plate rounded-card bg-card p-6 sm:p-8">
+          {/* Header */}
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line pb-5">
+            <div>
+              <span className="cc-tag rounded bg-leaf px-2 py-0.5 text-[0.65rem] text-ink">
+                Secure Card Checkout
+              </span>
+              <h2 className="mt-1 font-heading text-2xl">Top up balance</h2>
+              <p className="text-xs text-muted mt-0.5">
+                Statement descriptor: <strong className="text-ink">CartridgeClub</strong>
+              </p>
+            </div>
+            <div className="text-right">
+              <span className="text-xs text-muted block">Amount to pay</span>
+              <span className="font-display text-3xl sm:text-4xl text-ink">
+                {cur.symbol}
+                {amount.toFixed(2)} {currency}
+              </span>
+            </div>
+          </div>
+
+          {/* Secure Payment Widget */}
+          <div className="py-6">
+            <PayntWidget
+              checkoutId={payntData.checkoutId}
+              scriptUrl={payntData.scriptUrl}
+              integrity={payntData.integrity}
+              shopperResultUrl={payntData.shopperResultUrl}
+            />
+          </div>
+
+          {/* Footer security notes */}
+          <div className="border-t border-line pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted">
+            <PaymentLogos />
+            <p className="text-center sm:text-right text-[0.75rem]">
+              SAQ-A PCI DSS compliant. 256-bit encrypted checkout.
+              <br />
+              Merchant of Record: ALDERROCK LTD.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -53,7 +116,8 @@ export function TopUpCheckout({ amount, currency }: { amount: number; currency: 
           </span>
         </div>
         <p className="mt-3 text-xs text-muted">
-          Funds are credited to your account balance instantly and can be used for any purchase.
+          Funds are credited to your account balance instantly upon successful payment and can be
+          used for any purchase.
         </p>
         <p className="mt-3 rounded-lg bg-band p-3 text-xs text-muted">
           Credits are non-transferable virtual credits usable only within this platform. They are
@@ -66,77 +130,45 @@ export function TopUpCheckout({ amount, currency }: { amount: number; currency: 
 
       <aside className="cc-outline-plate h-fit rounded-card bg-card p-5">
         {error && (
-          <p className="mb-3 rounded-lg border-2 border-red bg-red-tint px-3 py-2 text-sm text-red">{error}</p>
+          <p className="mb-3 rounded-lg border-2 border-red bg-red-tint px-3 py-2 text-sm text-red">
+            {error}
+          </p>
         )}
-        <div className="space-y-2">
-          <input
-            inputMode="numeric"
-            autoComplete="cc-number"
-            placeholder="Card number"
-            value={card.number}
-            onChange={(e) =>
-              setCard((c) => ({
-                ...c,
-                number: e.target.value
-                  .replace(/\D/g, "")
-                  .slice(0, 16)
-                  .replace(/(.{4})/g, "$1 ")
-                  .trim(),
-              }))
-            }
-            className="cc-outline w-full rounded-xl bg-bg px-3 py-2 text-sm outline-none"
-          />
-          <div className="flex gap-2">
-            <input
-              inputMode="numeric"
-              autoComplete="cc-exp"
-              placeholder="MM/YY"
-              value={card.expiry}
-              onChange={(e) => {
-                const v = e.target.value.replace(/\D/g, "").slice(0, 4);
-                setCard((c) => ({ ...c, expiry: v.length > 2 ? `${v.slice(0, 2)}/${v.slice(2)}` : v }));
-              }}
-              className="cc-outline w-1/2 rounded-xl bg-bg px-3 py-2 text-sm outline-none"
-            />
-            <input
-              inputMode="numeric"
-              autoComplete="cc-csc"
-              placeholder="CVC"
-              value={card.cvc}
-              onChange={(e) => setCard((c) => ({ ...c, cvc: e.target.value.replace(/\D/g, "").slice(0, 4) }))}
-              className="cc-outline w-1/2 rounded-xl bg-bg px-3 py-2 text-sm outline-none"
-            />
-          </div>
-          <input
-            autoComplete="cc-name"
-            placeholder="Name on card"
-            value={card.name}
-            onChange={(e) => setCard((c) => ({ ...c, name: e.target.value }))}
-            className="cc-outline w-full rounded-xl bg-bg px-3 py-2 text-sm outline-none"
-          />
+
+        <div className="rounded-lg bg-band p-3 text-xs text-muted">
+          <p className="font-semibold text-ink">Pay with Card</p>
+          <p className="mt-1">
+            Secure checkout supporting Visa, Mastercard and Amex via PayNT Copy &amp; Pay (SAQ-A
+            compliant with 3D Secure).
+          </p>
         </div>
 
         <label className="mt-4 flex items-start gap-2 text-sm">
-          <input type="checkbox" checked={waived} onChange={(e) => setWaived(e.target.checked)} className="mt-0.5 h-4 w-4" />
+          <input
+            type="checkbox"
+            checked={waived}
+            onChange={(e) => setWaived(e.target.checked)}
+            className="mt-0.5 h-4 w-4"
+          />
           <span>
-            I understand that by purchasing digital goods and requesting immediate delivery, I waive
-            my statutory right of withdrawal once delivery begins.
+            I understand that by purchasing digital goods and requesting immediate delivery, I
+            waive my statutory right of withdrawal once delivery begins.
           </span>
         </label>
 
         <Button
           variant="primary"
-          className={`mt-4 w-full ${loading || !cardComplete || !waived ? "opacity-50" : ""}`}
-          disabled={loading || !cardComplete || !waived}
-          onClick={pay}
+          className={`mt-4 w-full ${loading || !waived ? "opacity-50" : ""}`}
+          disabled={loading || !waived}
+          onClick={startTopupPayment}
         >
-          {loading ? "Processing…" : `Pay ${cur.symbol}${amount.toFixed(2)}`}
+          {loading ? "Preparing…" : `Pay ${cur.symbol}${amount.toFixed(2)} with Card`}
         </Button>
 
         <div className="mt-4 border-t border-line pt-3">
           <PaymentLogos />
           <p className="mt-2 text-[0.7rem] text-muted">
-            Secured, PCI DSS compliant checkout. Merchant of Record: ALDERROCK LTD.
+            Secured, SAQ-A PCI DSS compliant checkout. Merchant of Record: ALDERROCK LTD.
           </p>
         </div>
       </aside>
