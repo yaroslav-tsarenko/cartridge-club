@@ -24,8 +24,8 @@ export default function CompliancePage() {
         <p className="mt-3 text-sm text-muted">
           ALDERROCK LTD · Company No. 17381132 · Dept 6984, 196 High Road, Wood Green, London,
           N22 8HH, United Kingdom · Billing contact{" "}
-          <a className="text-cobalt hover:underline" href="mailto:info@cartridge-club.com">
-            info@cartridge-club.com
+          <a className="text-cobalt hover:underline" href="mailto:support@cartridge-club.com">
+            support@cartridge-club.com
           </a>{" "}
           · Last updated 14 October 2026
         </p>
@@ -267,7 +267,7 @@ export default function CompliancePage() {
               recovery for the same amount; a good-faith dispute is not treated as abuse.
             </li>
             <li>
-              <strong>Billing contact</strong> — info@cartridge-club.com, linked in the
+              <strong>Billing contact</strong> — support@cartridge-club.com, linked in the
               cancellation, chargeback and support sections.
             </li>
             <li>

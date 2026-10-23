@@ -49,7 +49,7 @@ export async function buildInvoicePdf(data: InvoiceData): Promise<Buffer> {
     "Dept 6984, 196 High Road",
     "Wood Green, London, N22 8HH",
     "United Kingdom",
-    "info@cartridge-club.com",
+    "support@cartridge-club.com",
   ];
   const buyer = [
     data.customer.name,

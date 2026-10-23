@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { PaymentLogos } from "./PaymentLogos";
 import { Logo } from "./Logo";
 
-const EMAIL = "info@cartridge-club.com";
+const EMAIL = "support@cartridge-club.com";
 
 type FooterLink = { label: string; href: string };
 
